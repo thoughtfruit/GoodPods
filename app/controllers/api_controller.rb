@@ -1,4 +1,4 @@
-class ApplicationController < ApplicationController
+class ApiController < ActionController::Base
 
   before_filter :client_id
   before_filter :authenticate
