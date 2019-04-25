@@ -1,13 +1,8 @@
 class WelcomeController < ApiController
-  respond_to :json
 
   def welcome
-    welcome_message = {
-      greetings: "🖖 ❤️",
-      season: "🍃",
-      api_roadmap: "https://www.producthunt.com/@dain/goals/32820"
-    }
-    render json: welcome_message, status: 200
+    @welcome = OpenStruct.new(message: "You made it past the guards! 💂")
+    render json: @welcome, status: 200
   end
 
 end

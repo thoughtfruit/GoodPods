@@ -4,12 +4,16 @@ class ApiController < ActionController::Base
 
   private
   def client_id ; @_client_id ||= (params[:client_id] || NullClientId) ; end
+
   def authenticate
     unless client_id.to_s.eql? $CLIENT_ID
-      render json: { success: false,
-                     message: 'Uh oh! Your client_id is incorrect. If you have any questions, please email miller.dain@gmail.com. We love to help!'
-      }, status: 401
+      @api = {
+        greetings: "🖖 ❤️",
+        season: "🍃",
+        api_roadmap: "https://www.producthunt.com/@dain/goals/32820",
+        unlock: "🔑 to get access to our full API email miller.dain@gmail.com to get a client_id"
+      }
+      render json: @api, status: 401
     end
   end
-
 end
