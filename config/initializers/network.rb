@@ -1,4 +1,4 @@
-$CLIENT_ID = "0789321981038290202782920278"
-
 class NullClientId
 end
+
+$CLIENT_ID = ENV['CLIENT_ID'] || NullClientId
