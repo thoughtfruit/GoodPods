@@ -4,7 +4,7 @@ GoodReads for Podcasts
 # Dev Environment Set-up
 
 1. Move prod environment variables down to dev
-  `heroku config -s >> .env` and verify client_id is in all caps.
+  `heroku config -s >> .env`
 
 2. `rake db:create && rake db:migrate`
 
