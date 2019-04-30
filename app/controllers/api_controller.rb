@@ -1,6 +1,6 @@
 class ApiController < ActionController::Base
 
-  before_action :authenticate
+  #before_action :authenticate
 
   private
   def client_id ; @_client_id ||= (params[:client_id] || request.headers["HTTP_CLIENT_ID"] || NullClientId) ; end
