@@ -16,102 +16,102 @@
 //= require bootstrap
 //= require_tree .
 
-$(document).ready(function() {
-  App.initialize();
-});
-
 self = this;
+$(document).ready(() => {
+  App.initialize()
+})
 
-window.App = {
-  rootUrl: 'http://localhost:3000',
-  clientId: '?client_id=078932198103829020278292027898289223828',
+// BOOT APP OR RETURN MEMOIZED VERSION
+window.App = App || {}
 
-  initialize: function() {
-    this.bootRoutes();
-  },
+// SET CONSTANTS
+App.rootUrl = 'http://localhost:3000'
+App.clientId = '?client_id=078932198103829020278292027898289223828' // TODO: Extract client_id out
 
-  bootRoutes: function() {
-    $.each(this.routes, function(k,v) {
-      route = v
-      if (route()) {
-        route().run()
-      }
-    });
-  },
+// DOM READY ENTRY POINT
+App.initialize = () => {
+  App.utils.bootRoutes()
+}
 
-  routes: {
-    1: function() {
-      App.utils.checkIfPathIsSet('homepage')
-      return {
-        run: App.pages['homepage']
-      }
+// SET GLOBALS FOR MPA FRAMEWORK
+window.App.sections = {}
+window.App.utils    = {}
+window.App.models   = {}
+window.App.pages    = {}
+
+// CORE ROUTES FOR THE APP
+App.routes = {
+  1: function() {
+    App.utils.checkIfPathIsSet('homepage')
+    return {
+      run: App.pages['homepage']
     }
-  },
+  }
+}
 
-  pages: {
-    homepage: function() {
-      App.sections().discover();
-      App.sections().updates();
-      App.sections().myListening();
-    },
-    discussions: function() {
-      App.sections().discussions();
-    }
-  },
-};
+// BOOT ALL SECTIONS FOR THE FIRST PAGE
+App.pages.homepage = function() {
+  App.sections.discover();
+}
+//App.pages.discussions = function() {}
 
-window.App.sections = function() {
-  function _discover() {
-    $el = $('.discover')
+// BOOT UP THE FIRST SECTION
+App.sections.discover = function() {
+  $el = $('.discover')
 
-    // Fetch & Render abstraction
-    // Fetcher, Renderer
-    fetch().andRender();
-    // TODO: Add itunes image and stuff for podcasts 
-    // TODO: Add episodes domain model to allow for playing episodes
+  // Fetch & Render abstraction
+  // Fetcher, Renderer
+  fetch().andRender();
+  // TODO: Add itunes image and stuff for podcasts 
+  // TODO: Add episodes domain model to allow for playing episodes
 
-    function fetch() {
-      $.ajax({
-        // TODO: Extract attributes to a model
-        // url: App.rootUrl + App.models.podcasts.url + App.clientId,
-        url: App.models['discover']['url'] + App.clientId,
-        success: (data) => {
-          return {
-            andRender: renderPodcasts(data)
-          }
+  function fetch() {
+    $.ajax({
+      // TODO: Extract attributes to a model
+      // url: App.rootUrl + App.models.podcasts.url + App.clientId,
+      url: App.models['discover']['url'] + App.clientId,
+      success: (data) => {
+        return {
+          andRender: renderPodcasts(data)
         }
-      })
-    }
+      }
+    })
+  }
 
-    function renderPodcasts(data) {
-      $el.html("")
-      data.podcasts.forEach(podcast => {
-        $el.append(
-          "<div>" + podcast.title + "</div>"
-        )
-      })
-    }
+  function renderPodcasts(data) {
+    $el.html("")
+    data.podcasts.forEach(podcast => {
+      $el.append(
+        "<div>" + podcast.title + "</div>"
+      )
+    })
+  }
+} 
 
-  };
+App.sections.updates = function() {
   function _updates() {
     console.log("Updates hit");
-  };
+  }
+}
+
+App.sections.myListening = function() {
   function _myListening() {
     console.log("myListening hit");
-  };
-
-  return {
-    discover: _discover,
-    updates: _updates,
-    myListening: _myListening
   }
-};
+}
 
-window.App.models = {}
 App.models.discover = {}
 App.models.discover.url = '/podcasts'
 
-window.App.utils = {}
+App.utils.bootRoutes = function() {
+  $.each(App.routes, function(k,v) {
+    route = v
+    if (route()) {
+      route().run()
+    }
+  });
+}
+
 App.utils.checkIfPathIsSet = function(path) {
   if (window.location.pathname.indexOf(path) != -1) {
     return true;
