@@ -13,3 +13,26 @@
  *= require_tree .
  *= require_self
  */
+
+html, body { font-family: Helvetica, Arial, sans-serif; }
+section, article { border: 1px #000 solid; }
+
+.left-column { float: left; width: 25%; }
+.right-column { float: right; width: 25%; }
+.center-column { margin: 0 auto; width: 47%; }
+
+.homepage {
+  overflow: hidden;
+  display: block;
+}
+
+.header {
+  display: block;
+  clear: both;
+  padding: 20px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.discovery, .updates, .my-lists { display: block; }
+

@@ -3,5 +3,9 @@ module V1
     def index
       @podcasts = Podcast.all
     end
+
+    def create
+      @podcast = Podcast.create! params
+    end
   end
 end
