@@ -21,9 +21,13 @@ gem 'bootstrap'
 gem 'jquery-rails'
 gem "rack-cors", ">= 0.4.1"
 gem 'devise'
+gem 'faraday'
+gem 'pry'
 
 group :development, :test do
   gem 'sqlite3'
+  gem 'rb-readline'
+  gem 'binding_of_caller'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
