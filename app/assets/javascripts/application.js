@@ -61,7 +61,7 @@ App.sections.discover = function() {
 
   // Fetch & Render abstraction
   // Fetcher, Renderer
-  fetch().andRender();
+  fetch()
   // TODO: Add itunes image and stuff for podcasts 
   // TODO: Add episodes domain model to allow for playing episodes
 
@@ -71,18 +71,17 @@ App.sections.discover = function() {
       // url: App.rootUrl + App.models.podcasts.url + App.clientId,
       url: App.models['discover']['url'] + App.clientId,
       success: (data) => {
-        return {
-          andRender: renderPodcasts(data)
-        }
+        renderDiscoverWith(data)
       }
     })
   }
 
-  function renderPodcasts(data) {
-    $el.html("")
-    data.podcasts.forEach(podcast => {
+
+  function renderDiscoverWith(data) {
+    clearDomScope($el)
+    data.forEach(podcast => {
       $el.append(
-        "<div>" + podcast.title + "</div>"
+        "<img src='" + podcast.logo_url + "' width='60' style='padding: 5px; float: left' />"
       )
     })
   }
@@ -118,4 +117,8 @@ App.utils.checkIfPathIsSet = function(path) {
   } else {
     return false;
   }
+}
+
+function clearDomScope(toClear) {
+  toClear.html("")
 }
