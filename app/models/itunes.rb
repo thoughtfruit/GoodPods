@@ -27,18 +27,24 @@
 	    if end_of_letter()
 
 	      # Get the link attribute for each podcast on this page, and iterate
-	      @doc.css('div#selectedcontent li a').group_by { |show| show['href'] }.each do |link|
-	        puts "Iterating over podcasts for genre: #{GENRES[@genre_index]} letter #{@letter_map[@letter_index]} in page #{@page}"
-	        fetch_and_save(link)
+	      @doc.css('div#selectedcontent li a').group_by { |show| 
+          if show
+            show['href']
+          end
+        }.each do |link|
+          if link
+            puts "Iterating over podcasts for genre: #{GENRES[@genre_index]} letter #{@letter_map[@letter_index]} in page #{@page}"
+            fetch_and_save(link)
 
-	        # Check if complete with this page
-	        if end_of_page()
-	          # Set a new page and recurse
-	          @page += 1
-	          puts "Setting new page: #{@page} and continuing"
-	          @doc = Nokogiri::HTML(open("https://itunes.apple.com/us/genre/#{GENRES[@genre_index]}/id1301?mt=2&letter=#{@letter_map[@letter_index]}&page=#{@page}"))
-	          parse
-	        end
+            # Check if complete with this page
+            if end_of_page()
+              # Set a new page and recurse
+              @page += 1
+              puts "Setting new page: #{@page} and continuing"
+              @doc = Nokogiri::HTML(open("https://itunes.apple.com/us/genre/#{GENRES[@genre_index]}/id1301?mt=2&letter=#{@letter_map[@letter_index]}&page=#{@page}"))
+              parse
+            end
+          end
 	      end
 	    else
       if end_of_genre()
