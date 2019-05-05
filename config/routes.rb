@@ -8,6 +8,8 @@ Rails.application.routes.draw do
   # Dev environment hacking on the homepage
   root to: 'homepage#homepage'
 
+  get '/search', to: 'search#search'
+  resources :search
   resources :homepage
 
   namespace :v1,
@@ -15,5 +17,6 @@ Rails.application.routes.draw do
     defaults: { format: 'json' } do
 
     resources :podcasts
+    resources :updates
   end
 end

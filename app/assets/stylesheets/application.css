@@ -46,14 +46,15 @@ section { border: 1px #000 solid; }
 }
 
 .post-an-update {
-  overflow: hidden;
   clear: both;
 }
+.show { display: block }
+.hidden { display: none; }
 
 .post-an-update > textarea { 
   outline: 0; 
   border-radius: 5px;
-  width: 83%;
+  width: 80%;
   margin-left: 10px;
   padding: 10px;
   font-size: 14px;
@@ -69,5 +70,7 @@ section { border: 1px #000 solid; }
   margin-top: 35px;
   border: 0;
   outline: 0;
+  cursor: hand; /* IE support */
+  cursor: pointer;
 }
 

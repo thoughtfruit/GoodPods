@@ -52,23 +52,20 @@ App.routes = {
 // BOOT ALL SECTIONS FOR THE FIRST PAGE
 App.pages.homepage = function() {
   App.sections.discover();
+  App.sections.updates();
 }
-//App.pages.discussions = function() {}
 
-// BOOT UP THE FIRST SECTION
+App.pages.discussions = function() {}
+
+// BOOT UP THE DISCOVER SECTION
 App.sections.discover = function() {
-  $el = $('.discover')
+  var $el = $('.discover')
 
-  // Fetch & Render abstraction
-  // Fetcher, Renderer
+  // TODO: Abstract
   fetch()
-  // TODO: Add itunes image and stuff for podcasts 
-  // TODO: Add episodes domain model to allow for playing episodes
 
   function fetch() {
     $.ajax({
-      // TODO: Extract attributes to a model
-      // url: App.rootUrl + App.models.podcasts.url + App.clientId,
       url: App.models['discover']['url'] + App.clientId,
       success: (data) => {
         renderDiscoverWith(data)
@@ -76,20 +73,139 @@ App.sections.discover = function() {
     })
   }
 
-
   function renderDiscoverWith(data) {
-    clearDomScope($el)
+    $el.html("")
     data.forEach(podcast => {
       $el.append(
-        "<img src='" + podcast.logo_url + "' width='60' style='padding: 5px; float: left' />"
+        "<img src='" + podcast.logo_url + "' width='55' style='padding: 5px; float: left' />"
       )
     })
   }
-} 
+}
+
+function showSearchDropdown() {
+  $('.typeahead-dropdown').removeClass('hidden').addClass('show')
+}
+
+function hideSearchDropdown() {
+  $('.typeahead-dropdown').removeClass('show').addClass('hidden')
+}
+
+function renderSearchResultWith(data) {
+  $('.typeahead-dropdown').append("<div>" + data.title + "</div>")
+}
+
+function searchInputExtractionAlgo(e) {
+  return $(e.currentTarget).val().split("@")[1]
+}
+
+function clearSearchDom() {
+  $('.typeahead-dropdown').html('')
+}
+
+function renderSearchResultNoData() {
+  clearSearchDom()
+  $('.typeahead-dropdown').append("<div>" + emptyResultMessage() + "</div>")
+}
+
+function emptyResultMessage() {
+  return "No search results for that term"
+}
+
+function typeAheadSearch() {
+  var makeSearchFeelNaturalByDelayingInput = 2000
+  var textArea = $('textarea')
+
+  textArea.on('keyup', (e) => {
+    var searchText       = $(e.currentTarget).val()
+    var searchInput      = searchText.split("@")[1]
+    var valid            = searchInput != undefined && searchInput != null
+
+    if (valid) {
+      var searchTextChars  = searchText.split("")
+      var lastIndex        = searchTextChars.length - 1
+      var lastCharacter    = searchTextChars[lastIndex]
+      var startSearch      = lastCharacter === "@"
+
+      if (startSearch) {
+        hideSearchDropdown()
+        clearSearchDom()
+        setTimeout(function() {
+          $.ajax({
+            url: '/search?s=' + searchInputExtractionAlgo(e),
+            success: function(data) {
+              showSearchDropdown()
+              if (data.length > 0) {
+                data.forEach(function(data) {
+                  renderSearchResultWith(data)
+                })
+              } else {
+                renderSearchResultNoData()
+              }
+            }
+          })
+        }, makeSearchFeelNaturalByDelayingInput)
+      }
+    } else {
+      hideSearchDropdown()
+    }
+  })
+}
 
 App.sections.updates = function() {
-  function _updates() {
-    console.log("Updates hit");
+  var $el = $('.updates')
+
+  fetch()
+  typeAheadSearch()
+
+  // POSTING A NEW UPDATE
+    var allowButtonAnimationByDelayingPost = 1000
+    $('.updates input').on('click', () => {
+      updateDomToShowWerePosting()
+      setTimeout(function() {
+        post()
+        resetDom()
+      }, allowButtonAnimationByDelayingPost)
+    })
+
+    function updateDomToShowWerePosting() {
+      $('input').val('Posting...')
+    }
+
+    function resetDom() {
+      $('textarea').val('')
+      $('input').val('Post')
+    }
+
+    function post() {
+      $.ajax({
+        type: 'post',
+        url: App.models['updates']['url'] + App.clientId + "&body=" + $('textarea').val(),
+        success: function (data) {
+          console.log("Update saved")
+        }
+      })
+    }
+
+  // FETCHING ALL UPDATES
+  function fetch() {
+    $.ajax({
+      url: App.models['updates']['url'] + App.clientId,
+      success: (data) => {
+        renderUpdateWith(data)
+      }
+    })
+  }
+
+
+  function renderUpdateWith(data) {
+    $el = $('.updates-body')
+    $el.html("")
+    data.forEach(update => {
+      $el.append(
+        "<div>" + update.body + "</div>"
+      )
+    })
   }
 }
 
@@ -101,6 +217,8 @@ App.sections.myListening = function() {
 
 App.models.discover = {}
 App.models.discover.url = '/podcasts'
+App.models.updates = {}
+App.models.updates.url = '/updates'
 
 App.utils.bootRoutes = function() {
   $.each(App.routes, function(k,v) {
@@ -119,6 +237,3 @@ App.utils.checkIfPathIsSet = function(path) {
   }
 }
 
-function clearDomScope(toClear) {
-  toClear.html("")
-}
