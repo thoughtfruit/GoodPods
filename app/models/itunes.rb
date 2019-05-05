@@ -64,7 +64,7 @@
     # Get podcast ID (always last item in link)
     full_id = link[0].split('/')[link[0].split('/').length - 1]
 
-    # Remove the "id" prefix on all IDs
+    # Remove the "id" prefix on all GUIDs
     if full_id
       raw_id = full_id.split('id')[1]
 
@@ -74,7 +74,6 @@
       if return_json
         feed_url = return_json['results'][0]['feedUrl']
 
-        # Find or create the podcast metadata in database,
         unless Podcast.where(title: return_json['results'][0]['trackName']).any?
           pod = Podcast.create!(title: return_json['results'][0]['trackName'], cluster: @cluster, network: @network)
           if pod
