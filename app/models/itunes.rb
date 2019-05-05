@@ -65,21 +65,28 @@
     full_id = link[0].split('/')[link[0].split('/').length - 1]
 
     # Remove the "id" prefix on all IDs
-    raw_id = full_id.split('id')[1]
+    if full_id
+      raw_id = full_id.split('id')[1]
 
-    # Get `feedUrl` from iTunes search API now that we have the ID
-    return_string = Faraday.get("https://itunes.apple.com/lookup?id=#{raw_id}").body
-    return_json = JSON.parse(return_string)
-    feed_url = return_json['results'][0]['feedUrl']
+      # Get `feedUrl` from iTunes search API now that we have the ID
+      return_string = Faraday.get("https://itunes.apple.com/lookup?id=#{raw_id}").body
+      return_json = JSON.parse(return_string)
+      if return_json
+        feed_url = return_json['results'][0]['feedUrl']
 
-    # Find or create the podcast metadata in database,
-    pod = Podcast.find_or_create_by!(title: return_json['results'][0]['trackName'], cluster: @cluster, network: @network)
-    pod.update! feed_url: feed_url
-    pod.update! logo_url: return_json['results'][0]['artworkUrl100']
-
-    @page_length -= 1
-    puts "Saved podcast #{return_json['results'][0]['trackName']}"
-    puts "Page length: #{@page_length}"
+        # Find or create the podcast metadata in database,
+        unless Podcast.where(title: return_json['results'][0]['trackName']).any?
+          pod = Podcast.create!(title: return_json['results'][0]['trackName'], cluster: @cluster, network: @network)
+          if pod
+            pod.update! feed_url: feed_url
+            pod.update! logo_url: return_json['results'][0]['artworkUrl100']
+          end
+        end
+        puts "Saved podcast #{return_json['results'][0]['trackName']}"
+        puts "Page length: #{@page_length}"
+        @page_length -= 1
+      end
+    end
   end
 
   private
