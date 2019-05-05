@@ -27,11 +27,7 @@
 	    if end_of_letter()
 
 	      # Get the link attribute for each podcast on this page, and iterate
-	      @doc.css('div#selectedcontent li a').group_by { |show| 
-          if show
-            show['href']
-          end
-        }.each do |link|
+	      @doc.css('div#selectedcontent li a').group_by { |show| show['href'] }.each do |link|
           if link
             puts "Iterating over podcasts for genre: #{GENRES[@genre_index]} letter #{@letter_map[@letter_index]} in page #{@page}"
             fetch_and_save(link)
@@ -68,28 +64,30 @@
 
   def fetch_and_save(link)
     # Get podcast ID (always last item in link)
-    full_id = link[0].split('/')[link[0].split('/').length - 1]
+    if link != nil
+      full_id = link[0].split('/')[link[0].split('/').length - 1]
 
-    # Remove the "id" prefix on all GUIDs
-    if full_id
-      raw_id = full_id.split('id')[1]
+      # Remove the "id" prefix on all GUIDs
+      if full_id
+        raw_id = full_id.split('id')[1]
 
-      # Get `feedUrl` from iTunes search API now that we have the ID
-      return_string = Faraday.get("https://itunes.apple.com/lookup?id=#{raw_id}").body
-      return_json = JSON.parse(return_string)
-      if return_json
-        feed_url = return_json['results'][0]['feedUrl']
+        # Get `feedUrl` from iTunes search API now that we have the ID
+        return_string = Faraday.get("https://itunes.apple.com/lookup?id=#{raw_id}").body
+        return_json = JSON.parse(return_string)
+        if return_json
+          feed_url = return_json['results'][0]['feedUrl']
 
-        unless Podcast.where(title: return_json['results'][0]['trackName']).any?
-          pod = Podcast.create!(title: return_json['results'][0]['trackName'], cluster: @cluster, network: @network)
-          if pod
-            pod.update! feed_url: feed_url
-            pod.update! logo_url: return_json['results'][0]['artworkUrl100']
+          unless Podcast.where(title: return_json['results'][0]['trackName']).any?
+            pod = Podcast.create!(title: return_json['results'][0]['trackName'], cluster: @cluster, network: @network)
+            if pod
+              pod.update! feed_url: feed_url
+              pod.update! logo_url: return_json['results'][0]['artworkUrl100']
+            end
           end
+          puts "Saved podcast #{return_json['results'][0]['trackName']}"
+          puts "Page length: #{@page_length}"
+          @page_length -= 1
         end
-        puts "Saved podcast #{return_json['results'][0]['trackName']}"
-        puts "Page length: #{@page_length}"
-        @page_length -= 1
       end
     end
   end

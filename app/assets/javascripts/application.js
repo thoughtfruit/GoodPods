@@ -83,85 +83,7 @@ App.sections.discover = function() {
   }
 }
 
-function showSearchDropdown() {
-  $('.typeahead-dropdown').removeClass('hidden').addClass('show')
-}
-
-function hideSearchDropdown() {
-  $('.typeahead-dropdown').removeClass('show').addClass('hidden')
-}
-
-function searchInputExtractionAlgo(e) {
-  return $(e.currentTarget).val().split("@")[1]
-}
-
-function clearSearchDom() {
-  $('.typeahead-dropdown').html('')
-}
-
-function emptyResultMessage() {
-  return "No search results for that term"
-}
-
-function renderSearchResultsWithNoData() {
-  clearSearchDom()
-  $('.typeahead-dropdown').append("<div>" + emptyResultMessage() + "</div>")
-}
-
-function renderSearchResultsWith(data) {
-  data.forEach(function(result) {
-    $('.typeahead-dropdown').append("<div data-id='" + result.id + "'>" + result.title + "</div>")
-  })
-  allowSearchResultToBeUsed()
-}
-
-function allowSearchResultToBeUsed() {
-  $('[data-id]').off('click').on('click', (e) => {
-    arrayOfSearch     = $('textarea').val().split("@")
-    arrayOfSearch[1]  = $(e.currentTarget).text()
-    $('textarea').val(arrayOfSearch.join("@"))
-  })
-}
-
-function typeAheadSearch() {
-  var textArea               = $('textarea')
-  var makeSearchFeelNatural  = 2000
-  var searchCharacterTrigger = "@"
-
-  textArea.on('keyup', (e) => {
-    var searchText         = $(e.currentTarget).val()
-    var searchInput        = searchText.split("@")[1]
-    var valid              = searchInput != undefined && searchInput != null
-
-    if (valid) {
-      var searchTextChars  = searchText.split("")
-      var lastIndex        = searchTextChars.length - 1
-      var lastCharacter    = searchTextChars[lastIndex]
-      var startSearch      = lastCharacter === searchCharacterTrigger
-
-      if (startSearch) {
-        hideSearchDropdown()
-        clearSearchDom()
-        setTimeout( () => {
-          $.ajax({
-            url: '/search?s=' + searchInputExtractionAlgo(e),
-            success: (data) => {
-              showSearchDropdown()
-              if (data.length > 0) {
-                renderSearchResultsWith(data)
-              } else {
-                renderSearchResultsWithNoData()
-              }
-            }
-          })
-        }, makeSearchFeelNatural)
-      }
-    } else {
-      hideSearchDropdown()
-    }
-  })
-}
-
+// BOOT UPDATES SECTION 
 App.sections.updates = function() {
   var $el = $('.updates')
 
@@ -169,35 +91,34 @@ App.sections.updates = function() {
   typeAheadSearch()
 
   // POSTING A NEW UPDATE
-    var allowButtonAnimationByDelayingPost = 1000
-    $('.updates input').on('click', () => {
-      updateDomToShowWerePosting()
-      setTimeout(function() {
-        post()
-        resetDom()
-      }, allowButtonAnimationByDelayingPost)
+  var allowButtonAnimationByDelayingPost = 1000
+  $('.updates input').on('click', () => {
+    updateDomToShowWerePosting()
+    setTimeout(function() {
+      post()
+      resetDom()
+    }, allowButtonAnimationByDelayingPost)
+  })
+
+  function updateDomToShowWerePosting() {
+    $('input').val('Posting...')
+  }
+
+  function resetDom() {
+    $('textarea').val('')
+    $('input').val('Post')
+  }
+
+  function post() {
+    $.ajax({
+      type: 'post',
+      url: App.models['updates']['url'] + App.clientId + "&body=" + $('textarea').val(),
+      success: function (data) {
+        console.log("Update saved")
+      }
     })
+  }
 
-    function updateDomToShowWerePosting() {
-      $('input').val('Posting...')
-    }
-
-    function resetDom() {
-      $('textarea').val('')
-      $('input').val('Post')
-    }
-
-    function post() {
-      $.ajax({
-        type: 'post',
-        url: App.models['updates']['url'] + App.clientId + "&body=" + $('textarea').val(),
-        success: function (data) {
-          console.log("Update saved")
-        }
-      })
-    }
-
-  // FETCHING ALL UPDATES
   function fetch() {
     $.ajax({
       url: App.models['updates']['url'] + App.clientId,
@@ -217,6 +138,88 @@ App.sections.updates = function() {
       )
     })
   }
+
+  // Begin Typeahead Search Feature Area
+  //
+  function showSearchDropdown() {
+    $('.typeahead-dropdown').removeClass('hidden').addClass('show')
+  }
+
+  function hideSearchDropdown() {
+    $('.typeahead-dropdown').removeClass('show').addClass('hidden')
+  }
+
+  function searchInputExtractionAlgo(e) {
+    return $(e.currentTarget).val().split("@")[1]
+  }
+
+  function clearSearchDom() {
+    $('.typeahead-dropdown').html('')
+  }
+
+  function emptyResultMessage() {
+    return "No search results for that term"
+  }
+
+  function renderSearchResultsWithNoData() {
+    clearSearchDom()
+    $('.typeahead-dropdown').append("<div>" + emptyResultMessage() + "</div>")
+  }
+
+  function renderSearchResultsWith(data) {
+    data.forEach(function(result) {
+      $('.typeahead-dropdown').append("<div data-id='" + result.id + "'>" + result.title + "</div>")
+    })
+    allowSearchResultToBeUsed()
+  }
+
+  function allowSearchResultToBeUsed() {
+    $('[data-id]').off('click').on('click', (e) => {
+      arrayOfSearch     = $('textarea').val().split("@")
+      arrayOfSearch[1]  = $(e.currentTarget).text()
+      $('textarea').val(arrayOfSearch.join("@"))
+    })
+  }
+
+  function typeAheadSearch() {
+    var textArea               = $('textarea')
+    var makeSearchFeelNatural  = 2000
+    var searchCharacterTrigger = "@"
+
+    textArea.on('keyup', (e) => {
+      var searchText         = $(e.currentTarget).val()
+      var searchInput        = searchText.split("@")[1]
+      var valid              = searchInput != undefined && searchInput != null
+
+      if (valid) {
+        var searchTextChars  = searchText.split("")
+        var lastIndex        = searchTextChars.length - 1
+        var lastCharacter    = searchTextChars[lastIndex]
+        var startSearch      = lastCharacter === searchCharacterTrigger
+
+        if (startSearch) {
+          hideSearchDropdown()
+          clearSearchDom()
+          setTimeout( () => {
+            $.ajax({
+              url: '/search?s=' + searchInputExtractionAlgo(e),
+              success: (data) => {
+                showSearchDropdown()
+                if (data.length > 0) {
+                  renderSearchResultsWith(data)
+                } else {
+                  renderSearchResultsWithNoData()
+                }
+              }
+            })
+          }, makeSearchFeelNatural)
+        }
+      } else {
+        hideSearchDropdown()
+      }
+    })
+  }
+
 }
 
 App.sections.myListening = function() {
