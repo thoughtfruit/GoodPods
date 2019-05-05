@@ -51,7 +51,7 @@ App.routes = {
 
 // BOOT ALL SECTIONS FOR THE FIRST PAGE
 App.pages.homepage = function() {
-  App.sections.discover();
+  //App.sections.discover();
   App.sections.updates();
 }
 
@@ -110,7 +110,17 @@ function renderSearchResultsWithNoData() {
 
 function renderSearchResultsWith(data) {
   data.forEach(function(result) {
-    $('.typeahead-dropdown').append("<div>" + result.title + "</div>")
+    $('.typeahead-dropdown').append("<div data-id='" + result.id + "'>" + result.title + "</div>")
+  })
+  allowSearchResultToBeUsed()
+}
+
+function allowSearchResultToBeUsed() {
+  $('[data-id]').off('click').on('click', (e) => {
+    arrayOfSearch     = $('textarea').val().split("@")
+    searchResult      = arrayOfSearch[1]
+    arrayOfSearch[1]  = $(e.currentTarget).text()
+    $('textarea').val(arrayOfSearch.join("@"))
   })
 }
 
