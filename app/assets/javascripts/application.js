@@ -91,10 +91,6 @@ function hideSearchDropdown() {
   $('.typeahead-dropdown').removeClass('show').addClass('hidden')
 }
 
-function renderSearchResultWith(data) {
-  $('.typeahead-dropdown').append("<div>" + data.title + "</div>")
-}
-
 function searchInputExtractionAlgo(e) {
   return $(e.currentTarget).val().split("@")[1]
 }
@@ -103,13 +99,19 @@ function clearSearchDom() {
   $('.typeahead-dropdown').html('')
 }
 
-function renderSearchResultNoData() {
+function emptyResultMessage() {
+  return "No search results for that term"
+}
+
+function renderSearchResultsWithNoData() {
   clearSearchDom()
   $('.typeahead-dropdown').append("<div>" + emptyResultMessage() + "</div>")
 }
 
-function emptyResultMessage() {
-  return "No search results for that term"
+function renderSearchResultsWith(data) {
+  data.forEach(function(result) {
+    $('.typeahead-dropdown').append("<div>" + result.title + "</div>")
+  })
 }
 
 function typeAheadSearch() {
@@ -117,9 +119,9 @@ function typeAheadSearch() {
   var textArea = $('textarea')
 
   textArea.on('keyup', (e) => {
-    var searchText       = $(e.currentTarget).val()
-    var searchInput      = searchText.split("@")[1]
-    var valid            = searchInput != undefined && searchInput != null
+    var searchText         = $(e.currentTarget).val()
+    var searchInput        = searchText.split("@")[1]
+    var valid              = searchInput != undefined && searchInput != null
 
     if (valid) {
       var searchTextChars  = searchText.split("")
@@ -130,17 +132,15 @@ function typeAheadSearch() {
       if (startSearch) {
         hideSearchDropdown()
         clearSearchDom()
-        setTimeout(function() {
+        setTimeout( () => {
           $.ajax({
             url: '/search?s=' + searchInputExtractionAlgo(e),
-            success: function(data) {
+            success: (data) => {
               showSearchDropdown()
               if (data.length > 0) {
-                data.forEach(function(data) {
-                  renderSearchResultWith(data)
-                })
+                renderSearchResultsWith(data)
               } else {
-                renderSearchResultNoData()
+                renderSearchResultsWithNoData()
               }
             }
           })
