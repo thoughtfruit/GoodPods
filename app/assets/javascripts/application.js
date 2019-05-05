@@ -115,8 +115,9 @@ function renderSearchResultsWith(data) {
 }
 
 function typeAheadSearch() {
-  var makeSearchFeelNaturalByDelayingInput = 2000
-  var textArea = $('textarea')
+  var textArea               = $('textarea')
+  var makeSearchFeelNatural  = 2000
+  var searchCharacterTrigger = "@"
 
   textArea.on('keyup', (e) => {
     var searchText         = $(e.currentTarget).val()
@@ -127,7 +128,7 @@ function typeAheadSearch() {
       var searchTextChars  = searchText.split("")
       var lastIndex        = searchTextChars.length - 1
       var lastCharacter    = searchTextChars[lastIndex]
-      var startSearch      = lastCharacter === "@"
+      var startSearch      = lastCharacter === searchCharacterTrigger
 
       if (startSearch) {
         hideSearchDropdown()
@@ -144,7 +145,7 @@ function typeAheadSearch() {
               }
             }
           })
-        }, makeSearchFeelNaturalByDelayingInput)
+        }, makeSearchFeelNatural)
       }
     } else {
       hideSearchDropdown()
