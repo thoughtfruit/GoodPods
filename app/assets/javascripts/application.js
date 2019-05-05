@@ -118,7 +118,6 @@ function renderSearchResultsWith(data) {
 function allowSearchResultToBeUsed() {
   $('[data-id]').off('click').on('click', (e) => {
     arrayOfSearch     = $('textarea').val().split("@")
-    searchResult      = arrayOfSearch[1]
     arrayOfSearch[1]  = $(e.currentTarget).text()
     $('textarea').val(arrayOfSearch.join("@"))
   })
