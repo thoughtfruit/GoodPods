@@ -93,3 +93,11 @@ section { border: 1px #000 solid; }
 .typeahead-dropdown [data-id]:hover {
   background: #aaa;
 }
+
+.individual-update {
+  border: 1px #000 solid;
+  padding: 10px;
+  margin-left: 10px;
+  width: 80%;
+  margin-bottom: 10px;
+}

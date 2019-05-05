@@ -51,7 +51,7 @@ App.routes = {
 
 // BOOT ALL SECTIONS FOR THE FIRST PAGE
 App.pages.homepage = function() {
-  //App.sections.discover();
+  App.sections.discover();
   App.sections.updates();
 }
 
@@ -97,6 +97,7 @@ App.sections.updates = function() {
     setTimeout(function() {
       post()
       resetDom()
+      window.location.reload()
     }, allowButtonAnimationByDelayingPost)
   })
 
@@ -133,14 +134,35 @@ App.sections.updates = function() {
     $el = $('.updates-body')
     $el.html("")
     data.forEach(update => {
-      $el.append(
-        "<div>" + update.body + "</div>"
-      )
+      if (update.podcast_id) {
+        $.ajax({
+          url: '/podcasts/' + update.podcast_id,
+          success: function(data) {
+            var image = data.logo_url
+            synchronousDomUpdate(image)
+          }
+        })
+      } else {
+        setTimeout(function() {
+          var image = "http://placehold.it/50x50"
+          synchronousDomUpdate(image)
+        }, 500)
+      }
+      function synchronousDomUpdate(image) {
+        $el.append(
+          "<div class='individual-update' style='overflow: hidden; clear: both; display: block;'>" +
+            "<img style='float: left; margin: 0 10px;' src='" + image + "' width='50' />" +
+            "<div>" + update.body + "</div>" +
+          "</div>"
+        )
+      }
     })
   }
 
   // Begin Typeahead Search Feature Area
   //
+  // TODO: Abstract out to feature sub-section
+  // E.g.: App.sections.updates.features.podcast@Mention = function () {}
   function showSearchDropdown() {
     $('.typeahead-dropdown').removeClass('hidden').addClass('show')
   }
