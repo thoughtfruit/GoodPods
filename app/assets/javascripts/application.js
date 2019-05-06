@@ -81,7 +81,6 @@ App.sections.discover = function() {
       )
     })
     $('.discover img').on('click', () => {
-      
     })
   }
 }
