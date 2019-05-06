@@ -1,13 +1,16 @@
-database:
-  override:
-    - bin/setup
-test:
-  override:
-    - COVERAGE=true bin/rake
-deployment:
-  staging:
-    branch: master
-    commands:
-      - bin/deploy staging
+defaults: &defaults
+  working_directory: ~/Library/Mobile\ Documents/com~apple~CloudDocs/Development/RUBY/GoodPods
+  # docker:
+  #   - image: continuumio/miniconda3
+
+#inst_conda_bld: &inst_conda_bld
+#  - run: conda config --add channels conda-forge
+#  - run: conda config --set always_yes true
+#  - run: conda config --set quiet true
+#  - run: conda install conda-build
+
+version: 2
 
 jobs:
+  build:
+    <<: *defaults
