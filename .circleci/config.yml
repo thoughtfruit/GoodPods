@@ -9,3 +9,5 @@ deployment:
     branch: master
     commands:
       - bin/deploy staging
+
+jobs:
