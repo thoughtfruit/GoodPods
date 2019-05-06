@@ -2,7 +2,7 @@ module V1
   class UpdatesController < ApiController
 
     def index
-      @updates = current_user.updates.order("created_at desc").all
+      @updates = Update.order("created_at desc").all
       render json: @updates
     end
 

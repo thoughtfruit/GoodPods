@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   get '/search', to: 'search#search'
   resources :search
   resources :homepage
+  resources :profiles
 
   namespace :v1,
     path: "/",

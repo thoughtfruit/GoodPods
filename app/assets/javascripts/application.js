@@ -77,8 +77,11 @@ App.sections.discover = function() {
     $el.html("")
     data.forEach(podcast => {
       $el.append(
-        "<img src='" + podcast.logo_url + "' width='55' style='padding: 5px; float: left' />"
+        "<img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' />"
       )
+    })
+    $('.discover img').on('click', () => {
+      
     })
   }
 }
@@ -90,7 +93,6 @@ App.sections.updates = function() {
   fetch()
   typeAheadSearch()
 
-  // POSTING A NEW UPDATE
   var allowButtonAnimationByDelayingPost = 1000
   $('.updates input').on('click', () => {
     updateDomToShowWerePosting()
@@ -115,7 +117,6 @@ App.sections.updates = function() {
       type: 'post',
       url: App.models['updates']['url'] + App.clientId + "&body=" + $('textarea').val(),
       success: function (data) {
-        console.log("Update saved")
       }
     })
   }
@@ -128,7 +129,6 @@ App.sections.updates = function() {
       }
     })
   }
-
 
   function renderUpdateWith(data) {
     $el = $('.updates-body')
@@ -200,6 +200,7 @@ App.sections.updates = function() {
       arrayOfSearch     = $('textarea').val().split("@")
       arrayOfSearch[1]  = $(e.currentTarget).text()
       $('textarea').val(arrayOfSearch.join("@"))
+      hideSearchDropdown()
     })
   }
 
@@ -212,6 +213,11 @@ App.sections.updates = function() {
       var searchText         = $(e.currentTarget).val()
       var searchInput        = searchText.split("@")[1]
       var valid              = searchInput != undefined && searchInput != null
+
+      if (searchInput && $('textarea').val().split("@").length > 2) {
+        searchInput = $('textarea').val()
+        $('textarea').val("We only support 1 @ mention per update, for right now.")
+      }
 
       if (valid) {
         var searchTextChars  = searchText.split("")
@@ -241,12 +247,10 @@ App.sections.updates = function() {
       }
     })
   }
-
 }
 
 App.sections.myListening = function() {
   function _myListening() {
-    console.log("myListening hit");
   }
 }
 

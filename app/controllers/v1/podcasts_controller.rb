@@ -1,7 +1,7 @@
 module V1
   class PodcastsController < ApiController
     def index
-      @podcasts = Podcast.all.take(1000)
+      @podcasts = Podcast.all.where.not(logo_url: nil).take(1000)
       render json: @podcasts
     end
     def create

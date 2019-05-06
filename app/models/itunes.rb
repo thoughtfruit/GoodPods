@@ -2,7 +2,7 @@
 	require 'open-uri'
 
 	class Itunes
-	  LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+	  LETTERS = ['d', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 	  GENRES = ['podcasts-arts', 'podcasts-business', 'podcasts-comedy', 'podcasts-education', 'podcasts-games-hobbies', 'podcasts-government-organizations',
 	  'podcasts-health', 'podcasts-kids-family', 'podcasts-music', 'podcasts-news-politics', 'podcasts-religion-spirituality', 'podcasts-science-medicine',
@@ -27,7 +27,7 @@
 	    if end_of_letter()
 
 	      # Get the link attribute for each podcast on this page, and iterate
-	      @doc.css('div#selectedcontent li a').group_by { |show| show['href'] }.each do |link|
+        @doc.css('div#selectedcontent li a').group_by { |show| begin show['href'] rescue show end}.each do |link|
           if link
             puts "Iterating over podcasts for genre: #{GENRES[@genre_index]} letter #{@letter_map[@letter_index]} in page #{@page}"
             fetch_and_save(link)
