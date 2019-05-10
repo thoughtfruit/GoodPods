@@ -1,15 +1,21 @@
 module V1
-  class PodcastsController < ApiController
+  class PodcastsController < ApplicationController
+    respond_to :html, :json
+
     def index
-      @podcasts = Podcast.all.where.not(logo_url: nil).take(1000)
+      @podcasts = Podcast.all.where.not(logo_url: nil).take(100)
       render json: @podcasts
     end
+
     def create
       @podcast = Podcast.create! params
     end
+
     def show
       @podcast = Podcast.find(params[:id])
-      render json: @podcast
+      @updates = Update.where(podcast_id: @podcast.id)
+      respond_with @podcast
     end
+
   end
 end

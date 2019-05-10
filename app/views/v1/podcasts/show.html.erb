@@ -1,0 +1,15 @@
+<div class="container">
+  <h2><%= @podcast.title %></h2>
+  <img src="<%= @podcast.logo_url %>" width="250"/>
+
+  <h1>Relevant Updates</h1>
+  <% @updates.each do |update| %>
+    <div class="individual-update">
+      <%= update.body %>
+      | By <a href="/profiles/<%= update.user_id %>"><%= User.find(update.user_id).email %></a>
+    </div>
+  <% end %>
+
+  <h1>Community Stats</h1>
+  This podcast is on <%= UserPodcastStatus.where(podcast_id: @podcast.id).count %> lists
+</div>
