@@ -28,7 +28,6 @@ section { border: 1px #000 solid; }
 }
 
 .discover img:hover {
-  background: #000;
   cursor: hand;
   cursor: pointer;
   z-index: 1;
@@ -111,4 +110,14 @@ section { border: 1px #000 solid; }
   margin-left: 10px;
   width: 80%;
   margin-bottom: 10px;
+}
+
+article.add-to-library {
+  width: 180px;
+  background: #eee;
+  padding: 20px;
+  border-radius: 25px;
+  position: absolute;
+  z-index: 999;
+  top: 80px;
 }

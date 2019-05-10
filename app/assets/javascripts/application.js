@@ -16,7 +16,7 @@
 //= require bootstrap
 //= require_tree .
 
-self = this;
+self = this
 $(document).ready(() => {
   App.initialize()
 })
@@ -51,8 +51,9 @@ App.routes = {
 
 // BOOT ALL SECTIONS FOR THE FIRST PAGE
 App.pages.homepage = function() {
-  App.sections.discover();
-  App.sections.updates();
+  App.sections.discover()
+  App.sections.updates()
+  App.sections.myListening()
 }
 
 App.pages.discussions = function() {}
@@ -73,14 +74,85 @@ App.sections.discover = function() {
     })
   }
 
+  function clearAddToLibraryFromOtherNodes() {
+    $('.discover div').children('add-to-library').remove()
+  }
+
+  function appendAddToLibraryToCurrentNode(e) {
+    $(e.currentTarget).append($('.add-to-library'))
+  }
+
+  function bindCheckboxClickEvent() {
+    $('.discover input[type="checkbox"]').off('click').on('click', (e) => {
+      // User is trying to add to library
+      if ($(e.currentTarget).prop('checked') == true) {
+        $.ajax({
+          type: 'post',
+          url: '/my_library' + App.clientId + '&podcast_id=' + $(e.currentTarget).parent().parent().attr('data-pod-id') + '&save_to_list=' + $(e.currentTarget).attr('id'),
+          success: (data) => {
+            console.log('no-op - saved to my library')
+          }, error: () => {
+            console.log('error')
+            $(e.currentTarget).prop('checked', false)
+          }
+        })
+      // User is trying to remove from their library
+      } else if ($(e.currentTarget).prop('checked') == false) {
+        $.ajax({
+          type: 'get',
+          url: '/remove_from_my_library' + App.clientId + '&podcast_id=' + $(e.currentTarget).parent().parent().attr('data-pod-id') + '&list=' + $(e.currentTarget).attr('id'),
+          success: function(data) {
+            // TODO: Update UI to reflect this delete by unchecking boxes before a reload
+          }
+        })
+      }
+      window.location.reload()
+    })
+  }
+
+  function unhideAddToLibrary() {
+    $('.add-to-library').removeClass('hidden')
+  }
+
+  function populateAddToLibraryWithSavedStateFor(target) {
+    $.ajax({
+      type: 'get',
+      url: '/my_library' + App.clientId + '&podcast_id=' + target.attr('data-pod-id'),
+      success: function(status) {
+        if (status.indexOf("to-listen") != -1) {
+          target.find('#to-listen').prop('checked', true)
+        } else {
+          target.find('#to-listen').prop('checked', false)
+        }
+        if (status.indexOf("listened") != -1) {
+          target.find('#listened').prop('checked', true)
+        } else {
+          target.find('#listened').prop('checked', false)
+        }
+        if (status.indexOf("listening") != -1) {
+          target.find('#listening').prop('checked', true)
+        } else {
+          target.find('#listening').prop('checked', false)
+        }
+      }
+    })
+  }
+
   function renderDiscoverWith(data) {
     $el.html("")
     data.forEach(podcast => {
       $el.append(
-        "<img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' />"
+        "<div data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
       )
     })
-    $('.discover img').on('click', () => {
+
+    // TODO: If it's the far right column, switch the direction of the popover
+    $('.discover div').on('click', (e) => {
+      clearAddToLibraryFromOtherNodes()
+      appendAddToLibraryToCurrentNode(e)
+      unhideAddToLibrary()
+      populateAddToLibraryWithSavedStateFor($(e.currentTarget))
+      bindCheckboxClickEvent()
     })
   }
 }
@@ -203,6 +275,14 @@ App.sections.updates = function() {
     })
   }
 
+  function featureRestriction(searchInput) {
+    if (searchInput && $('textarea').val().split("@").length > 2) {
+      searchInput = $('textarea').val()
+      $('textarea').val("We only support 1 @ mention per update, for right now.")
+      return searchInput
+    }
+  }
+
   function typeAheadSearch() {
     var textArea               = $('textarea')
     var makeSearchFeelNatural  = 2000
@@ -212,11 +292,7 @@ App.sections.updates = function() {
       var searchText         = $(e.currentTarget).val()
       var searchInput        = searchText.split("@")[1]
       var valid              = searchInput != undefined && searchInput != null
-
-      if (searchInput && $('textarea').val().split("@").length > 2) {
-        searchInput = $('textarea').val()
-        $('textarea').val("We only support 1 @ mention per update, for right now.")
-      }
+      searchInput            = featureRestriction(searchInput)
 
       if (valid) {
         var searchTextChars  = searchText.split("")
@@ -249,7 +325,55 @@ App.sections.updates = function() {
 }
 
 App.sections.myListening = function() {
-  function _myListening() {
+  $el = $('.my-lists')
+  fetch()
+
+  function fetch() {
+    $.ajax({
+      url: '/all_library' + App.clientId,
+      success: (data) => {
+        console.log("hit")
+        renderMyListsWith(data)
+      }
+    })
+  }
+  function renderMyListsWith(data) {
+    data.forEach(user_podcast_status => {
+      if (user_podcast_status.status == "to-listen") {
+        $('.my-lists .to-listen').html('')
+        $.ajax({
+          url: '/podcasts/' + user_podcast_status.podcast_id + App.clientId,
+          success: function(podcast) {
+            $('.my-lists .to-listen').append(
+              "<div data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
+            )
+          }
+        })
+      } else if (user_podcast_status.status == 'listening') {
+        $('.my-lists .listening').html('')
+        $.ajax({
+          url: '/podcasts/' + user_podcast_status.podcast_id + App.clientId,
+          success: function(podcast) {
+            $('.my-lists .listening').append(
+              "<div data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
+            )
+          }
+        })
+      } else if (user_podcast_status.status == 'listened') {
+        $('.my-lists .listened').html('')
+        $.ajax({
+          url: '/podcasts/' + user_podcast_status.podcast_id + App.clientId,
+          success: function(podcast) {
+            $('.my-lists .listened').append(
+              "<div data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
+            )
+          }
+        })
+      }
+      // $el.append(
+      //   "<div data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
+      // )
+    })
   }
 }
 
@@ -264,14 +388,14 @@ App.utils.bootRoutes = function() {
     if (route()) {
       route().run()
     }
-  });
+  })
 }
 
 App.utils.checkIfPathIsSet = function(path) {
   if (window.location.pathname.indexOf(path) != -1) {
-    return true;
+    return true
   } else {
-    return false;
+    return false
   }
 }
 

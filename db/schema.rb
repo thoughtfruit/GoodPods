@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_05_224234) do
+ActiveRecord::Schema.define(version: 2019_05_10_050111) do
 
   create_table "clusters", force: :cascade do |t|
     t.string "title"
@@ -66,6 +66,14 @@ ActiveRecord::Schema.define(version: 2019_05_05_224234) do
     t.integer "podcast_id"
     t.index ["podcast_id"], name: "index_updates_on_podcast_id"
     t.index ["user_id"], name: "index_updates_on_user_id"
+  end
+
+  create_table "user_podcast_statuses", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "podcast_id"
+    t.text "status"
+    t.index ["podcast_id"], name: "index_user_podcast_statuses_on_podcast_id"
+    t.index ["user_id"], name: "index_user_podcast_statuses_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

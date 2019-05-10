@@ -23,6 +23,7 @@ gem "rack-cors", ">= 0.4.1"
 gem 'devise'
 gem 'faraday'
 gem 'pry'
+gem 'honeybadger', '~> 4.0'
 
 group :development, :test do
   gem 'sqlite3'

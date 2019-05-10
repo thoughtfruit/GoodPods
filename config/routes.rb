@@ -17,6 +17,11 @@ Rails.application.routes.draw do
     path: "/",
     defaults: { format: 'json' } do
 
+    post '/my_library', to: 'my_library#create'
+    get '/my_library', to: 'my_library#status_for_podcast_and_user'
+    get '/remove_from_my_library', to: 'my_library#delete_status_for_podcast_and_user'
+    get '/all_library', to: 'my_library#all_library'
+
     resources :podcasts
     resources :updates
   end

@@ -2,7 +2,7 @@
 	require 'open-uri'
 
 	class Itunes
-	  LETTERS = ['d', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+	  LETTERS = ['j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
 	  GENRES = ['podcasts-arts', 'podcasts-business', 'podcasts-comedy', 'podcasts-education', 'podcasts-games-hobbies', 'podcasts-government-organizations',
 	  'podcasts-health', 'podcasts-kids-family', 'podcasts-music', 'podcasts-news-politics', 'podcasts-religion-spirituality', 'podcasts-science-medicine',
@@ -22,6 +22,7 @@
 
 	  def parse
 	    @page_length = @doc.css('div#selectedcontent li a').group_by(&:text).length
+      @page_length = 2
 
 	    # Check if there are any podcasts on this page number, for this letter
 	    if end_of_letter()
@@ -75,18 +76,22 @@
         return_string = Faraday.get("https://itunes.apple.com/lookup?id=#{raw_id}").body
         return_json = JSON.parse(return_string)
         if return_json
-          feed_url = return_json['results'][0]['feedUrl']
+          if return_json['results']
+            if return_json['results'][0]
+              feed_url = return_json['results'][0]['feedUrl']
 
-          unless Podcast.where(title: return_json['results'][0]['trackName']).any?
-            pod = Podcast.create!(title: return_json['results'][0]['trackName'], cluster: @cluster, network: @network)
-            if pod
-              pod.update! feed_url: feed_url
-              pod.update! logo_url: return_json['results'][0]['artworkUrl100']
+              unless Podcast.where(title: return_json['results'][0]['trackName']).any?
+                pod = Podcast.create!(title: return_json['results'][0]['trackName'], cluster: @cluster, network: @network)
+                if pod
+                  pod.update! feed_url: feed_url
+                  pod.update! logo_url: return_json['results'][0]['artworkUrl100']
+                end
+              end
+              puts "Saved podcast #{return_json['results'][0]['trackName']}"
+              puts "Page length: #{@page_length}"
+              @page_length -= 1
             end
           end
-          puts "Saved podcast #{return_json['results'][0]['trackName']}"
-          puts "Page length: #{@page_length}"
-          @page_length -= 1
         end
       end
     end
@@ -94,7 +99,7 @@
 
   private
   def end_of_genre
-    @letter_map[@letter_index] == "Z"
+    @letter_map[@letter_index] == "A"
   end
 
   def end_of_page
