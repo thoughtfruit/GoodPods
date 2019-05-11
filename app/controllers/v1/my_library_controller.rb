@@ -2,7 +2,6 @@ module V1
   # TODO: Update this name
   class MyLibraryController < ApiController
 
-    # TODO: Update this name
     def all_library
       render json: UserPodcastStatus.where(
         user: current_user

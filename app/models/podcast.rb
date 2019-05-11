@@ -6,4 +6,8 @@ class Podcast < ApplicationRecord
   has_many :user_podcast_statuses
 
   validates :title, uniqueness: true, on: [:update, :create]
+
+  def list_count
+    UserPodcastStatus.where(podcast_id: self.id).count
+  end
 end

@@ -16,7 +16,7 @@
  */
 
 html, body { font-family: Helvetica, Arial, sans-serif; }
-section { border: 1px #000 solid; }
+/*section { border: 1px #000 solid; }*/
 
 .left-column { float: left; width: 25%; }
 .right-column { float: right; width: 25%; }
@@ -45,6 +45,9 @@ section { border: 1px #000 solid; }
 }
 
 .discovery, .updates, .my-lists { display: block; }
+.updates {
+  margin-left: 90px;
+}
 
 .discover-column {
   float: left; 
@@ -71,16 +74,19 @@ section { border: 1px #000 solid; }
 }
 
 .post-an-update > input {
-  float: right;
-  margin-right: 20px;
+  float: left;
+  /* padding-left: 20px; */
   background: #1da1f2;
   color: #fff;
+  margin-left: 10px;
   font-size: 12px;
   border-radius: 5px;
-  margin-top: 35px;
+  margin-top: 5px;
+  margin-bottom: 20px;
   border: 0;
   outline: 0;
-  cursor: hand; /* IE support */
+  cursor: hand;
+  width: 470px;
   cursor: pointer;
 }
 
@@ -106,6 +112,7 @@ section { border: 1px #000 solid; }
 
 .individual-update {
   border: 1px #000 solid;
+  margin: 0 auto;
   padding: 10px;
   margin-left: 10px;
   width: 80%;

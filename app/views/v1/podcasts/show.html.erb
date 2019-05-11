@@ -6,10 +6,10 @@
   <% @updates.each do |update| %>
     <div class="individual-update">
       <%= update.body %>
-      | By <a href="/profiles/<%= update.user_id %>"><%= User.find(update.user_id).email %></a>
+      | By <a href="/profiles/<%= update.user_id %>"><%= update.email %></a>
     </div>
   <% end %>
 
   <h1>Community Stats</h1>
-  This podcast is on <%= UserPodcastStatus.where(podcast_id: @podcast.id).count %> lists
+  This podcast is on <%= @podcast.list_count %> lists
 </div>
