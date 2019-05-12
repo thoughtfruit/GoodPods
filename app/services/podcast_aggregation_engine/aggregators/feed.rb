@@ -13,11 +13,11 @@ class Feed < Aggregator
   end
 
   def build
-    save if feed_object_built? or build_error
+    save if built? or build_error
   end
 
-  def save_feed
-    episodes if saved_feed? or save_error
+  def save
+    episodes if saved? or save_error
   end
 
   def episodes
@@ -47,7 +47,7 @@ class Feed < Aggregator
   def valid_xml
     @_valid_xml ||= @validator.schema # => Valid XML (can't reach this method without xml - no error state neeeded)
   end
-  def feed_object_built?
+  def built?
     @feed ||= FeedObject.new(
       url: @feed_url,
       valid_xml: valid_xml
