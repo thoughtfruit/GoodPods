@@ -8,6 +8,6 @@ class Podcast < ApplicationRecord
   validates :title, uniqueness: true, on: [:update, :create]
 
   def list_count
-    UserPodcastStatus.where(podcast_id: self.id).count
+    @_list_count ||= UserPodcastStatus.where(podcast_id: self.id).count
   end
 end
