@@ -1,13 +1,14 @@
 module V1
   class UpdatesController < ApiController
+    ON_PODCAST_MENTION_CHARACTER = "@".freeze
 
     def index
-      @updates = Update.order("created_at desc").all
+      @updates = Update.all.order "created_at desc"
       render json: @updates
     end
 
     def create
-      podcast = find_podcast_from_update(params[:body])
+      podcast = find_podcast_from update: params[:body]
       if podcast
         podcast.updates.create! body: params[:body], user_id: current_user.id
       else
@@ -18,20 +19,13 @@ module V1
 
     private
     def update_params
-      params.require(:update).permit(:body, :title)
+      params.require(:update).permit :body, :title
     end
 
-    # TODO: This is built to ONLY allow @ to be the last
-    # sentence in the update. So I need to extend that
-    def find_podcast_from_update(update)
-      arr = update.split("@")
-      if arr
-        podcast_found = arr[1]
-        if podcast_found
-          title = podcast_found
-          return Podcast.where(title: title).first
-        end
-      end
+    # TODO: Allow multiple podcast @ mentions per update
+    def find_podcast_from(update:)
+      entry = update.split ON_PODCAST_MENTION_CHARACTER
+      Podcast.find_by(title: title) if entry and entry[1]
     end
   end
 end

@@ -30,7 +30,7 @@ module V1
         podcast: Podcast.find(params[:podcast_id]),
         status: Status.find(params[:list]),
         user: current_user
-      ).all.map(&:destroy)
+      ).map(&:destroy)
     end
   end
 end

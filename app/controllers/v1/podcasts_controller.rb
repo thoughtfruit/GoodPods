@@ -3,7 +3,7 @@ module V1
     respond_to :html, :json
 
     def index
-      @podcasts = Podcast.all.where.not(logo_url: nil).take(100)
+      @podcasts = Podcast.all.where.not(logo_url: nil).take 100
       render json: @podcasts
     end
 
@@ -12,8 +12,8 @@ module V1
     end
 
     def show
-      @podcast = Podcast.find(params[:id])
-      @updates = Update.where(podcast_id: @podcast.id)
+      @podcast = Podcast.find params[:id]
+      @updates = Update.where podcast_id: @podcast.id
       respond_with @podcast
     end
 
