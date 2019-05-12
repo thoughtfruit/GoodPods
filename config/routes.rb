@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :search
   resources :homepage
   resources :profiles
+  resources :discover
 
   namespace :v1,
     path: "/",

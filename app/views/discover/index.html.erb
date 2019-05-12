@@ -1,0 +1,15 @@
+<h1>Discover Podcasts</h1>
+
+<ul>
+
+  <% @podcasts.each do |podcast| %>
+
+    <li>
+      <a href="/podcasts/<%= podcast.id %>.html">
+        <%= podcast.title %>
+      </a>
+    </li>
+
+  <% end %>
+
+</ul>
