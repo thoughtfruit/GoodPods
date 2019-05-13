@@ -1,7 +1,7 @@
 # Functional style b/c I don't want errors or bad data to propegate
 # You could argue you want to do all of this async and let
 # potentially bad data populate into data store - but I don't want that.
-class Feed < Aggregator
+class Feed # < Aggregator
 
   def initialize(feed_url:)
     @url ||= feed_url
@@ -20,12 +20,8 @@ class Feed < Aggregator
     episodes if saved? or save_error
   end
 
-  def episodes
-    # Run a similar aggregator on episodes (except at collection lvl)
-    @feed.episodes.each { |episode| Episode.new episode }
-  end
-
   def validation_error
+    puts "validation error hit"
     # Failed to validate XML
   end
 

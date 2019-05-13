@@ -1,3 +1,3 @@
 class AggregatorObject
-  @@feeds = File.parse("/feeds.csv").parse.map(&:url)
+  # @@feeds = File.parse("/feeds.csv").parse.map(&:url)
 end

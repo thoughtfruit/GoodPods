@@ -24,6 +24,8 @@ gem 'devise'
 gem 'faraday'
 gem 'pry'
 gem 'honeybadger', '~> 4.0'
+gem 'nokogiri'
+gem 'httparty'
 
 group :development, :test do
   gem 'sqlite3'

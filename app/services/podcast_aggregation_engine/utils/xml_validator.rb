@@ -8,11 +8,17 @@ class XmlValidator
   end
 
   def validate
-    # ValidatorPackage::New(@url) # => true/false
+    @validation ||= Nokogiri::XML(schema)
+    false if errors
+    true unless errors
   end
 
   def schema
-    # XML returned
+    HTTParty.get(@url).body
+  end
+
+  def errors
+    @validation.errors  
   end
 
 end
