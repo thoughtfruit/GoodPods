@@ -1,7 +1,4 @@
-# Functional style b/c I don't want errors or bad data to propegate
-# You could argue you want to do all of this async and let
-# potentially bad data populate into data store - but I don't want that.
-class Feed # < Aggregator
+class Feed < Aggregator
 
   def initialize(feed_url:)
     @url ||= feed_url
@@ -36,7 +33,7 @@ class Feed # < Aggregator
   private
   def valid?
     @validator = XmlValidator.new
-    @validator.for(@url).validate # => true/false
+    @validator.for(url: @url).validate! # => true/false
   end
   # Cache locally on the object - other methods on obj will call this method
   # Instance variable is to be ignored - just there for additional caching mechanics
@@ -44,10 +41,7 @@ class Feed # < Aggregator
     @_valid_xml ||= @validator.schema # => Valid XML (can't reach this method without xml - no error state neeeded)
   end
   def built?
-    @feed ||= FeedObject.new(
-      url: @feed_url,
-      valid_xml: valid_xml
-    ).build!
+    @feed ||= FeedObject.new(url: @feed_url, valid_xml: valid_xml).build!
     @feed.built?
   end
   # TODO: Diff style method below than above, refactor to match

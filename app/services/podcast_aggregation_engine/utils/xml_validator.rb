@@ -18,7 +18,7 @@ class XmlValidator
   end
 
   def errors
-    @validation.errors  
+    @validation.errors
   end
 
 end

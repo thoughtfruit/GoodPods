@@ -4,6 +4,7 @@ class Podcast < ApplicationRecord
   has_many :genres
   has_many :updates
   has_many :user_podcast_statuses
+  has_many :groups
 
   validates :title, uniqueness: true, on: [:update, :create]
 

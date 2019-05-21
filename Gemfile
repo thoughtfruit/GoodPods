@@ -26,6 +26,7 @@ gem 'pry'
 gem 'honeybadger', '~> 4.0'
 gem 'nokogiri'
 gem 'httparty'
+gem 'active_emoji'
 
 group :development, :test do
   gem 'sqlite3'
