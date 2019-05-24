@@ -111,7 +111,7 @@ App.sections.discover = function() {
   function savePodcastToLibraryInStatus(e) {
     $.ajax({
       type: 'post',
-      url: '/my_library' + App.clientId + '&podcast_id=' + $(e.currentTarget).parent().parent().attr('data-pod-id') + '&save_to_list=' + $(e.currentTarget).attr('id'),
+      url: '/v1/my_library' + App.clientId + '&podcast_id=' + $(e.currentTarget).parent().parent().attr('data-pod-id') + '&save_to_list=' + $(e.currentTarget).attr('id'),
       success: (data) => {
         console.log('no-op - saved to my library')
       }, error: () => {
@@ -124,7 +124,7 @@ App.sections.discover = function() {
   function removePodcastFromLibraryInStatus(e) {
     $.ajax({
       type: 'get',
-      url: '/remove_from_my_library' + App.clientId + '&podcast_id=' + $(e.currentTarget).parent().parent().attr('data-pod-id') + '&list=' + $(e.currentTarget).attr('id'),
+      url: '/v1/remove_from_my_library' + App.clientId + '&podcast_id=' + $(e.currentTarget).parent().parent().attr('data-pod-id') + '&list=' + $(e.currentTarget).attr('id'),
       success: function(data) {
         // TODO: Update UI to reflect this delete by unchecking boxes before a reload
       }
@@ -177,7 +177,7 @@ App.sections.discover = function() {
   function populateAddToLibraryWithSavedStateFor(target) {
     $.ajax({
       type: 'get',
-      url: '/my_library' + App.clientId + '&podcast_id=' + target.attr('data-pod-id'),
+      url: '/v1/my_library' + App.clientId + '&podcast_id=' + target.attr('data-pod-id'),
       success: function(status) {
         renderStateForToListenForm(target, status)
         renderStateForListenedForm(target, status)
@@ -259,7 +259,7 @@ App.sections.updates = function() {
     data.forEach(update => {
       if (update.podcast_id) {
         $.ajax({
-          url: '/podcasts/' + update.podcast_id,
+          url: '/v1/podcasts/' + update.podcast_id,
           success: function(data) {
             var image = data.logo_url
             synchronousDomUpdate(image)
@@ -357,7 +357,7 @@ App.sections.updates = function() {
           clearSearchDom()
           setTimeout( () => {
             $.ajax({
-              url: '/search?s=' + searchInputExtractionAlgo(e),
+              url: '/v1/search?s=' + searchInputExtractionAlgo(e),
               success: (data) => {
                 showSearchDropdown()
                 if (data.length > 0) {
@@ -383,7 +383,7 @@ App.sections.myListening = function() {
 
   function fetch() {
     $.ajax({
-      url: '/all_library' + App.clientId,
+      url: '/v1/all_library' + App.clientId,
       success: (data) => {
         console.log("hit")
         renderMyListsWith(data)
@@ -408,7 +408,7 @@ App.sections.myListening = function() {
     // TODO: Extract to clearDom('.dom-to-clear')
     $('.my-lists .to-listen').html('')
     $.ajax({
-      url: '/podcasts/' + user_podcast_status.podcast_id + App.clientId,
+      url: '/v1/podcasts/' + user_podcast_status.podcast_id + App.clientId,
       success: function(podcast) {
         $('.my-lists .to-listen').append(
           "<div data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
@@ -420,7 +420,7 @@ App.sections.myListening = function() {
   function renderListening(user_podcast_status) {
     $('.my-lists .listening').html('')
     $.ajax({
-      url: '/podcasts/' + user_podcast_status.podcast_id + App.clientId,
+      url: '/v1/podcasts/' + user_podcast_status.podcast_id + App.clientId,
       success: function(podcast) {
         $('.my-lists .listening').append(
           "<div data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
@@ -432,7 +432,7 @@ App.sections.myListening = function() {
   function renderListened(user_podcast_status) {
     $('.my-lists .listened').html('')
     $.ajax({
-      url: '/podcasts/' + user_podcast_status.podcast_id + App.clientId,
+      url: '/v1/podcasts/' + user_podcast_status.podcast_id + App.clientId,
       success: function(podcast) {
         $('.my-lists .listened').append(
           "<div data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
@@ -443,9 +443,9 @@ App.sections.myListening = function() {
 }
 
 App.models.discover = {}
-App.models.discover.url = '/podcasts'
+App.models.discover.url = '/v1/podcasts'
 App.models.updates = {}
-App.models.updates.url = '/updates'
+App.models.updates.url = '/v1/updates'
 
 App.utils.bootRoutes = function() {
   $.each(App.routes, function(k,v) {

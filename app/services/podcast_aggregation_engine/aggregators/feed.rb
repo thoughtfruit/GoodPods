@@ -35,8 +35,6 @@ class Feed < Aggregator
     @validator = XmlValidator.new
     @validator.for(url: @url).validate! # => true/false
   end
-  # Cache locally on the object - other methods on obj will call this method
-  # Instance variable is to be ignored - just there for additional caching mechanics
   def valid_xml
     @_valid_xml ||= @validator.schema # => Valid XML (can't reach this method without xml - no error state neeeded)
   end
