@@ -29,10 +29,10 @@ gem 'httparty'
 
 group :development, :test do
   gem 'sqlite3'
-  gem 'spring-commands-rspec'
   gem 'rspec-rails'
   gem 'rb-readline'
   gem 'binding_of_caller'
+  gem 'spring-commands-rspec'
   gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
 end
 
