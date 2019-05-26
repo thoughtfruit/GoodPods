@@ -1,49 +1,47 @@
-	require 'nokogiri'
-	require 'open-uri'
+class ItunesWebScraper
 
-	class Itunes
-	  LETTERS = ['j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+  LETTERS = ['j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
-	  GENRES = ['podcasts-arts', 'podcasts-business', 'podcasts-comedy', 'podcasts-education', 'podcasts-games-hobbies', 'podcasts-government-organizations',
-	  'podcasts-health', 'podcasts-kids-family', 'podcasts-music', 'podcasts-news-politics', 'podcasts-religion-spirituality', 'podcasts-science-medicine',
-	  'podcasts-society-culture', 'podcasts-sports-recreation', 'podcasts-tv-film', 'podcasts-technology']
+  GENRES = ['podcasts-arts', 'podcasts-business', 'podcasts-comedy', 'podcasts-education', 'podcasts-games-hobbies', 'podcasts-government-organizations',
+            'podcasts-health', 'podcasts-kids-family', 'podcasts-music', 'podcasts-news-politics', 'podcasts-religion-spirituality', 'podcasts-science-medicine',
+            'podcasts-society-culture', 'podcasts-sports-recreation', 'podcasts-tv-film', 'podcasts-technology']
 
-	  def initialize
-	    @letter_map = LETTERS.map(&:upcase)
-	    @letter_index = 0
-	    @genre_index = 0
-	    @page = 1
-	    @doc = Nokogiri::HTML(open("https://itunes.apple.com/us/genre/#{GENRES[@genre_index]}/id1301?mt=2&letter=#{@letter_map[@letter_index]}&page=#{@page}"))
-      @cluster = Cluster.new
-      @network = Network.new
-	    parse
-	  end
+  def initialize
+    @letter_map = LETTERS.map(&:upcase)
+    @letter_index = 0
+    @genre_index = 0
+    @page = 1
+    @doc = Nokogiri::HTML(open("https://itunes.apple.com/us/genre/#{GENRES[@genre_index]}/id1301?mt=2&letter=#{@letter_map[@letter_index]}&page=#{@page}"))
+    @cluster = Cluster.new
+    @network = Network.new
+    parse
+  end
 
 
-	  def parse
-	    @page_length = @doc.css('div#selectedcontent li a').group_by(&:text).length
-      @page_length = 2
+  def parse
+    @page_length = @doc.css('div#selectedcontent li a').group_by(&:text).length
+    @page_length = 2
 
-	    # Check if there are any podcasts on this page number, for this letter
-	    if end_of_letter()
+    # Check if there are any podcasts on this page number, for this letter
+    if end_of_letter()
 
-	      # Get the link attribute for each podcast on this page, and iterate
-        @doc.css('div#selectedcontent li a').group_by { |show| begin show['href'] rescue show end}.each do |link|
-          if link
-            puts "Iterating over podcasts for genre: #{GENRES[@genre_index]} letter #{@letter_map[@letter_index]} in page #{@page}"
-            fetch_and_save(link)
+      # Get the link attribute for each podcast on this page, and iterate
+      @doc.css('div#selectedcontent li a').group_by { |show| begin show['href'] rescue show end}.each do |link|
+        if link
+          puts "Iterating over podcasts for genre: #{GENRES[@genre_index]} letter #{@letter_map[@letter_index]} in page #{@page}"
+          fetch_and_save(link)
 
-            # Check if complete with this page
-            if end_of_page()
-              # Set a new page and recurse
-              @page += 1
-              puts "Setting new page: #{@page} and continuing"
-              @doc = Nokogiri::HTML(open("https://itunes.apple.com/us/genre/#{GENRES[@genre_index]}/id1301?mt=2&letter=#{@letter_map[@letter_index]}&page=#{@page}"))
-              parse
-            end
+          # Check if complete with this page
+          if end_of_page()
+            # Set a new page and recurse
+            @page += 1
+            puts "Setting new page: #{@page} and continuing"
+            @doc = Nokogiri::HTML(open("https://itunes.apple.com/us/genre/#{GENRES[@genre_index]}/id1301?mt=2&letter=#{@letter_map[@letter_index]}&page=#{@page}"))
+            parse
           end
-	      end
-	    else
+        end
+      end
+    else
       if end_of_genre()
         # We are at the end (Z) time to set the next genre, start at a, page 1, and recurse
         @genre_index += 1

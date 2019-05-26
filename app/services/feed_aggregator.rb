@@ -1,4 +1,4 @@
-class Feed < Aggregator
+class FeedAggregator
 
   def initialize(feed_url:)
     @url ||= feed_url

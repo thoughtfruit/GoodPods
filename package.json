@@ -1,5 +1,7 @@
 {
   "name": "GoodPods",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "mosh": "^1.1.5"
+  }
 }
