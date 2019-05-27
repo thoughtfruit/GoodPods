@@ -42,7 +42,7 @@ RSpec.describe User, type: :model do
         )
 
         expect(record.valid?).to eq(true)
-        expect(user.updates.count).to eq(1)
+        expect(user.updates.size).to eq(1)
       end
     end
 
