@@ -12,7 +12,9 @@ module Api
         podcast = find_podcast_from update: params[:body]
         if podcast
           podcast.updates.create! body: params[:body], user_id: current_user.id
+          binding.pry
         else
+          binding.pry
           @update = Update.create! body: params[:body], user_id: current_user.id
         end
         render json: @update
@@ -25,8 +27,8 @@ module Api
 
       # TODO: Allow multiple podcast @ mentions per update
       def find_podcast_from(update:)
-        entry = update.split ON_PODCAST_MENTION_CHARACTER
-        Podcast.find_by(title: title) if entry and entry[1]
+        title = update.split ON_PODCAST_MENTION_CHARACTER
+        Podcast.find_by(title: title) if title and title[1]
       end
     end
   end

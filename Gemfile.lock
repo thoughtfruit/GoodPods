@@ -49,6 +49,7 @@ GEM
     arel (9.0.0)
     autoprefixer-rails (9.5.1)
       execjs
+    awesome_print (1.8.0)
     bcrypt (3.1.12)
     bindex (0.7.0)
     binding_of_caller (0.8.0)
@@ -256,6 +257,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  awesome_print
   binding_of_caller
   bootsnap (>= 1.1.0)
   bootstrap
@@ -294,4 +296,4 @@ RUBY VERSION
    ruby 2.5.3p105
 
 BUNDLED WITH
-   2.0.1
+   2.0.2

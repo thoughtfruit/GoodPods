@@ -15,6 +15,8 @@ Rails.application.routes.draw do
   resources :discover
   resources :groups
 
+  get '/podcasts/:id', to: 'api/v1/podcasts#show'
+
   namespace :api, path: '/', defaults: { format: 'json' } do
 
     # V1 API Routes

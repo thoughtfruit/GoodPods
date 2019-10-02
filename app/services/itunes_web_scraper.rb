@@ -1,6 +1,6 @@
 class ItunesWebScraper
 
-  LETTERS = ['j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
+  LETTERS = ['a', 'b', 'c', 'd', 'e', 'f', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z']
 
   GENRES = ['podcasts-arts', 'podcasts-business', 'podcasts-comedy', 'podcasts-education', 'podcasts-games-hobbies', 'podcasts-government-organizations',
             'podcasts-health', 'podcasts-kids-family', 'podcasts-music', 'podcasts-news-politics', 'podcasts-religion-spirituality', 'podcasts-science-medicine',
@@ -20,7 +20,6 @@ class ItunesWebScraper
 
   def parse
     @page_length = @doc.css('div#selectedcontent li a').group_by(&:text).length
-    @page_length = 2
 
     # Check if there are any podcasts on this page number, for this letter
     if end_of_letter()
