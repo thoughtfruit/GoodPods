@@ -3,6 +3,9 @@ module Api
     class UpdatesController < ApiController
       ON_PODCAST_MENTION_CHARACTER = "@".freeze
 
+      def timeline
+      end
+
       def index
         @updates = Update.all.order "created_at desc"
         render json: @updates
@@ -10,6 +13,7 @@ module Api
 
       def create
         podcast = find_podcast_from update: params[:body]
+        binding.pry
         if podcast
           podcast.updates.create! body: params[:body], user_id: current_user.id
         else

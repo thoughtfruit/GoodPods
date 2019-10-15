@@ -1,6 +1,6 @@
 class Podcast < ApplicationRecord
-  belongs_to :network
-  belongs_to :cluster
+  belongs_to :network, optional: true
+  belongs_to :cluster, optional: true
   has_many :genres
   has_many :updates
   has_many :user_podcast_statuses

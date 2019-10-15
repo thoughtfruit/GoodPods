@@ -20,7 +20,6 @@ class ItunesWebScraper
 
   def parse
     @page_length = @doc.css('div#selectedcontent li a').group_by(&:text).length
-    @page_length = 2
 
     # Check if there are any podcasts on this page number, for this letter
     if end_of_letter()
