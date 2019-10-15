@@ -1,12 +1,12 @@
 class DiscoverService
-  def self.sort_by_popularity podcasts
+  def self.sort_by_popularity(podcasts=nil)
     PodcastRankingService.new podcasts
   end
 end
 
 class PodcastRankingService
 
-  def initialize(podcasts=nil)
+  def initialize podcasts
     @podcasts = podcasts
     @page = 1
     @doc = Nokogiri::HTML(open("https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{@page}"))
