@@ -198,6 +198,8 @@ App.sections.discover = function() {
       )
     })
 
+    $el.children().each(function(el) { })
+
     // TODO: If it's the far right column, switch the direction of the popover
     $('.discover div').hover(function(e) {
       clearAddToLibraryFromOtherNodes()
@@ -206,6 +208,12 @@ App.sections.discover = function() {
       populateAddToLibraryWithSavedStateFor($(e.currentTarget))
       bindCheckboxClickEvent()
     })
+
+    $('.header').hover(function(e){
+      console.log('hit')
+      $(e).tooltip('show')
+    });
+
   }
 }
 
