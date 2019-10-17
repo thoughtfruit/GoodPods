@@ -1,15 +1,40 @@
-<h1>Discover Podcasts</h1>
+<div class="container" style="padding-top: 20px;">
+  <div class="discover-search">
+    <center>
+      <div>Search for anything, including topics like shows, movies, or actors.<br />Also things like board games names, former web series, etc.</div>
+      <br />
+      <input type="search" class="discover-search-input" />
+    </center>
+  </div>
 
-<ul>
+  <div class="podcasts-grid">
+    <h2 class="page-header">Selected Podcasts</h2>
+    <% @podcasts.order("ranking asc").each do |podcast| %>
+      <div style="float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="125"/></a></div>
+    <% end %>
+  </div>
 
-  <% @podcasts.each do |podcast| %>
+  <div class="clearfix"></div>
 
-    <li>
-      <a href="/podcasts/<%= podcast.id %>.html">
-        <%= podcast.title %>
-      </a>
-    </li>
+  <hr />
 
-  <% end %>
+  <div class="podcasts-categories">
+    <h2 class="page-header">Categories</h2>
+  </div>
 
-</ul>
+  <hr />
+
+  <div class="all-podcasts-text">
+    <h2 class="page-header">All Podcasts</h2>
+    <ul>
+      <% @podcasts.each do |podcast| %>
+        <li>
+          <a href="/podcasts/<%= podcast.id %>.html">
+            <%= podcast.title %>
+          </a>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+
+</div>

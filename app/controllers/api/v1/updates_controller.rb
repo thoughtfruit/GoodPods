@@ -12,9 +12,7 @@ module Api
         podcast = find_podcast_from update: params[:body]
         if podcast
           podcast.updates.create! body: params[:body], user_id: current_user.id
-          binding.pry
         else
-          binding.pry
           @update = Update.create! body: params[:body], user_id: current_user.id
         end
         render json: @update

@@ -10,12 +10,27 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_18_234722) do
+ActiveRecord::Schema.define(version: 2019_10_17_010833) do
 
   create_table "clusters", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "episodes", force: :cascade do |t|
+    t.string "episode"
+    t.integer "podcast_id"
+    t.string "title"
+    t.text "description"
+    t.boolean "published"
+    t.string "episode_number"
+    t.text "streaming_url"
+    t.date "published_at"
+    t.text "tags"
+    t.integer "tier_required"
+    t.text "guid"
+    t.index ["podcast_id"], name: "index_episodes_on_podcast_id"
   end
 
   create_table "genres", force: :cascade do |t|
@@ -65,6 +80,9 @@ ActiveRecord::Schema.define(version: 2019_09_18_234722) do
     t.datetime "updated_at", null: false
     t.string "logo_url"
     t.integer "ranking"
+    t.text "bio"
+    t.text "genre"
+    t.text "logo_url_large"
     t.index ["cluster_id"], name: "index_podcasts_on_cluster_id"
     t.index ["network_id"], name: "index_podcasts_on_network_id"
   end

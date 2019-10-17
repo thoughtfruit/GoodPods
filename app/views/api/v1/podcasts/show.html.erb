@@ -1,15 +1,38 @@
 <div class="container">
-  <h2><%= @podcast.title %></h2>
-  <img src="<%= @podcast.logo_url %>" width="250"/>
+  <div class="podcasts-page-left-side">
+    <h2><%= @podcast.title %></h2>
+    <img src="<%= @podcast.logo_url_large %>" width="325"/>
+    <div class="podcast-page-bio"><%= @podcast.bio.try(:html_safe) %></div>
 
-  <h1>Relevant Updates</h1>
-  <% @updates.each do |update| %>
-    <div class="individual-update">
-      <%= update.body %>
-      | By <a href="/profiles/<%= update.user_id %>"><%= update.email %></a>
+
+    <h1>Community Stats</h1>
+    This podcast is on <%= @podcast.try(:list_count) %> lists
+
+    <% if @updates.any? %>
+      <h1>Public Updates from Users</h1>
+      <% @updates.each do |update| %>
+        <div class="individual-update">
+          <%= update.try(:body) %>
+          | By <a href="/profiles/<%= update.try(:user_id) %>"><%= update.try(:email) %></a>
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="podcasts-page-right-side">
+    <div class="podcast-page-episodes">
+      <div style="overflow: hidden;">
+        <div class="pull-left"><h2>Episodes</h2> </div>
+      </div>
+      <% @podcast.episodes.each do |episode| %>
+        <div class="episode" style="border: 1px #aaa solid;
+            padding: 10px;margin-bottom:10px;">
+          <div style="text-align: left; text-align: left; font-size: 14px; margin-bottom: 4px; font-weight: bold;"><%= episode.try(:title) %></div>
+          <div class="episode-description" style="font-size: 11px;margin-bottom: 8px;"><%= episode.description.try(:html_safe) %></div>
+          <audio src="<%= episode.try(:streaming_url) %>" preload="none" />
+        </div>
+      <% end %>
     </div>
-  <% end %>
 
-  <h1>Community Stats</h1>
-  This podcast is on <%= @podcast.list_count %> lists
+  </div>
 </div>

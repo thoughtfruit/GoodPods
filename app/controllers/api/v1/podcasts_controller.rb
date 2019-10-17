@@ -4,7 +4,7 @@ module Api
       respond_to :html, :json
 
       def index
-        @podcasts = Podcast.all.where.not(logo_url: nil).take 100
+        @podcasts = Podcast.all.where.not(logo_url: nil)
         render json: @podcasts
       end
 

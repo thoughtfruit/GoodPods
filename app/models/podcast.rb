@@ -1,6 +1,8 @@
 class Podcast < ApplicationRecord
   belongs_to :network
   belongs_to :cluster
+
+  has_many :episodes
   has_many :genres
   has_many :updates
   has_many :user_podcast_statuses
@@ -11,4 +13,5 @@ class Podcast < ApplicationRecord
   def list_count
     @_list_count ||= UserPodcastStatus.where(podcast_id: self.id).size
   end
+
 end

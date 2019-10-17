@@ -1,59 +1,71 @@
 <div class="homepage">
 
-  <section class="left-column">
-    <div class="header">DISCOVER <i class="more-info" data-toggle="tooltip" data-placement="top">i</i></div>
-    <article class="discover" style="margin: 0 auto;width: 330px;">
-      Loading podcasts you will like...
-    </article>
-    <article class="add-to-library hidden">
-      <input type="checkbox" name="to-listen" id="to-listen" />
-      <label for="to-listen" id="to-listen">
-        Add to To Listen...
-      </label>
-      <input type="checkbox" name="listening" id="listening" />
-      <label for="listening" id="listening">
-        Add to Listening...
-      </label>
-      <input type="checkbox" name="listened" id="listened" />
-      <label for="listened" id="listened">
-        Add to Listened...
-      </label>
-    </article>
-  </section>
-
-  <section class="right-column">
-    <section class="my-lists">
-      <div class="header">MY LISTS <i class="more-info">i</i></div>
-      <h3>To Listen</h3>
-      <article class="to-listen">
-        Loading To Listen list...
+  <div class="inner-homepage">
+    <section class="left-column">
+      <div class="header">DISCOVER <i class="more-info" data-toggle="tooltip" data-placement="top">i</i></div>
+      <select class="homepage-genre-switcher">
+        <option default=true>Loading Categories...</option>
+      </select>
+      <article class="discover" style="position: relative; top: -15px; margin: 0 auto;width: 330px;">
+        Loading podcasts you will like...
       </article>
-      <h3>Listening</h3>
-      <article class="listening">
-        Loading listening history...
-      </article>
-      <h3>Listened</h3>
-      <article class="listened">
-        Loading listened...
+      <article class="add-to-library hidden">
+        <div class="podcast-title"></div>
+        <div class="podcast-bio"></div>
+        <br />
+        <input type="checkbox" name="to-listen" id="to-listen" />
+        <label for="to-listen" id="to-listen">
+          Add to To Listen...
+        </label>
+        <br />
+        <input type="checkbox" name="listening" id="listening" />
+        <label for="listening" id="listening">
+          Add to Listening...
+        </label>
+        <br />
+        <input type="checkbox" name="listened" id="listened" />
+        <label for="listened" id="listened">
+          Add to Listened...
+        </label>
       </article>
     </section>
-  </section>
 
-  <section class="center-column discover-column" style="">
-    <article class="updates">
-      <div class="header">MY UPDATES <i class="more-info">i</i></div>
-      <br />
-      <div class="post-an-update" style="position: relative">
-        <textarea name="" id=""></textarea>
-        <input type="submit" name="" id="update-post" value="Post" />
-        <div class="typeahead-dropdown hidden">
+    <section class="center-column column">
+      <article class="updates">
+        <div class="header">UPDATES <i class="js-post-an-update">post update</i></div>
+        <div class="hidden" id="hidden-poster-for-updates">
+          <div class="post-an-update" style="position: relative">
+            <textarea name="" id=""></textarea>
+            <input type="submit" name="" id="update-post" value="Post" />
+            <div class="typeahead-dropdown hidden">
+            </div>
+          </div>
         </div>
-      </div>
-      <div class="clearfix"></div>
-      <div class="updates-body">
-        Loading updates...
-      </div>
-    </article>
-  </section>
+        <div class="clearfix"></div>
+        <div class="updates-body">
+          Loading updates...
+        </div>
+      </article>
+    </section>
 
-</div>
+    <section class="right-column">
+      <section class="my-lists">
+        <div class="header">LIBRARY <i class="more-info">i</i></div>
+        <h3 style="margin-top:-5px;">To Listen</h3>
+        <article class="to-listen">
+          Loading To Listen list...
+        </article>
+        <h3>Listening</h3>
+        <article class="listening">
+          Loading listening history...
+        </article>
+        <h3>Listened</h3>
+        <article class="listened">
+          Loading listened...
+        </article>
+      </section>
+    </section>
+
+  </div><!-- /inner-homepage -->
+
+</div><!-- /homepage -->

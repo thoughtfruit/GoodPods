@@ -10,6 +10,8 @@ group :production do
 end
 
 gem 'awesome_print'
+gem 'fastercsv' # Only required on Ruby 1.8 and below
+gem 'rails_admin', :git => 'git://github.com/sferik/rails_admin.git'
 gem 'puma', '~> 3.11'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
@@ -27,6 +29,7 @@ gem 'pry'
 gem 'honeybadger', '~> 4.0'
 gem 'nokogiri'
 gem 'httparty'
+gem 'audiojs-rails'
 
 group :development, :test do
   gem 'sqlite3'

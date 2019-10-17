@@ -6,4 +6,5 @@ class Update < ApplicationRecord
   def email
     self.user.email
   end
+
 end
