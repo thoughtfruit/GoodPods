@@ -1,13 +1,23 @@
 class DiscoverService
+<<<<<<< HEAD
   def self.start!
     DiscoverRankedPodcasts.new
+=======
+  def self.sort_by_popularity(podcasts=nil)
+    PodcastRankingService.new podcasts
+>>>>>>> 1392ca6b52d4e5360b8677fb1273e9ac8e453bc4
   end
 end
 
 class DiscoverRankedPodcasts
 
+<<<<<<< HEAD
   def initialize
     @podcasts = Podcast.all
+=======
+  def initialize podcasts
+    @podcasts = podcasts
+>>>>>>> 1392ca6b52d4e5360b8677fb1273e9ac8e453bc4
     @page = 1
     urls.each do |url|
       discover url
