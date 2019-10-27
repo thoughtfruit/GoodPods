@@ -10,6 +10,8 @@ namespace :one_offs do
 
   task :import_venture_capitalist_shows => :environment do
     Podcast.import_from_search('venture podcast')
+    Podcast.import_from_search('web development podcast')
+    Podcast.import_from_search('angel podcast')
   end
 
   task :re_ingest_small_logos => :environment do

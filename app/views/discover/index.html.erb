@@ -14,7 +14,7 @@
   <div class="podcasts-grid">
     <h2 class="page-header">Selected Podcasts</h2>
     <% @podcasts.order("ranking asc").each do |podcast| %>
-      <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url %>" width="75"/></a></div>
+      <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="100"/></a></div>
     <% end %>
   </div>
   <article class="add-to-library hidden" style="top: 135px;">
