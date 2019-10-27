@@ -321,3 +321,9 @@ font-size: 12px;}
 }
 .audiojs {
 width: 435px;}
+
+.podcasts-grid { margin-top: -40px;}
+
+.episode {
+  width: 600px;
+}

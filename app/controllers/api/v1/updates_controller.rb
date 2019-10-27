@@ -7,13 +7,12 @@ module Api
       end
 
       def index
-        @updates = Update.all.order "created_at desc"
+        @updates = Update.most_recent_first
         render json: @updates
       end
 
       def create
         podcast = find_podcast_from update: params[:body]
-        binding.pry
         if podcast
           podcast.updates.create! body: params[:body], user_id: current_user.id
         else

@@ -7,4 +7,8 @@ class Update < ApplicationRecord
     self.user.email
   end
 
+  def self.most_recent_first
+    Update.all.order("created_at desc")
+  end
+
 end

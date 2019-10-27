@@ -9,14 +9,13 @@ class DiscoverRankedPodcasts
   def initialize
     @podcasts = Podcast.all
     @page = 1
-    urls.each do |url|
-      discover url
-    end
+    discover
   end
 
-  def discover url
-    @doc = Nokogiri::HTML(open(url))
+  def discover
+    @doc = Nokogiri::HTML(open("https://chartable.com/charts/spotify/united-states-of-america-comedy?page=#{@page}"))
     @page_length = @doc.css("div.title").group_by(&:text).length
+    puts "Starting"
 
     if @page_length > 1
 
@@ -27,6 +26,8 @@ class DiscoverRankedPodcasts
           podcast_ranking = ranking_algo podcast
           podcast = Podcast.find_by(title: title_from_chart)
 
+          puts "starting in earnest"
+          
           if podcast
             # podcast.update! ranking: podcast_ranking
             # t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title}").body
@@ -34,6 +35,7 @@ class DiscoverRankedPodcasts
             # podcast.update! genre: t['results'][0]['genres'][0]
             # podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
           else
+
             podcast = Podcast.create!(
               title: title_from_chart,
               ranking: podcast_ranking,
@@ -52,20 +54,16 @@ class DiscoverRankedPodcasts
             bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
             bio = bio.strip
             podcast.update! bio: bio
-
             PodcastEpisodesIngestionService.new(podcast: podcast)
+            puts "Saved episodes and pod"
           end
         end
         @page_length -= 1
       rescue
       end
     end
-    # @page += 1
-    # recurse url
-  end
-
-  def recurse url
-    discover url
+    @page += 1
+    discover
   end
 
   private

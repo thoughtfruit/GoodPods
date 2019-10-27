@@ -15,6 +15,7 @@ Rails.application.routes.draw do
   resources :profiles
   resources :discover
   resources :groups
+  resources :updates
 
   get '/podcasts/:id', to: 'api/v1/podcasts#show'
 

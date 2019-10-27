@@ -1,18 +1,41 @@
 <div class="container" style="padding-top: 20px;">
   <div class="discover-search">
     <center>
-      <div>Search for anything, including topics like shows, movies, or actors.<br />Also things like board games names, former web series, etc.</div>
-      <br />
+      <h4 style="text-transform: uppercase;">Search for Podcasts</h4>
       <input type="search" class="discover-search-input" />
+      <i style="font-size: 12px; display: block;">(this will search itunes and add to GoodPods automatically)</i>
     </center>
   </div>
+
+  <div class="clearfix"></div>
+
+  <hr />
 
   <div class="podcasts-grid">
     <h2 class="page-header">Selected Podcasts</h2>
     <% @podcasts.order("ranking asc").each do |podcast| %>
-      <div style="float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="125"/></a></div>
+      <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url %>" width="75"/></a></div>
     <% end %>
   </div>
+  <article class="add-to-library hidden" style="top: 135px;">
+    <div class="podcast-title"></div>
+    <div class="podcast-bio"></div>
+    <br />
+    <input type="checkbox" name="to-listen" id="to-listen" />
+    <label for="to-listen" id="to-listen">
+      Add to To Listen...
+    </label>
+    <br />
+    <input type="checkbox" name="listening" id="listening" />
+    <label for="listening" id="listening">
+      Add to Listening...
+    </label>
+    <br />
+    <input type="checkbox" name="listened" id="listened" />
+    <label for="listened" id="listened">
+      Add to Listened...
+    </label>
+  </article>
 
   <div class="clearfix"></div>
 
@@ -20,14 +43,26 @@
 
   <div class="podcasts-categories">
     <h2 class="page-header">Categories</h2>
+    <ul>
+      <% @podcasts.group_by(&:genre).each do |podcast| %>
+        <li><strong><%= podcast[0] %></strong>
+          <ul>
+            <% podcast[1].each do |pod| %>
+              <li><a href="/podcasts/<%= pod.id %>.html"><%= pod.title %></a>
+              </li>
+            <% end %>
+          </ul>
+        </li>
+      <% end %>
+    </ul>
   </div>
 
   <hr />
 
   <div class="all-podcasts-text">
-    <h2 class="page-header">All Podcasts</h2>
+    <h2 class="page-header">All Podcasts in Alphabetical Order</h2>
     <ul>
-      <% @podcasts.each do |podcast| %>
+      <% @podcasts.order('title asc').each do |podcast| %>
         <li>
           <a href="/podcasts/<%= podcast.id %>.html">
             <%= podcast.title %>
@@ -38,3 +73,4 @@
   </div>
 
 </div>
+

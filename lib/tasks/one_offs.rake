@@ -1,5 +1,17 @@
 namespace :one_offs do
 
+  task :import_relayfm_shows => :environment do
+    Podcast.import_from_search('relayfm')
+  end
+
+  task :import_earwolf_shows => :environment do
+    Podcast.import_from_search('earwolf')
+  end
+
+  task :import_venture_capitalist_shows => :environment do
+    Podcast.import_from_search('venture podcast')
+  end
+
   task :re_ingest_small_logos => :environment do
     Podcast.all.each do |podcast|
       begin
@@ -39,7 +51,7 @@ namespace :one_offs do
           t = JSON.parse(t)
           if t['results'][0]['feedUrl']
             @feed_xml = Nokogiri::XML(open(t['results'][0]['feedUrl']))
-            bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
+            bis = @feed_xml.at('rss').at('channel').at('description').inner_html()
             bio = bio.strip
             podcast.update! bio: bio
             puts "Updated #{podcast.title} bio with feed description".red

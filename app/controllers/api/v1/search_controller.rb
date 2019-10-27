@@ -2,7 +2,7 @@ module Api
   module V1
     class SearchController < ApiController
       def search
-        @podcasts = Podcast.where("title LIKE ?", "#{params[:s]}%")
+        @podcasts = Podcast.search_by_title(params[:s])
         render json: @podcasts
       end
     end
