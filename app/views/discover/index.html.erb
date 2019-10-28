@@ -9,39 +9,40 @@
 
   <div class="clearfix"></div>
 
-  <hr />
+  <br />
 
   <div class="podcasts-grid">
-    <h2 class="page-header">Selected Podcasts</h2>
+    <h2 class="page-header">All The Great Shows</h2>
     <% @podcasts.order("ranking asc").each do |podcast| %>
       <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="100"/></a></div>
     <% end %>
+    <article class="add-to-library hidden" style="top: 135px;">
+      <div class="podcast-title"></div>
+      <div class="podcast-bio"></div>
+      <br />
+      <input type="checkbox" name="to-listen" id="to-listen" />
+      <label for="to-listen" id="to-listen">
+        Add to To Listen...
+      </label>
+      <br />
+      <input type="checkbox" name="listening" id="listening" />
+      <label for="listening" id="listening">
+        Add to Listening...
+      </label>
+      <br />
+      <input type="checkbox" name="listened" id="listened" />
+      <label for="listened" id="listened">
+        Add to Listened...
+      </label>
+    </article>
   </div>
-  <article class="add-to-library hidden" style="top: 135px;">
-    <div class="podcast-title"></div>
-    <div class="podcast-bio"></div>
-    <br />
-    <input type="checkbox" name="to-listen" id="to-listen" />
-    <label for="to-listen" id="to-listen">
-      Add to To Listen...
-    </label>
-    <br />
-    <input type="checkbox" name="listening" id="listening" />
-    <label for="listening" id="listening">
-      Add to Listening...
-    </label>
-    <br />
-    <input type="checkbox" name="listened" id="listened" />
-    <label for="listened" id="listened">
-      Add to Listened...
-    </label>
-  </article>
+
 
   <div class="clearfix"></div>
 
   <hr />
 
-  <div class="podcasts-categories">
+  <div class="podcast-categories">
     <h2 class="page-header">Categories</h2>
     <ul>
       <% @podcasts.group_by(&:genre).each do |podcast| %>
@@ -60,13 +61,16 @@
   <hr />
 
   <div class="all-podcasts-text">
-    <h2 class="page-header">All Podcasts in Alphabetical Order</h2>
+    <h2 class="page-header">All Podcasts in Alphabetical Order w/Bio</h2>
     <ul>
       <% @podcasts.order('title asc').each do |podcast| %>
         <li>
           <a href="/podcasts/<%= podcast.id %>.html">
             <%= podcast.title %>
           </a>
+          <ul>
+            <li><%= podcast.bio.try(:html_safe) %>
+          </ul>
         </li>
       <% end %>
     </ul>

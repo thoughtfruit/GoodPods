@@ -95,7 +95,7 @@ function userIsAddingToLibrary(e) {
 function savePodcastToLibraryInStatus(e) {
   $.ajax({
     type: 'post',
-    url: '/v1/my_library' + App.clientId + '&podcast_id=' + $(e.currentTarget).parent().parent().attr('data-pod-id') + '&save_to_list=' + $(e.currentTarget).attr('id'),
+    url: '/v1/my_library' + App.clientId + '&podcast_id=' + getPodcastId(e) + '&save_to_list=' + $(e.currentTarget).attr('id'),
     success: (data) => {
       console.log('no-op - saved to my library')
     }, error: () => {
@@ -108,7 +108,7 @@ function savePodcastToLibraryInStatus(e) {
 function removePodcastFromLibraryInStatus(e) {
   $.ajax({
     type: 'get',
-    url: '/v1/remove_from_my_library' + App.clientId + '&podcast_id=' + $(e.currentTarget).parent().parent().attr('data-pod-id') + '&list=' + $(e.currentTarget).attr('id'),
+    url: '/v1/remove_from_my_library' + App.clientId + '&podcast_id=' + getPodcastId(e) + '&list=' + $(e.currentTarget).attr('id'),
     success: function(data) {
       // TODO: Update UI to reflect this delete by unchecking boxes before a reload
     }
@@ -117,4 +117,8 @@ function removePodcastFromLibraryInStatus(e) {
 
 function userIsRemovingFromLibrary(e) {
   return $(e.currentTarget).prop('checked') === false
+}
+
+function getPodcastId(e) {
+  return $(e.currentTarget).parent().parent().parent().attr('data-pod-id')
 }

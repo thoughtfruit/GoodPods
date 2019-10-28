@@ -1,7 +1,15 @@
 App.sections.myListening = function() {
   $el = $('.my-lists')
 
-  fetch()
+  initialize()
+
+  function initialize() {
+    launchHomepageWidget()
+  }
+
+  function launchHomepageWidget() {
+    fetch()
+  }
 
   function fetch() {
     $.ajax({
@@ -12,88 +20,54 @@ App.sections.myListening = function() {
     })
   }
 
-  // TODO: Convert this to be dynamically assigned
   function renderMyListsWith(data) {
     data.forEach(user_podcast_status => {
       if (user_podcast_status.status == "to-listen") {
-        renderToListen(user_podcast_status)
+        var $elToRenderOn  = $('.my-lists .to-listen')
+        var elToBindHover = '.to-listen div'
+        render(user_podcast_status, $elToRenderOn, elToBindHover)
       } else if (user_podcast_status.status == 'listening') {
-        renderListening(user_podcast_status)
+        var $elToRenderOn  = $('.my-lists .listening')
+        var elToBindHover = '.listening div'
+        render(user_podcast_status, $elToRenderOn, elToBindHover)
       } else if (user_podcast_status.status == 'listened') {
-        renderListened(user_podcast_status)
+        var $elToRenderOn  = $('.my-lists .listened')
+        var elToBindHover = '.listened div'
+        render(user_podcast_status, $elToRenderOn, elToBindHover)
       }
     })
   }
 
-  function renderToListen(user_podcast_status ) {
-    // TODO: Extract to clearDom('.dom-to-clear')
-    $('.my-lists .to-listen').html('')
+  function render(user_podcast_status, $elToRenderOn, elToBindHover) {
+    $elToRenderOn.html('')
     $.ajax({
       url: '/v1/podcasts/' + user_podcast_status.podcast_id + App.clientId,
       success: function(podcast) {
-        $('.my-lists .to-listen').append(
-          "<div data-pod-bio='" + escape(podcast.bio) + "'data-pod-title='" + podcast.title + "'data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
+        $elToRenderOn.append(
+          renderPodcast(podcast)
         )
-
-        $('.to-listen div').hover(function(e) {
-          $('.add-to-library').css('left', 'auto')
-          $('.add-to-library').css('right', '5px')
-          clearAddToLibraryFromOtherNodes()
-          appendAddToLibraryToCurrentNode(e)
-          unhideAddToLibrary()
-          populateAddToLibraryWithSavedStateFor($(e.currentTarget))
-          bindCheckboxClickEvent()
-        }, function() {
-          $('.add-to-library').addClass('hidden')
-        })
+        $elToBindHover = $(elToBindHover)
+        initHoverBinding($elToBindHover)
       }
     })
   }
 
-  function renderListening(user_podcast_status) {
-    $('.my-lists .listening').html('')
-    $.ajax({
-      url: '/v1/podcasts/' + user_podcast_status.podcast_id + App.clientId,
-      success: function(podcast) {
-        $('.my-lists .listening').append(
-          "<div data-pod-bio='" + escape(podcast.bio) + "data-pod-title='" + podcast.title + "'data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
-        )
-        $('.listening div').hover(function(e) {
-          $('.add-to-library').css('left', 'auto')
-          $('.add-to-library').css('right', '0pxl')
-          clearAddToLibraryFromOtherNodes()
-          appendAddToLibraryToCurrentNode(e)
-          unhideAddToLibrary()
-          populateAddToLibraryWithSavedStateFor($(e.currentTarget))
-          bindCheckboxClickEvent()
-        }, function() {
-          $('.add-to-library').addClass('hidden')
-        })
-      }
+  function initHoverBinding($elToBindHover) {
+    $elToBindHover.hover(function(e) {
+      $('.add-to-library').css('left', 'auto')
+      $('.add-to-library').css('right', '5px')
+      clearAddToLibraryFromOtherNodes()
+      appendAddToLibraryToCurrentNode(e)
+      unhideAddToLibrary()
+      populateAddToLibraryWithSavedStateFor($(e.currentTarget))
+      bindCheckboxClickEvent()
+    }, function() {
+      $('.add-to-library').addClass('hidden')
     })
   }
 
-  function renderListened(user_podcast_status) {
-    $('.my-lists .listened').html('')
-    $.ajax({
-      url: '/v1/podcasts/' + user_podcast_status.podcast_id + App.clientId,
-      success: function(podcast) {
-        $('.my-lists .listened').append(
-          "<div data-pod-bio='" + escape(podcast.bio) + "'data-pod-title='" + podcast.title + "'data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></div>"
-        )
-        $('.listened div').hover(function(e) {
-          $('.add-to-library').css('left', 'auto')
-          $('.add-to-library').css('right', '0px')
-          clearAddToLibraryFromOtherNodes()
-          appendAddToLibraryToCurrentNode(e)
-          unhideAddToLibrary()
-          populateAddToLibraryWithSavedStateFor($(e.currentTarget))
-          bindCheckboxClickEvent()
-        }, function() {
-          $('.add-to-library').addClass('hidden')
-        })
-      }
-    })
+  function renderPodcast(podcast) {
+    return "<div data-pod-bio='" + escape(podcast.bio) + "'data-pod-title='" + podcast.title + "'data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><a href='/podcasts/"+podcast.id+".html'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></a></div>"
   }
 }
 

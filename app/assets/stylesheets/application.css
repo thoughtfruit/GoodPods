@@ -11,34 +11,45 @@
  * It is generally better to create a new file per style scope.
  *
  *= require bootstrap
+ *= require material_icons
  *= require_tree .
  *= require_self
  */
 
+/* ICONS HERE: */
+/* https://material.io/resources/icons/?style=baseline * /
+
 html, body { font-family: Helvetica, Arial, sans-serif; outline: 0; outline: none; color: #333; background: rgba(244,241,234,0.5);}
 /*section { border: 1px #000 solid; }*/
 
+* { outline: 0; outline: none; }
+*
 body {
   font-family: Helvetica, Arial, sans-serif;
   outline: 0;
   outline: none;
   color: #333;
-  background: rgba(244,241,234,0.8);
+  background: #f5e8cb;
 }
+
 body:focus { outline: none; outline: 0;}
 
 .left-column {  
   float: left;
   padding: 0;
   width: 26%;
+  background: rgba(244,241,234,0.8);
 }
 .center-column { 
-  margin: 0 auto; width: 47%; max-width: 650px;  }
+  margin: 0 auto; width: 47%; max-width: 650px;
+  background: rgba(244,241,234,0.8);
+}
 
 .right-column { 
   float: right; 
   width: 25%; 
   padding: 10px;
+  background: rgba(244,241,234,0.8);
 }
 
 
@@ -78,6 +89,8 @@ body:focus { outline: none; outline: 0;}
 }
 
 .post-an-update {
+  margin: 0 auto;
+  width:78%;
   clear: both;
 }
 .show { display: block }
@@ -86,7 +99,7 @@ body:focus { outline: none; outline: 0;}
 .post-an-update > textarea { 
   outline: 0; 
   border-radius: 5px;
-  width: 80%;
+  width: 100%;
   margin-left: 10px;
   padding: 10px;
   font-size: 14px;
@@ -105,7 +118,7 @@ body:focus { outline: none; outline: 0;}
   border: 0;
   outline: 0;
   cursor: hand;
-  width: 80%;
+  width: 100%;
   cursor: pointer;
 }
 
@@ -141,7 +154,6 @@ article.add-to-library {
   width: 500px;
   background: rgb(243, 227, 179);
   padding: 20px;
-  border-radius: 25px;
   position: absolute;
   z-index: 999;
   top: 70px;
@@ -208,11 +220,11 @@ font-size: 12px;}
 
 .podcasts-page-left-side {
   height: 100%;
-  width: 30%;
+  width: 53%;
   overflow-x: hidden;
   overflow-y: scroll;
   float: left;
-  background: #f5e8cb;
+  background: rgba(244,241,234,0.8);
   padding: 10px;
   border-radius: 5px;
   margin-right: 10px;
@@ -227,8 +239,8 @@ font-size: 12px;}
 }
 
 .podcasts-page-right-side {
-  width: 68%;
-  background: #f5e8cb;
+  width: 45%;
+  background: rgba(244,241,234,0.8);
   float: right;
   padding: 10px;
   border-radius: 5px;
@@ -237,8 +249,11 @@ font-size: 12px;}
 .podcast-page-bio {
   text-align: justify;
   display: block;
-  margin-top: 10px;
   font-size: 15px;
+  width: 1010px;
+  float: left;
+  width: 500px;
+  margin-top: -5px; 
 }
 
 .alert {
@@ -275,7 +290,7 @@ font-size: 12px;}
 
 .navbar-inner {
   width: 1220px;
-    margin: 0 auto
+  margin: 0 auto
 }
 
 .container { 
@@ -296,7 +311,7 @@ font-size: 12px;}
 }
 
 .podcasts-grid {
-  margin-top: 10px;
+  margin-top: 20px;
 }
 
 .podcasts-grid img {
@@ -304,6 +319,13 @@ font-size: 12px;}
   border-radius: 5px;
 }
 
+.discover-search {
+  background: rgba(244,241,234,0.8);
+  width: 55%;
+  padding: 10px;
+  border-radius: 20px;
+  margin: 0 auto;
+}
 .discover-search-input {
   outline: 0;
   font-size: 20px;
@@ -322,8 +344,50 @@ font-size: 12px;}
 .audiojs {
 width: 435px;}
 
-.podcasts-grid { margin-top: -40px;}
+.podcasts-grid { margin-top: -40px;
+  background: rgba(244,241,234,0.8);
+  overflow: hidden;
+  margin-top: 5px;
+  border-radius: 20px;
+  padding-left: 30px;
+}
 
 .episode {
   width: 600px;
+}
+.button-pg {
+  border: 1px #000 solid;
+  border-radius: 10px;
+  padding: 10px;
+  text-transform: uppercase;
+  font-weight: bold;
+  margin: 5px;
+  box-shadow: 3px 5px 0 #000;
+  cursor: pointer;
+}
+.pod-top {
+  overflow: hidden;
+  clear: both;
+  width: 1000px;
+  margin: 0 auto;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  padding: 0 20px 11px 20px;
+  border-radius: 5px;
+  background: rgba(244,241,234,0.8);
+}
+
+.updates-body {
+  margin: 0 auto;
+  width: 80%
+}
+.podcast-categories {
+  background: rgba(244,241,234,0.8);
+  overflow: hidden;
+  padding-left: 30px;
+}
+
+.all-podcasts-text {
+  background: rgba(244,241,234,0.8);
+  overflow: hidden;
 }

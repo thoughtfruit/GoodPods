@@ -1,36 +1,72 @@
 <div class="container">
-  <div class="podcasts-page-left-side">
+  <div class="pod-top" style="
+  ">
     <h2><%= @podcast.title %></h2>
-    <img src="<%= @podcast.logo_url_large %>" width="325"/>
-    <div class="podcast-page-bio"><%= @podcast.bio.try(:html_safe) %></div>
+    <div style="float: left;margin-right: 25px; width: 326px;">   
+      <img src="<%= @podcast.logo_url_large %>" width="325"/>
+      <div style="text-align: left; margin-top: 5px;">
+        <i class="material-icons md-36">rss_feed</i>
+      </div>
+    </div>
 
+    <div class="podcast-page-bio"><%= @podcast.bio.try(:html_safe) %>
 
-    <h1>Community Stats</h1>
-    This podcast is on <%= @podcast.try(:list_count) %> lists
+    <hr style="border: 0.5px #aaa solid;"/> 
 
+    <div class="actions" style="float: left;overflow:hidden;margin-bottom:15px;">
+      <div class="button-pg pull-left">Subscribe <i class="material-icons md-48">add</i></div>
+      <div class="button-pg pull-left">play top<i class="material-icons md-48">play_arrow</i></div>
+      <div class="button-pg pull-left">Share <i class="material-icons md-48">add</i></div>
+      <div class="button-pg pull-left">Create Review <i class="material-icons md-48">add</i></div>
+      <div class="button-pg pull-left">Add to Library <i class="material-icons md-48">add</i></div>
+    </div>
+
+    </div>
+
+  </div>
+
+  <div class="podcasts-page-left-side">
+
+    <h5>Stats</h5>
+    <%= UserPodcastStatus.where(podcast_id: @podcast.id).map(&:user_id).compact.count %> people are litening now
+    <br />
+    <%= @podcast.try(:list_count) %> people want to listen<br />
+    <%= @podcast.try(:list_count) %> people have listened
+
+    <hr style="border: 0.5px #aaa solid;"/>
+    <h5>Reviews</h5>
     <% if @updates.any? %>
-      <h1>Public Updates from Users</h1>
       <% @updates.each do |update| %>
         <div class="individual-update">
           <%= update.try(:body) %>
           | By <a href="/profiles/<%= update.try(:user_id) %>"><%= update.try(:email) %></a>
         </div>
       <% end %>
+    <% else %>
+      There are no reviews for this podcast. <a href="">Create one</a>!
     <% end %>
   </div>
 
   <div class="podcasts-page-right-side">
     <div class="podcast-page-episodes">
       <div style="overflow: hidden;">
-        <div class="pull-left"><h2>Episodes</h2> </div>
+        <h5 style="float: left;">Episodes</h5>
+        <select class="js-description" style="float: left; border: 0.5px #aaa solid;background: #aaa;font-size:11px;position:relative;top:9px;left:5px;outline:0;">
+          <option value="0">No description</option>
+          <option value="1">With description</option>
+        </select>
       </div>
       <% @podcast.episodes.each do |episode| %>
-        <div class="episode" style="border: 1px #aaa solid;
-            padding: 10px;margin-bottom:10px;">
+        <div class="episode" style="    margin: 0 auto;
+            padding: 10px;
+                margin-bottom: 10px;
+                    width: 460px;
+                    ">
           <div style="text-align: left; text-align: left; font-size: 14px; margin-bottom: 4px; font-weight: bold;"><%= episode.try(:title) %></div>
-          <div class="episode-description" style="font-size: 13px;margin-bottom: 8px;"><%= episode.description.try(:html_safe) %></div>
+          <div class="hidden episode-description" style="font-size: 13px;margin-bottom: 8px;"><%= episode.description.try(:html_safe) %></div>
           <audio src="<%= episode.try(:streaming_url) %>" preload="none" />
         </div>
+        <hr  style="border: 0.5px #aaa solid;"/>
       <% end %>
     </div>
 
