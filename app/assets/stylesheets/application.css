@@ -326,12 +326,14 @@ font-size: 12px;}
   border-radius: 20px;
   margin: 0 auto;
 }
+
 .discover-search-input {
   outline: 0;
   font-size: 20px;
   width: 50%;
   padding: 5px;
 }
+
 .audiojs .play-pause {
   width: 25px;
   height: 40px;
@@ -341,8 +343,10 @@ font-size: 12px;}
   overflow: hidden;
   border-right: 1px solid #000;
 }
+
 .audiojs {
-width: 435px;}
+width: 435px;
+}
 
 .podcasts-grid { margin-top: -40px;
   background: rgba(244,241,234,0.8);
@@ -355,6 +359,7 @@ width: 435px;}
 .episode {
   width: 600px;
 }
+
 .button-pg {
   border: 1px #000 solid;
   border-radius: 10px;
@@ -365,6 +370,7 @@ width: 435px;}
   box-shadow: 3px 5px 0 #000;
   cursor: pointer;
 }
+
 .pod-top {
   overflow: hidden;
   clear: both;
@@ -390,4 +396,10 @@ width: 435px;}
 .all-podcasts-text {
   background: rgba(244,241,234,0.8);
   overflow: hidden;
+}
+
+.login-container { 
+  float: right;
+  text-align: left;
+  padding: 25px;
 }
