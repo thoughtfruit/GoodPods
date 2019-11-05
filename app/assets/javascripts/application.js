@@ -32,6 +32,13 @@
 $(document).ready(() => {
   App.initialize()
 
+  $('#js-podcast-sort').change((e) => {
+    console.log('hit again')
+    console.log($(e.currentTarget).val())
+    if ($(e.currentTarget).val() == '1') {
+    } else {
+    }
+  })
 
   $('.js-description').change((e) => {
     console.log('hit')

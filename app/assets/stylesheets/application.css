@@ -17,31 +17,36 @@
  */
 
 /* ICONS HERE: */
-/* https://material.io/resources/icons/?style=baseline * /
+/* https://material.io/resources/icons/?style=baseline */
 
-html, body { font-family: Helvetica, Arial, sans-serif; outline: 0; outline: none; color: #333; background: rgba(244,241,234,0.5);}
-/*section { border: 1px #000 solid; }*/
+* {
+  outline: 0;
+  outline: none;
+}
 
-* { outline: 0; outline: none; }
-*
 body {
-  font-family: Helvetica, Arial, sans-serif;
   outline: 0;
   outline: none;
   color: #333;
   background: #f5e8cb;
+  font-family: Helvetica, Arial, sans-serif;
 }
 
-body:focus { outline: none; outline: 0;}
+body:focus {
+  outline: none;
+  outline: 0;
+}
 
-.left-column {  
+.left-column {
   float: left;
   padding: 0;
   width: 26%;
   background: rgba(244,241,234,0.8);
 }
 .center-column { 
-  margin: 0 auto; width: 47%; max-width: 650px;
+  margin: 0 auto; 
+  width: 47%; 
+  max-width: 650px;
   background: rgba(244,241,234,0.8);
 }
 
@@ -76,9 +81,16 @@ body:focus { outline: none; outline: 0;}
   font-size: 20px;
 }
 
-.discovery, .updates, .my-lists { display: block; }
+.discovery, 
+.updates, 
+.my-lists { 
+  display: block; 
+}
 
-.my-lists { margin-top: -10px; }
+.my-lists { 
+  margin-top: -10px; 
+}
+
 .column {
   float: left; 
   margin-left: 15px;
@@ -194,8 +206,16 @@ article.add-to-library {
   font-size: 17px;
 }
 
+.navbar-wrapper a:active, 
+.navbar-wrapper a:hover, 
+.navbar-wrapper a { 
+  font-family: "Helvetica"; 
+  color: #000; 
+  font-weight: bold;
+}
 
-.navbar-wrapper a:active, .navbar-wrapper a:hover, .navbar-wrapper a { color: #000; font-weight: bold;}
+.light {
+  font-family: "HelveticaNeue-Thin" !important;}
 
 .more-info {
   font-size: 18px;
@@ -345,7 +365,7 @@ font-size: 12px;}
 }
 
 .audiojs {
-width: 435px;
+  width: 435px;
 }
 
 .podcasts-grid { margin-top: -40px;

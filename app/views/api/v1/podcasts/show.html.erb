@@ -1,6 +1,5 @@
 <div class="container">
-  <div class="pod-top" style="
-  ">
+  <div class="pod-top">
     <h2><%= @podcast.title %></h2>
     <div style="float: left;margin-right: 25px; width: 326px;">   
       <img src="<%= @podcast.logo_url_large %>" width="325"/>
@@ -34,6 +33,7 @@
     <%= @podcast.try(:list_count) %> people have listened
 
     <hr style="border: 0.5px #aaa solid;"/>
+
     <h5>Reviews</h5>
     <% if @updates.any? %>
       <% @updates.each do |update| %>
@@ -47,21 +47,28 @@
     <% end %>
   </div>
 
+  <style>
+    .select-thing {
+      float: left; border: 0.5px #aaa solid;background: #aaa;font-size:11px;position:relative;top:9px;left:5px;outline:0;
+    }
+  </style>
+
   <div class="podcasts-page-right-side">
     <div class="podcast-page-episodes">
       <div style="overflow: hidden;">
         <h5 style="float: left;">Episodes</h5>
-        <select class="js-description" style="float: left; border: 0.5px #aaa solid;background: #aaa;font-size:11px;position:relative;top:9px;left:5px;outline:0;">
+        <select class="js-description select-thing">
           <option value="0">No description</option>
-          <option value="1">With description</option>
+          <option value="1">With descriptions</option>
+        </select>
+        <select name="" id="js-podcast-sort" class="select-thing" style="margin-left: 5px;">
+          <option value="0">Newest First</option>
+          <option value="1">Oldest First</option>
         </select>
       </div>
+
       <% @podcast.episodes.each do |episode| %>
-        <div class="episode" style="    margin: 0 auto;
-            padding: 10px;
-                margin-bottom: 10px;
-                    width: 460px;
-                    ">
+        <div class="episode" style="margin: 0 auto; padding: 10px; margin-bottom: 10px; width: 460px;">
           <div style="text-align: left; text-align: left; font-size: 14px; margin-bottom: 4px; font-weight: bold;"><%= episode.try(:title) %></div>
           <div class="hidden episode-description" style="font-size: 13px;margin-bottom: 8px;"><%= episode.description.try(:html_safe) %></div>
           <audio src="<%= episode.try(:streaming_url) %>" preload="none" />

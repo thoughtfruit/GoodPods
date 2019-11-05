@@ -12,10 +12,11 @@ namespace :one_offs do
     Podcast.import_from_search('venture podcast')
     Podcast.import_from_search('web development podcast')
     Podcast.import_from_search('angel podcast')
+    Podcast.import_from_search('angel podcast')
   end
 
   task :re_ingest_small_logos => :environment do
-    Podcast.all.each do |podcast|
+    Podcast.order("created_at desc").all.each do |podcast|
       begin
         if podcast.title.include? "Conan" or podcast.title.include? 'Oprah'
         else
@@ -68,8 +69,8 @@ namespace :one_offs do
     end
   end
 
-  task :fix_empty_genres => :environment do
-    Podcast.where(genre: nil).each do |podcast|
+  task :fix_genres => :environment do
+    Podcast.all.each do |podcast|
       begin
         if podcast.title.include? "Conan" or podcast.title.include? 'Oprah'
         else

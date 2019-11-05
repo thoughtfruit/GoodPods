@@ -13,8 +13,8 @@
 
   <div class="podcasts-grid">
     <h2 class="page-header">All The Great Shows</h2>
-    <% @podcasts.order("ranking asc").each do |podcast| %>
-      <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="100"/></a></div>
+    <% @podcasts.order("created_at asc").each do |podcast| %>
+      <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url %>" width="100"/></a></div>
     <% end %>
     <article class="add-to-library hidden" style="top: 135px;">
       <div class="podcast-title"></div>

@@ -15,14 +15,15 @@
         <p class="navbar-text">
         <% if user_signed_in? %>
           <a class="navbar-link" href="/">Home</a> |
-          <a class="navbar-link" href="/discover">Discover</a> | 
-          <a class="navbar-link" href="/updates">Reviews</a> |  
-          <a class="navbar-link" href="/library">Library</a>
-          <!-- <a class="navbar-link" href="/groups">Groups</a> --> 
+          <a class="navbar-link" href="/library">My Podcasts</a> |
+          <a class="navbar-link" href="/discover">Browse</a> | 
+          <a class="navbar-link" href="/updates">Reviews</a> 
+          <!--<a class="navbar-link" href="/fiction">Fiction</a> |-->
         <% end %>
       </p>
       <p class="navbar-text pull-right">
         <% if user_signed_in? %>
+          <a class="navbar-link" href="/labs" style="font-weight: normal;">Labs</a> |
           <a class="navbar-link" href="/profiles/<%= current_user.try(:id) %>">Profile</a> |
           <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
         <% else %>
