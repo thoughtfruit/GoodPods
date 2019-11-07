@@ -3,8 +3,8 @@ class Status
   def self.find(slug)
     {
       "to-listen" => 'to-listen',
-      "listened" => "listened",
-      "listening" => "listening"
+      "listening" => "listening",
+      "listened" => "listened"
     }[slug]
   end
 end

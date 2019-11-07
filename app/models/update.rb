@@ -4,11 +4,11 @@ class Update < ApplicationRecord
   has_many :likes
 
   def email
-    self.user.email
+    user.email
   end
 
   def self.most_recent_first
-    Update.all.order("created_at desc")
+    order("created_at desc").all
   end
 
 end

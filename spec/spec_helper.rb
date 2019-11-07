@@ -94,3 +94,21 @@ RSpec.configure do |config|
   Kernel.srand config.seed
 =end
 end
+
+def build_podcast_and_user
+  Podcast.all.each &:destroy
+  User.all.each &:destroy
+
+  cluster = Cluster.create
+  network = Network.create
+  podcast = Podcast.create!(
+    network: network, 
+    cluster: cluster, 
+    title: "Joe Rogan Podcast"
+  )
+  user    = User.create!(
+    email: "d@dain.io", 
+    password: "password1"
+  )
+  return podcast, user
+end

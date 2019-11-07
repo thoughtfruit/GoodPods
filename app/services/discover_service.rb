@@ -36,26 +36,8 @@ class DiscoverRankedPodcasts
             # podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
           else
 
-            podcast = Podcast.create!(
-              title: title_from_chart,
-              ranking: podcast_ranking,
-              network: Network.last,
-              cluster: Cluster.last
-            )
+            PodcastIngestionService.new({title: title_from_chart, ranking: podcast_ranking})
 
-            t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title}").body
-            t = JSON.parse(t)
-            podcast.update! logo_url: t['results'][0]['artworkUrl60']
-            podcast.update! feed_url: t['results'][0]['feedUrl']
-            podcast.update! genre: t['results'][0]['genres'][0]
-            podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
-
-            @feed_xml = Nokogiri::XML(open(t['results'][0]['feedUrl']))
-            bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
-            bio = bio.strip
-            podcast.update! bio: bio
-            PodcastEpisodesIngestionService.new(podcast: podcast)
-            puts "Saved episodes and pod"
           end
         end
         @page_length -= 1

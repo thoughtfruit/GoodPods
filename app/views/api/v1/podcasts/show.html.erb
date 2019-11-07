@@ -1,24 +1,43 @@
+<style>
+.podcast-page-logo-and-icons {
+  float: left;margin-right: 25px; width: 326px;
+}
+.podcast-page-icons {
+  text-align: left; margin-top: 5px;
+}
+.podcast-page-line-break {
+  border: 0.5px #aaa solid;
+}
+.podcast-page-actions {
+  float: left;overflow:hidden;margin-bottom:15px;
+}
+.select-thing {
+  float: left; border: 0.5px #aaa solid;background: #aaa;font-size:11px;position:relative;top:9px;left:5px;outline:0;
+}
+</style>    
+
 <div class="container">
-  <div class="pod-top">
+
+  <div class="podcast-page-top">
     <h2><%= @podcast.title %></h2>
-    <div style="float: left;margin-right: 25px; width: 326px;">   
+    <div class="podcast-page-logo-and-icons">   
       <img src="<%= @podcast.logo_url_large %>" width="325"/>
-      <div style="text-align: left; margin-top: 5px;">
+      <div class="podcast-page-icons">
         <i class="material-icons md-36">rss_feed</i>
       </div>
     </div>
 
     <div class="podcast-page-bio"><%= @podcast.bio.try(:html_safe) %>
 
-    <hr style="border: 0.5px #aaa solid;"/> 
+      <hr class="podcast-page-line-break" /> 
 
-    <div class="actions" style="float: left;overflow:hidden;margin-bottom:15px;">
-      <div class="button-pg pull-left">Subscribe <i class="material-icons md-48">add</i></div>
-      <div class="button-pg pull-left">play top<i class="material-icons md-48">play_arrow</i></div>
-      <div class="button-pg pull-left">Share <i class="material-icons md-48">add</i></div>
-      <div class="button-pg pull-left">Create Review <i class="material-icons md-48">add</i></div>
-      <div class="button-pg pull-left">Add to Library <i class="material-icons md-48">add</i></div>
-    </div>
+      <div class="podcast-page-actions">
+        <div class="button-pg pull-left">Subscribe <i class="material-icons md-48">add</i></div>
+        <div class="button-pg pull-left">play top<i class="material-icons md-48">play_arrow</i></div>
+        <div class="button-pg pull-left">Share <i class="material-icons md-48">add</i></div>
+        <div class="button-pg pull-left">Create Review <i class="material-icons md-48">add</i></div>
+        <div class="button-pg pull-left">Add to Library <i class="material-icons md-48">add</i></div>
+      </div>
 
     </div>
 
@@ -27,7 +46,8 @@
   <div class="podcasts-page-left-side">
 
     <h5>Stats</h5>
-    <%= UserPodcastStatus.where(podcast_id: @podcast.id).map(&:user_id).compact.count %> people are litening now
+
+    <%= UserPodcastStatus.users_listening_to(@podcast.id) %> people are litening now
     <br />
     <%= @podcast.try(:list_count) %> people want to listen<br />
     <%= @podcast.try(:list_count) %> people have listened
@@ -46,12 +66,6 @@
       There are no reviews for this podcast. <a href="">Create one</a>!
     <% end %>
   </div>
-
-  <style>
-    .select-thing {
-      float: left; border: 0.5px #aaa solid;background: #aaa;font-size:11px;position:relative;top:9px;left:5px;outline:0;
-    }
-  </style>
 
   <div class="podcasts-page-right-side">
     <div class="podcast-page-episodes">

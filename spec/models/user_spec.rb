@@ -2,22 +2,11 @@ require 'rails_helper'
 
 RSpec.describe User, type: :model do
 
-  def build_db
-    Podcast.all.each &:destroy
-    User.all.each &:destroy
-
-    cluster = Cluster.create
-    network = Network.create
-    podcast = Podcast.create! network: network, cluster: cluster, title: "Joe Rogan Podcast"
-    user    = User.create! email: "d@dain.io", password: "password1"
-    return podcast, user
-  end
-
   context "core user features" do
 
     describe "user podcast status (library)" do 
       it "should allow me to add a podcast to my library" do
-        podcast, user = build_db
+        podcast, user = build_podcast_and_user
         record = UserPodcastStatus.create!(
           podcast: podcast,
           user: user,
@@ -32,7 +21,7 @@ RSpec.describe User, type: :model do
 
     describe "user updates" do
       it "should allow me to add an update about a podcast" do
-        podcast, user = build_db
+        podcast, user = build_podcast_and_user
 
         record = Update.create!(
           user: user,

@@ -16,7 +16,7 @@ class FeedAggregator
   def save
     episodes if saved? or save_error
   end
-
+  
   def validation_error
     puts "validation error hit"
     # Failed to validate XML
