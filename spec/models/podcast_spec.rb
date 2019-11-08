@@ -17,7 +17,7 @@ RSpec.describe Podcast, type: :model do
 
   context "explode genre's to their own model object after saving" do
     describe "#.after_save" do
-      xit "should create a Genre object based on the podcast.genre attribute" do
+      it "should create a Genre object based on the podcast.genre attribute" do
         # after_save {
         #   Genre.create!(
         #     title: self.genre,

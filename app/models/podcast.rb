@@ -11,7 +11,7 @@ class Podcast < ApplicationRecord
 
   validates :title, uniqueness: true, on: [:update, :create]
 
-  scope :with_logos, => { 
+  scope :with_logos, -> { 
     where.not(logo_url: nil).all
   }
 

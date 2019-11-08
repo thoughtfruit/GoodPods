@@ -15,7 +15,7 @@ RSpec.describe User, type: :model do
 
         # expect(record).to be_valid
         expect(record.valid?).to eq(true)
-        expect(user.to_listen.count).to eq(1)
+        expect(Library.find_by(user_id: user.id).to_listen.count).to eq(1)
       end
     end
 
