@@ -31,23 +31,25 @@
       </article>
     </section>
 
-    <section class="center-column column">
-      <article class="updates">
-        <div class="header">REVIEWS <i class="js-post-an-update">post review</i></div>
-        <div class="hidden" id="hidden-poster-for-updates">
-          <div class="post-an-update" style="position: relative">
-            <textarea name="" id=""></textarea>
-            <input type="submit" name="" id="update-post" value="Post" />
-            <div class="typeahead-dropdown hidden">
+    <% if FeatureFlag.activity %>
+      <section class="center-column column">
+        <article class="updates">
+          <div class="header">REVIEWS <i class="js-post-an-update">post review</i></div>
+          <div class="hidden" id="hidden-poster-for-updates">
+            <div class="post-an-update" style="position: relative">
+              <textarea name="" id=""></textarea>
+              <input type="submit" name="" id="update-post" value="Post" />
+              <div class="typeahead-dropdown hidden">
+              </div>
             </div>
           </div>
-        </div>
-        <div class="clearfix"></div>
-        <div class="updates-body">
-          Loading reviews...
-        </div>
-      </article>
-    </section>
+          <div class="clearfix"></div>
+          <div class="updates-body">
+            Loading reviews...
+          </div>
+        </article>
+      </section>
+    <% end %>
 
     <section class="right-column">
       <section class="my-lists">

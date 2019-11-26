@@ -1,0 +1,16 @@
+<div class="container">
+  <h1 class="page-header">Collections</h1>
+  <ul>
+  <% @collections.each do |collection| %>
+    <li>
+      <%= collection.name %>
+      <ul>
+        <% collection.podcasts.each do |podcast| %>
+          <li><%= podcast.title %></li>
+        <% end %>
+      </ul>
+    </li>
+  <% end %>
+  </ul>
+</div>
+

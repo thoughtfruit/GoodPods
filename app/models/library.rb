@@ -6,6 +6,7 @@ class Library < UserPodcastStatus
      ).pluck(&:user_id).compact.count
   end
 
+
   def to_listen
     UserPodcastStatus.where(
       user: self,

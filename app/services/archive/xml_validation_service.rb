@@ -1,4 +1,4 @@
-class XmlValidator
+class XmlValidationService
 
   def initialize ; end
 

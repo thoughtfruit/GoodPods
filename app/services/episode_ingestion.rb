@@ -1,9 +1,9 @@
-class EpisodeIngestionService
+class EpisodeIngestion
 
   def initialize(podcast:)
     @podcast = podcast
-    start!
-  end
+    start! if @podcast && @podcast.feed_url
+    end
 
   def start!
     @xml    = Nokogiri::XML(open(@podcast.feed_url))

@@ -73,7 +73,8 @@ App.sections.discover = function() {
 
     hoverstate()
     function hoverstate() {
-      $('.discover div').hover(function(e) {
+      $('.podcasts-grid div').hover(function(e) {
+        console.log('hit')
         $('.add-to-library').css('left', '0px')
         clearAddToLibraryFromOtherNodes()
         appendAddToLibraryToCurrentNode(e)

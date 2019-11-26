@@ -11,7 +11,7 @@ module Api
       end
 
       def status_for_podcast_and_user
-        @statuses = UserPodcastStatus.where(
+        @statuses = Library.where(
           podcast_id: params[:podcast_id],
           user_id: current_user.try(:id) || params[:user_id] || NulllUser.new
         ).map(&:status)

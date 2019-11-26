@@ -57,7 +57,7 @@ $(document).ready(() => {
   })
 
   if (window.location.pathname.includes("podcasts")) {
-    $('body').css('background', '#f5e8cb')
+    $('body').css('background', '#fff')
   }
 
   $('.button-pg').hover(function(e) { 

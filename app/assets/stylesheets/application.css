@@ -28,7 +28,7 @@ body {
   outline: 0;
   outline: none;
   color: #333;
-  background: #f5e8cb;
+  background: #fff;
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -41,20 +41,20 @@ body:focus {
   float: left;
   padding: 0;
   width: 26%;
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5; 
 }
 .center-column { 
   margin: 0 auto; 
   width: 47%; 
   max-width: 650px;
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5;
 }
 
 .right-column { 
   float: right; 
   width: 25%; 
   padding: 10px;
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5;
 }
 
 
@@ -98,6 +98,8 @@ body:focus {
 
 .discover {
   padding: 10px;
+  height: 900px;
+  overflow-y: scroll;
 }
 
 .post-an-update {
@@ -193,7 +195,7 @@ article.add-to-library {
   overflow: hidden;
   clear: both;
   margin-bottom: 10px;
-  background: #F4F1EA;
+  background: #f5f5f5;
   font-weight: thin;
   color: #000;
   height: 50px;
@@ -244,7 +246,7 @@ font-size: 12px;}
   overflow-x: hidden;
   overflow-y: scroll;
   float: left;
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5;
   padding: 10px;
   border-radius: 5px;
   margin-right: 10px;
@@ -260,7 +262,7 @@ font-size: 12px;}
 
 .podcasts-page-right-side {
   width: 45%;
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5;
   float: right;
   padding: 10px;
   border-radius: 5px;
@@ -340,7 +342,7 @@ font-size: 12px;}
 }
 
 .discover-search {
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5;
   width: 55%;
   padding: 10px;
   border-radius: 20px;
@@ -369,8 +371,7 @@ font-size: 12px;}
 }
 
 .podcasts-grid { margin-top: -40px;
-  background: rgba(244,241,234,0.8);
-  overflow: hidden;
+  background: #f5f5f5;
   margin-top: 5px;
   border-radius: 20px;
   padding-left: 30px;
@@ -400,21 +401,23 @@ font-size: 12px;}
   margin-top: 10px;
   padding: 0 20px 11px 20px;
   border-radius: 5px;
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5;
 }
 
 .updates-body {
   margin: 0 auto;
-  width: 80%
+  width: 80%;
+  height: 900px;
+  overflow-y: scroll;
 }
 .podcast-categories {
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5;
   overflow: hidden;
   padding-left: 30px;
 }
 
 .all-podcasts-text {
-  background: rgba(244,241,234,0.8);
+  background: #f5f5f5;
   overflow: hidden;
 }
 

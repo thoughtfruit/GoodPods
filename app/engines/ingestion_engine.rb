@@ -1,5 +1,5 @@
-class IngestionEngine 
-  
+class IngestionEngine
+
   def initialize
   end
 

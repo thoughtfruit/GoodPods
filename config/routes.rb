@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   # Dev environment hacking on the homepage
   root to: 'homepage#homepage'
 
-
   # Non API Routes
   resources :homepage
   resources :profiles
@@ -18,6 +17,7 @@ Rails.application.routes.draw do
   resources :updates
 
   get '/podcasts/:id', to: 'api/v1/podcasts#show'
+  get '/collections', to: 'pages/collections#index'
 
   namespace :api, path: '/', defaults: { format: 'json' } do
 

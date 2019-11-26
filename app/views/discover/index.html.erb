@@ -16,27 +16,27 @@
     <% @podcasts.order("created_at asc").each do |podcast| %>
       <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url %>" width="100"/></a></div>
     <% end %>
-    <article class="add-to-library hidden" style="top: 135px;">
-      <div class="podcast-title"></div>
-      <div class="podcast-bio"></div>
-      <br />
-      <input type="checkbox" name="to-listen" id="to-listen" />
-      <label for="to-listen" id="to-listen">
-        Add to To Listen...
-      </label>
-      <br />
-      <input type="checkbox" name="listening" id="listening" />
-      <label for="listening" id="listening">
-        Add to Listening...
-      </label>
-      <br />
-      <input type="checkbox" name="listened" id="listened" />
-      <label for="listened" id="listened">
-        Add to Listened...
-      </label>
-    </article>
+   
   </div>
-
+  <article class="add-to-library hidden" style="top: 135px;">
+  <div class="podcast-title"></div>
+  <div class="podcast-bio"></div>
+  <br />
+  <input type="checkbox" name="to-listen" id="to-listen" />
+  <label for="to-listen" id="to-listen">
+    Add to To Listen...
+  </label>
+  <br />
+  <input type="checkbox" name="listening" id="listening" />
+  <label for="listening" id="listening">
+    Add to Listening...
+  </label>
+  <br />
+  <input type="checkbox" name="listened" id="listened" />
+  <label for="listened" id="listened">
+    Add to Listened...
+  </label>
+</article>
 
   <div class="clearfix"></div>
 

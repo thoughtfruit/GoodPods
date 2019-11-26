@@ -47,7 +47,7 @@
 
     <h5>Stats</h5>
 
-    <%= UserPodcastStatus.users_listening_to(@podcast.id) %> people are litening now
+    <%= Library.users_listening_to(@podcast.id) %> people are litening now
     <br />
     <%= @podcast.try(:list_count) %> people want to listen<br />
     <%= @podcast.try(:list_count) %> people have listened

@@ -6,6 +6,8 @@ class Cluster < ApplicationRecord
       Genre.find_by(title: options.genre).podcasts if genre_exists?
     elsif options.networks
       Network.find_by(title: options.network).podcasts if network_exists?
+    elsif options.podcasts
+      cluster_podcasts_by_podcast
     end
   end
 

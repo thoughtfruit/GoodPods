@@ -11,12 +11,36 @@ class Podcast < ApplicationRecord
 
   validates :title, uniqueness: true, on: [:update, :create]
 
-  scope :with_logos, -> { 
+  scope :with_logos, -> {
     where.not(logo_url: nil).all
   }
 
   def self.search_by_title reference_title
     where("title LIKE ?", "#{reference_title}%").first
+  end
+
+  def self.create_from_itunes result
+    podcast = self.create!(
+      title: result['collectionName'],
+      ranking: result['artistId'],
+      network: Network.last,
+      cluster: Cluster.last,
+      logo_url: result['artworkUrl60'],
+      feed_url: result['feedUrl'],
+      genre: result['genres'] ? result['genres'][0] : '',
+      logo_url_large: result['artworkUrl600']
+    )
+    self.create_bio(podcast)
+    return podcast
+  end
+
+  def self.create_bio podcast
+    if podcast.feed_url
+      @feed_xml = Nokogiri::XML(open(podcast.feed_url))
+      bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
+      bio = bio.strip
+      podcast.update! bio: bio
+    end
   end
 
 end

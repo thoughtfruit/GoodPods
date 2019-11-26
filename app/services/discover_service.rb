@@ -1,10 +1,7 @@
 class DiscoverService
   def self.start!
-    DiscoverRankedPodcasts.new
+    new
   end
-end
-
-class DiscoverRankedPodcasts
 
   def initialize
     @podcasts = Podcast.all
@@ -27,7 +24,7 @@ class DiscoverRankedPodcasts
           podcast = Podcast.find_by(title: title_from_chart)
 
           puts "starting in earnest"
-          
+
           if podcast
             # podcast.update! ranking: podcast_ranking
             # t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title}").body
