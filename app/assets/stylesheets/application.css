@@ -76,6 +76,10 @@ select  { width: 85%; }
   z-index: 0;
 }
 
+article.discover {
+  height: 100%;
+}
+
 .header {
   display: block;
   clear: both;
