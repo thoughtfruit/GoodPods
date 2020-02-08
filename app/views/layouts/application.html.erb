@@ -24,7 +24,7 @@
       </p>
       <p class="navbar-text pull-right">
         <% if user_signed_in? %>
-          <a class="navbar-link" href="/help">How to use this?</a> | 
+          <!--<a class="navbar-link" href="/help">How to use this?</a> | -->
           <!-- <a class="navbar-link" href="/labs" style="font-weight: normal;">Labs</a> | -->
           <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link'  %>
         <% else %>

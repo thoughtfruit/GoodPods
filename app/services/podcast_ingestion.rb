@@ -5,7 +5,7 @@ class PodcastIngestion < Service
   end
 
   def self.find term
-    podcasts = ApiClient.get("https://itunes.apple.com/search?term=#{term}")
+    podcasts = JSON.parse(HTTParty.get("https://itunes.apple.com/search?term=#{term}").body)
     results = podcasts.fetch('results')
     return results.any? ? results : []
   end
