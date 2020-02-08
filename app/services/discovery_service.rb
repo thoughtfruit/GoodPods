@@ -1,10 +1,10 @@
-class DiscoverServiceAlt
+class DiscoveryService
   def self.start!
-    DiscoverRankedPodcasts.new
+    DiscoverRankedPodcastsAlt.new
   end
 end
 
-class DiscoverRankedPodcasts
+class DiscoverRankedPodcastsAlt
 
   def initialize
     @podcasts = Podcast.all

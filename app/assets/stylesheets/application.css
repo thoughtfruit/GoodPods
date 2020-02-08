@@ -422,7 +422,8 @@ font-size: 12px;}
 }
 
 .login-container { 
-  float: right;
+  float: left;
+  width: 80%;
   text-align: left;
   padding: 25px;
 }
