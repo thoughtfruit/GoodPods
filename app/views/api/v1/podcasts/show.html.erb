@@ -34,7 +34,7 @@
     <div class="tab tab-1">
       <div class="podcast-page-episodes" style="margin-top: 12px;">
         <div style="overflow: hidden;"></div>
-        <% @podcast.episodes.sort("published_at desc").each do |episode| %>
+        <% @podcast.episodes.order("published_at desc").each do |episode| %>
           <div class="podcast-page-episode">
             <div class="podcast-page-episode-title"><%= episode.try(:title) %></div>
             <div class="podcast-page-episode-metadata"><i><%= episode.try(:published_at) %></i></div>

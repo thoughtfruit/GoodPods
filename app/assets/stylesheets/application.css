@@ -194,6 +194,10 @@ article.add-to-library {
   padding-left: 5px;
 }
 
+.navbar-link.logout {
+  font-style:italic;
+}
+
 .navbar-wrapper {
   overflow: hidden;
   clear: both;
