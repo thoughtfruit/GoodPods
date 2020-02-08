@@ -1,7 +1,21 @@
 <div class="container">
-  <div style="float: right;">
-    <h2>Log in</h2>
 
+  <div class="login-container">
+    Goodpods is an online directory that connects you with podcasts and their hosts/fans.
+    <br /><br />
+    The site is open to a few people, but not everyone. <br />
+    <strong>This is early alpha. Mobile is not supported at all for right now. Current release: v0.0.2</strong>. 
+    <br />
+    <br />
+    You can use Goodpods to:<br />
+    <ul>
+      <li>Create and manage a library of your podcasts in different statuses (to listen, listened, etc)</li>
+      <li>Connect with friends, and review podcasts publically for others to see. Become a top reviewer and earn rewards.</li>
+      <li>Use AI to discover unbelievable content you never would have otherwise</li>
+    </ul>
+  </div>
+  <div style="float: left;">
+    <h2>Log in</h2>
     <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
       <div class="field">
         <%= f.label :email %><br />
@@ -26,19 +40,5 @@
     <% end %>
 
     <%= render "devise/shared/links" %>
-  </div>
-  <div class="login-container">
-    Goodpods is an online directory that connects you with podcasts and their hosts/fans.
-    <br /><br />
-    The site is open to a few people, but not everyone. <br />
-    <strong>This is early alpha. Mobile is not supported at all for right now. Current release: v0.0.2</strong>. 
-    <br />
-    <br />
-    You can use Goodpods to:<br />
-    <ul>
-      <li>Create and manage a library of your podcasts in different statuses (to listen, listened, etc)</li>
-      <li>Connect with friends, and review podcasts publically for others to see. Become a top reviewer and earn rewards.</li>
-      <li>Use AI to discover unbelievable content you never would have otherwise</li>
-    </ul>
   </div>
 </div>
