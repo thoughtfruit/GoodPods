@@ -1,4 +1,4 @@
-class EpisodeIngestion
+class EpisodeIngestion < Service
 
   def initialize(podcast:)
     @podcast = podcast

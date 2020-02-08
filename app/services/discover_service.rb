@@ -16,7 +16,6 @@ class DiscoverService
     	)
     )
     @page_length = @doc.css("div.title").group_by(&:text).length
-    puts "Starting"
 
     if @page_length > 1
 
@@ -37,7 +36,7 @@ class DiscoverService
             # podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
           else
 
-            PodcastIngestionService.new({title: title_from_chart, ranking: podcast_ranking})
+            PodcastIngestion.new({title: title_from_chart, ranking: podcast_ranking})
 
           end
         end
