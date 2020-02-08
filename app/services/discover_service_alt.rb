@@ -1,4 +1,4 @@
-class DiscoverService
+class DiscoverServiceAlt
   def self.start!
     DiscoverRankedPodcasts.new
   end
