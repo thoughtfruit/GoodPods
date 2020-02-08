@@ -10,7 +10,11 @@ class DiscoverService
   end
 
   def discover
-    @doc = Nokogiri::HTML(open("https://chartable.com/charts/spotify/united-states-of-america-comedy?page=#{@page}"))
+    @doc = Nokogiri::HTML(
+    	open(
+    	"https://chartable.com/charts/spotify/united-states-of-america-comedy?page=#{@page}"
+    	)
+    )
     @page_length = @doc.css("div.title").group_by(&:text).length
     puts "Starting"
 

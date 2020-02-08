@@ -10,9 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_10_17_010833) do
+ActiveRecord::Schema.define(version: 2019_11_30_020007) do
 
   create_table "clusters", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "collections", force: :cascade do |t|
     t.string "title"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -83,6 +89,7 @@ ActiveRecord::Schema.define(version: 2019_10_17_010833) do
     t.text "bio"
     t.text "genre"
     t.text "logo_url_large"
+    t.integer "collection_id"
     t.index ["cluster_id"], name: "index_podcasts_on_cluster_id"
     t.index ["network_id"], name: "index_podcasts_on_network_id"
   end

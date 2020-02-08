@@ -1,0 +1,14 @@
+<div class="container" style="margin-top: -20px;">
+  <h2 class="page-header">All Collections</h2>
+
+  <% @collections.each do |collection| %>
+    <strong style="font-size: 16px;"><%= collection.title %></strong>
+    <div class="clearfix"></div>
+    <% collection.podcasts.each do |podcast| %>
+      <a href="/podcasts/<%= podcast.id %>"><img src="<%= podcast.logo_url %>" /></a>
+    <% end %>
+
+    <div class="clearfix"></div>
+    <hr />
+  <% end %>
+</div>

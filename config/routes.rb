@@ -17,7 +17,7 @@ Rails.application.routes.draw do
   resources :updates
 
   get '/podcasts/:id', to: 'api/v1/podcasts#show'
-  get '/collections', to: 'pages/collections#index'
+  get '/collections', to: 'collections#index'
 
   namespace :api, path: '/', defaults: { format: 'json' } do
 

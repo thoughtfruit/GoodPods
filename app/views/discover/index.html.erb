@@ -1,11 +1,8 @@
 <div class="container" style="padding-top: 20px;">
-  <div class="discover-search">
     <center>
       <h4 style="text-transform: uppercase;">Search for Podcasts</h4>
       <input type="search" class="discover-search-input" />
-      <i style="font-size: 12px; display: block;">(this will search itunes and add to GoodPods automatically)</i>
     </center>
-  </div>
 
   <div class="clearfix"></div>
 
@@ -16,33 +13,33 @@
     <% @podcasts.order("created_at asc").each do |podcast| %>
       <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url %>" width="100"/></a></div>
     <% end %>
-   
+
   </div>
-  <article class="add-to-library hidden" style="top: 135px;">
-  <div class="podcast-title"></div>
-  <div class="podcast-bio"></div>
-  <br />
-  <input type="checkbox" name="to-listen" id="to-listen" />
-  <label for="to-listen" id="to-listen">
-    Add to To Listen...
-  </label>
-  <br />
-  <input type="checkbox" name="listening" id="listening" />
-  <label for="listening" id="listening">
-    Add to Listening...
-  </label>
-  <br />
-  <input type="checkbox" name="listened" id="listened" />
-  <label for="listened" id="listened">
-    Add to Listened...
-  </label>
-</article>
+  <article class="add-to-library hidden" style="top: 109px;">
+    <div class="podcast-title"></div>
+    <div class="podcast-bio"></div>
+    <br />
+    <input type="checkbox" name="to-listen" id="to-listen" />
+    <label for="to-listen" id="to-listen">
+      Add to To Listen...
+    </label>
+    <br />
+    <input type="checkbox" name="listening" id="listening" />
+    <label for="listening" id="listening">
+      Add to Listening...
+    </label>
+    <br />
+    <input type="checkbox" name="listened" id="listened" />
+    <label for="listened" id="listened">
+      Add to Listened...
+    </label>
+  </article>
 
   <div class="clearfix"></div>
 
   <hr />
 
-  <div class="podcast-categories">
+  <!-- <div class="podcast-categories">
     <h2 class="page-header">Categories</h2>
     <ul>
       <% @podcasts.group_by(&:genre).each do |podcast| %>
@@ -71,10 +68,11 @@
           <ul>
             <li><%= podcast.bio.try(:html_safe) %>
           </ul>
-        </li>
-      <% end %>
+            </li>
+          <% end %>
     </ul>
   </div>
+  -->
 
 </div>
 

@@ -1,5 +1,15 @@
 namespace :one_offs do
 
+  task :engist_all_podcasts_from_searches => :environment do
+    Podcast.import_from_search('relayfm')
+    Podcast.import_from_search('earwolf')
+    Podcast.import_from_search('earwolf')
+    Podcast.import_from_search('venture podcast')
+    Podcast.import_from_search('web development podcast')
+    Podcast.import_from_search('angel podcast')
+    Podcast.import_from_search('angel podcast')
+  end
+
   task :import_relayfm_shows => :environment do
     Podcast.import_from_search('relayfm')
   end
@@ -30,7 +40,22 @@ namespace :one_offs do
     end
   end
 
-  task :add_large_logos => :environment do 
+  task :add_pods_to_collections => :environment do
+    ['5by5', 'relayfm', 'earwolf', 'startherefm'].each do |network|
+      c = Collection.find_or_create_by!(title: network)
+      PodcastIngestion.find(network).each do |result|
+        if result
+          p = Podcast.where(title: result['collectionName'])
+          if p.any?
+            p.first.update! collection_id: c.id
+            puts "Saved podcast #{p.first.title} to collection #{c.title}".green
+          end
+        end
+      end
+    end
+  end
+
+  task :add_large_logos => :environment do
     Podcast.all.each do |podcast|
       begin
         if podcast.title.include? "Conan" or podcast.title.include? 'Oprah'
