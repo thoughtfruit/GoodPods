@@ -33,6 +33,7 @@ class DiscoverRankedPodcastsAlt
             # t = JSON.parse(t)
             # podcast.update! genre: t['results'][0]['genres'][0]
             # podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
+            puts t['results'][0]
           else
             podcast = Podcast.create!(
               title: title_from_chart,
