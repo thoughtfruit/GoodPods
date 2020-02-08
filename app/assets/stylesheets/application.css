@@ -40,7 +40,8 @@ body:focus {
 .left-column {
   float: left;
   padding: 0;
-  width: 55%;
+  width: 44%;
+  margin-left: 140px;
   background: #f5f5f5; 
 }
 .center-column { 
@@ -51,9 +52,10 @@ body:focus {
 }
 
 .right-column { 
-  float: right; 
-  width: 35%; 
+  float: left; 
+  width: 30%; 
   padding: 10px;
+  margin-left: 20px;
   background: #f5f5f5;
 }
 
