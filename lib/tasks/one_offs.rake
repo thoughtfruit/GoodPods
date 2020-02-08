@@ -1,5 +1,9 @@
 namespace :one_offs do
 
+  task :start_import => :environment do
+    DiscoveryService.start!
+  end
+  
   task :engist_all_podcasts_from_searches => :environment do
     Podcast.import_from_search('relayfm')
     Podcast.import_from_search('earwolf')

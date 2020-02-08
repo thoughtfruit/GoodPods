@@ -28,11 +28,12 @@ class DiscoverRankedPodcastsAlt
           podcast = Podcast.find_by(title: title_from_chart)
 
           if podcast
-            # podcast.update! ranking: podcast_ranking
-            # t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title}").body
-            # t = JSON.parse(t)
-            # podcast.update! genre: t['results'][0]['genres'][0]
-            # podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
+            podcast.update! ranking: podcast_ranking
+            t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title}").body
+            t = JSON.parse(t)
+            podcast.update! itunes_url: t['results'][0]['trackViewUrl']
+            podcast.update! genre: t['results'][0]['genres'][0]
+            podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
             puts t['results'][0]
           else
             podcast = Podcast.create!(
@@ -61,6 +62,8 @@ class DiscoverRankedPodcastsAlt
       rescue
       end
     end
+    Podcast.where(genre: nil).all.each &:destroy
+    Podcast.where(genre: "").all.each &:destroy
   end
 
   def recurse url
