@@ -16,9 +16,9 @@
         <% if user_signed_in? %>
           <a class="navbar-link" href="/">Home</a> |
           <a class="navbar-link" href="/discover">Browse</a> | 
-          <a class="navbar-link" href="/updates">Reviews</a> |
-          <a class="navbar-link" href="/collections">Collections</a> | 
-          <a class="navbar-link" href="/profiles/<%= current_user.try(:id) %>">My Stuff</a>
+          <!--<a class="navbar-link" href="/updates">Reviews</a> |-->
+          <a class="navbar-link" href="/collections">Collections</a>
+          <!--<a class="navbar-link" href="/profiles/<%= current_user.try(:id) %>">My Stuff</a>-->
           <!--<a class="navbar-link" href="/fiction">Fiction</a> |-->
         <% end %>
       </p>

@@ -13,3 +13,7 @@ Group.create!(
   podcast: podcast,
   genre: genre
 )
+
+User.create!(
+  email: 'd@dain.io',
+  password: 'Divinelove11')
