@@ -5,7 +5,7 @@
     <strong style="font-size: 16px;"><%= collection.title %></strong>
     <div class="clearfix"></div>
     <% collection.podcasts.each do |podcast| %>
-      <a href="/podcasts/<%= podcast.id %>"><img src="<%= podcast.logo_url %>" /></a>
+      <a href="/podcasts/<%= podcast.id %>"><img src="<%= podcast.logo_url %>" width="80" /></a>
     <% end %>
 
     <div class="clearfix"></div>
