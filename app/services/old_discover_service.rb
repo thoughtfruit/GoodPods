@@ -1,41 +1,69 @@
-class OldDiscoverService
-  def self.sort_by_popularity(podcasts=nil)
-    PodcastRankingService.new podcasts
+class DiscoverService
+  def self.start!
+    DiscoverRankedPodcasts.new
   end
 end
 
-class PodcastRankingService
+class DiscoverRankedPodcasts
 
-  def initialize podcasts
-    @podcasts = podcasts
+  def initialize
+    @podcasts = Podcast.all
     @page = 1
-    @doc = Nokogiri::HTML(open("https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{@page}"))
-    parse
+    urls.each do |url|
+      discover url
+    end
   end
 
-  def parse
-    @doc = Nokogiri::HTML(open("https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{@page}"))
+  def discover url
+    @doc = Nokogiri::HTML(open(url))
     @page_length = @doc.css("div.title").group_by(&:text).length
 
     if @page_length > 1
+
       @doc.css('div.title').group_by(&:text).each do |podcast| 
-        title_from_chart = podcast[0].strip
-        podcast_ranking = ranking_algo podcast
-        podcast = Podcast.find_by(title: title_from_chart)
-        if podcast
-          podcast.update! ranking: podcast_ranking
-        else
-          # TODO: Put error handling here
-          v = Podcast.create! title: title_from_chart, ranking: podcast_ranking, network: Network.last, cluster: Cluster.last
-          t = HTTParty.get("https://itunes.apple.com/search?term=#{v.title}").body
-          t = JSON.parse(t)
-          v.update! logo_url: t['results'][0]['artworkUrl60']
+
+        begin
+          title_from_chart = podcast[0].strip
+          podcast_ranking = ranking_algo podcast
+          podcast = Podcast.find_by(title: title_from_chart)
+
+          if podcast
+            # podcast.update! ranking: podcast_ranking
+            # t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title}").body
+            # t = JSON.parse(t)
+            # podcast.update! genre: t['results'][0]['genres'][0]
+            # podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
+          else
+            podcast = Podcast.create!(
+              title: title_from_chart,
+              ranking: podcast_ranking,
+              network: Network.last,
+              cluster: Cluster.last
+            )
+
+            t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title}").body
+            t = JSON.parse(t)
+            podcast.update! logo_url: t['results'][0]['artworkUrl60']
+            podcast.update! feed_url: t['results'][0]['feedUrl']
+            podcast.update! genre: t['results'][0]['genres'][0]
+            podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
+
+            @feed_xml = Nokogiri::XML(open(t['results'][0]['feedUrl']))
+            bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
+            bio = bio.strip
+            podcast.update! bio: bio
+
+            PodcastEpisodesIngestionService.new(podcast: podcast)
+          end
         end
+        @page_length -= 1
+      rescue
       end
-      @page_length -= 1
     end
-    @page += 1
-    parse
+  end
+
+  def recurse url
+    discover url
   end
 
   private
@@ -45,5 +73,18 @@ class PodcastRankingService
     a += 1
     a = a * @page
     return a
+  end
+  def urls
+    [
+      "https://chartable.com/charts/spotify/united-states-of-america-comedy?page=#{@page}",
+      "https://chartable.com/charts/spotify/united-states-of-america-educational?page=#{@page}",
+      "https://chartable.com/charts/spotify/united-states-of-america-top-podcasts",
+      "https://chartable.com/charts/spotify/united-states-of-america-stories?page=#{@page}",
+      "https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{@page}",
+      "https://chartable.com/charts/stitcher/all-most-shared?page=#{@page}",
+      "https://chartable.com/charts/stitcher/all-top-movers?page=#{@page}",
+      "https://chartable.com/charts/stitcher/all-top-shows?page=#{@page}",
+      "https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{@page}"
+    ]
   end
 end
