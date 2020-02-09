@@ -31,16 +31,12 @@ namespace :one_offs do
 
   task :re_ingest_small_logos => :environment do
     Podcast.order("created_at desc").all.each do |podcast|
-      begin
-        if podcast.title.include? "Conan" or podcast.title.include? 'Oprah'
-        else
-          t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title} podcast").body
-          t = JSON.parse(t)
-          podcast.update! logo_url: t['results'][0]['artworkUrl100']
-          puts "Updated logo #{podcast.logo_url}".green
-        end
-      rescue
+      t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title} podcast").body
+      t = JSON.parse(t)
+      unless logo_url == t['results'][0]['artworkUrl100']
+        podcast.update! logo_url: t['results'][0]['artworkUrl100']
       end
+      puts "Updated logo #{podcast.logo_url}".green
     end
   end
 

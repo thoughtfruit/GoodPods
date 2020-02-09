@@ -1,3 +1,4 @@
+# TODO Refactor this entire file 
 class DiscoveryService
   def self.start!
     DiscoverRankedPodcastsAlt.new

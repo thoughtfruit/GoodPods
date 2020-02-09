@@ -4,6 +4,7 @@ App.sections.updates = function() {
   fetch()
   typeAheadSearch()
 
+  // TODO Function needed here
   var allowButtonAnimationByDelayingPost = 1000
   $('.updates input').on('click', () => {
     if ($('textarea').val() === "") {
@@ -82,7 +83,7 @@ App.sections.updates = function() {
 
   // Begin Typeahead Search Feature Area
   //
-  // TODO: Abstract out to feature sub-section
+  // TODO: Abstract out to sub-section or extract to class refactor
   // E.g.: App.sections.updates.features.podcast@Mention = function () {}
   function showSearchDropdown() {
     $('.typeahead-dropdown').removeClass('hidden').addClass('show')

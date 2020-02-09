@@ -10,8 +10,7 @@ class ApiController < ApplicationController
       @api = {
         greetings: "🖖 ❤️",
         season: "🍃",
-        api_roadmap: "https://www.producthunt.com/@dain/goals/32820",
-        unlock: "🔑 to get access to our full API email miller.dain@gmail.com to get a client_id"
+        unlock: "🔑 to get access to our full API email goodpods@gmail.com to get a client_id"
       }
       render json: @api, status: 401
     end

@@ -1,3 +1,5 @@
+// TODO Refactor this file in a sane way rather than it's current and clearly insane way.
+
 if (window.location.pathname == "/discover") {
   $('.podcasts-grid div').hover(function(e) {
     $('.add-to-library').css('left', '0px')
@@ -35,7 +37,7 @@ App.sections.discover = function() {
       $el.append(
         '<div data-pod-bio="' + escape(podcast.bio) + '"data-pod-title="' + podcast.title + '"data-pod-id="' + podcast.id + '" style="display: inline-block; position: relative;">' +
           "<a href='/podcasts/" + podcast.id + ".html'>" +
-            "<img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' />" +
+            "<img src='" + podcast.logo_url_large + "' width='75' style='padding: 5px; float: left' />" +
             "</a>" +
         "</div>"
       )
