@@ -112,17 +112,18 @@ App.sections.updates = function() {
 
   function renderSearchResultsWith(data) {
     data.forEach(function(result) {
-      $('.typeahead-dropdown').append("<div data-id='" + result.id + "'>" + result.title + "</div>")
+      $('.typeahead-dropdown').append("<div data-id='" + result.id + "' style='font-size: 18px;border-bottom: 1px #aaa solid; padding: 5px;'>" + result.title + "</div>")
     })
     allowSearchResultToBeUsed()
   }
 
   function allowSearchResultToBeUsed() {
     $('[data-id]').off('click').on('click', (e) => {
-      arrayOfSearch     = $('textarea').val().split("@")
-      arrayOfSearch[1]  = $(e.currentTarget).text()
-      $('textarea').val(arrayOfSearch.join("@"))
-      hideSearchDropdown()
+      window.location.pathname = "/podcasts/" + $(e.currentTarget).attr('data-id') + ".html"
+      // arrayOfSearch     = $('textarea').val().split("@")
+      // arrayOfSearch[1]  = $(e.currentTarget).text()
+      // $('textarea').val(arrayOfSearch.join("@"))
+      // hideSearchDropdown()
     })
   }
 
@@ -141,22 +142,20 @@ App.sections.updates = function() {
 
     textArea.on('keyup', (e) => {
       var searchText         = $(e.currentTarget).val()
-      var searchInput        = searchText.split("@")[1]
+      var searchInput        = searchText
       var valid              = searchInput != undefined && searchInput != null
       searchInput            = featureRestriction(searchInput)
 
       if (valid) {
-        var searchTextChars  = searchText.split("")
-        var lastIndex        = searchTextChars.length - 1
-        var lastCharacter    = searchTextChars[lastIndex]
-        var startSearch      = lastCharacter === searchCharacterTrigger
+        var startSearch      = true
 
         if (startSearch) {
+          console.log('hi')
           hideSearchDropdown()
           clearSearchDom()
           setTimeout( () => {
             $.ajax({
-              url: '/v1/search?s=' + searchInputExtractionAlgo(e),
+              url: '/v1/search?s=' + searchText,
               success: (data) => {
                 showSearchDropdown()
                 if (data.length > 0) {

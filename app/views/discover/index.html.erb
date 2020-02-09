@@ -1,8 +1,12 @@
 <div class="container" style="padding-top: 20px;">
-    <!--<center>
-      <h4 style="text-transform: uppercase;">Search for Podcasts</h4>
-      <input type="search" class="discover-search-input" />
-    </center>-->
+  <center>
+    <h4 style="text-transform: uppercase;">Search for Podcasts</h4>
+    <div class="post-an-update" style="position: relative">
+      <textarea name="" id=""></textarea>
+      <div class="typeahead-dropdown hidden">
+      </div>
+    </div>
+  </center>
 
   <div class="clearfix"></div>
 
@@ -42,36 +46,36 @@
   <!--<div class="podcast-categories">
     <h2 class="page-header">Categories</h2>
     <ul>
-      <% @podcasts.group_by(&:genre).each do |podcast| %>
-        <li><strong><%= podcast[0] %></strong>
-          <ul>
-            <% podcast[1].each do |pod| %>
-              <li><a href="/podcasts/<%= pod.id %>.html"><%= pod.title %></a>
-              </li>
-            <% end %>
-          </ul>
+    <% @podcasts.group_by(&:genre).each do |podcast| %>
+      <li><strong><%= podcast[0] %></strong>
+      <ul>
+      <% podcast[1].each do |pod| %>
+        <li><a href="/podcasts/<%= pod.id %>.html"><%= pod.title %></a>
         </li>
       <% end %>
+      </ul>
+      </li>
+    <% end %>
     </ul>
-  </div>
+    </div>
 
-  <hr /> -->
+    <hr /> -->
 
-  <div class="all-podcasts-text">
-    <h2 class="page-header">All Podcasts in Alphabetical Order w/Bio</h2>
-    <ul>
-      <% @podcasts.order('title asc').each do |podcast| %>
-        <li>
-          <a href="/podcasts/<%= podcast.id %>.html">
-            <%= podcast.title %>
-          </a>
-          <ul>
-            <li><%= podcast.bio.try(:html_safe) %>
-          </ul>
-            </li>
-          <% end %>
-    </ul>
-  </div>
+    <div class="all-podcasts-text">
+      <h2 class="page-header">All Podcasts in Alphabetical Order w/Bio</h2>
+      <ul>
+        <% @podcasts.order('title asc').each do |podcast| %>
+          <li>
+            <a href="/podcasts/<%= podcast.id %>.html">
+              <%= podcast.title %>
+            </a>
+            <ul>
+              <li><%= podcast.bio.try(:html_safe) %>
+            </ul>
+              </li>
+            <% end %>
+      </ul>
+    </div>
 
 </div>
 
