@@ -50,16 +50,10 @@ function bindCheckboxClickEvent() {
     reloadPage()
   }
 
-  $('.discover input[type="checkbox"]').off('click').on('click', (e) => {
-    clickEventActions(e)
-  })
-  $('.to-listen input[type="checkbox"]').off('click').on('click', (e) => {
-    clickEventActions(e)
-  })
-  $('.listening input[type="checkbox"]').off('click').on('click', (e) => {
-    clickEventActions(e)
-  })
-  $('.listened input[type="checkbox"]').off('click').on('click', (e) => {
+  $('.discover input[type="checkbox"]', 
+    '.to-listen input[type="checkbox"]',
+    '.listening input[type="checkbox"]',
+    '.listened input[type="checkbox"]').off('click').on('click', (e) => {
     clickEventActions(e)
   })
 }
