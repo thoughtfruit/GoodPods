@@ -107,7 +107,7 @@ App.sections.updates = function() {
 
   function renderSearchResultsWithNoData() {
     clearSearchDom()
-    $('.typeahead-dropdown').append("<div>" + emptyResultMessage() + "</div>")
+    $('.typeahead-dropdown').append("<div style='font-size: 18px; padding: 5px;'>" + emptyResultMessage() + "</div>")
   }
 
   function renderSearchResultsWith(data) {
