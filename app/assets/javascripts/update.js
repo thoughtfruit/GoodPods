@@ -137,10 +137,10 @@ App.sections.updates = function() {
 
   function typeAheadSearch() {
     var textArea               = $('textarea')
-    var makeSearchFeelNatural  = 2000
-    var searchCharacterTrigger = "@"
+    var makeSearchFeelNatural  = 500
 
     textArea.on('keyup', (e) => {
+      setTimeout(function() {
       var searchText         = $(e.currentTarget).val()
       var searchInput        = searchText
       var valid              = searchInput != undefined && searchInput != null
@@ -150,27 +150,25 @@ App.sections.updates = function() {
         var startSearch      = true
 
         if (startSearch) {
-          console.log('hi')
           hideSearchDropdown()
           clearSearchDom()
-          setTimeout( () => {
-            $.ajax({
-              url: '/v1/search?s=' + searchText,
-              success: (data) => {
-                showSearchDropdown()
-                if (data.length > 0) {
-                  renderSearchResultsWith(data)
-                } else {
-                  renderSearchResultsWithNoData()
-                }
+          $.ajax({
+            url: '/v1/search?s=' + searchText,
+            success: (data) => {
+              showSearchDropdown()
+              if (data.length > 0) {
+                renderSearchResultsWith(data)
+              } else {
+                renderSearchResultsWithNoData()
               }
-            })
-          }, makeSearchFeelNatural)
+            }
+          })
         }
       } else {
         hideSearchDropdown()
       }
-    })
+      }, 2000);
+    });
   }
 }
 
