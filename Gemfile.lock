@@ -172,6 +172,7 @@ GEM
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nested_form (0.3.2)
+    newrelic_rpm (6.8.0.360)
     nio4r (2.5.2)
     nokogiri (1.10.7)
       mini_portile2 (~> 2.4.0)
@@ -329,6 +330,7 @@ DEPENDENCIES
   loofah
   material_icons
   mini_racer
+  newrelic_rpm
   nokogiri
   pg
   pry

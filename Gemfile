@@ -9,6 +9,7 @@ group :production do
   gem 'pg'
 end
 
+gem 'newrelic_rpm'
 gem 'mini_racer'
 gem 'material_icons'
 gem 'awesome_print'
