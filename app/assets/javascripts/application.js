@@ -25,24 +25,17 @@
 //= require util
 //= require_tree .
 
-  audiojs.events.ready(() => {
-    var as = audiojs.createAll();
-  })
+// Gave myself a challenge to only use javascript and jquery (no frameworks)
+// Tbh didn't love it - so next challenge will be to refactor using react/etj
+
+audiojs.events.ready(() => {
+  var as = audiojs.createAll();
+})
 
 $(document).ready(() => {
   App.initialize()
 
-  $('#js-podcast-sort').change((e) => {
-    console.log('hit again')
-    console.log($(e.currentTarget).val())
-    if ($(e.currentTarget).val() == '1') {
-    } else {
-    }
-  })
-
   $('.js-description').change((e) => {
-    console.log('hit')
-    console.log($(e.currentTarget).val())
     if ($(e.currentTarget).val() == '1') {
       $('.episode-description').removeClass('hidden')
       $('.podcasts-page-left-side').css('width', '43%')
