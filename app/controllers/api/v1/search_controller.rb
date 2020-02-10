@@ -10,7 +10,6 @@ module Api
         # beautiful asthetics.
         models_to_search = [Podcast, Network, Collection, Genre] # must have search_by_title method
         @podcasts = models_to_search.map { |model| model.search_by_title params[:s] }.flatten!
-        @podcasts = @podcasts.uniq
         # Old version:
         # @podcasts = Podcast.search_by_title(params[:s])
         render json: @podcasts

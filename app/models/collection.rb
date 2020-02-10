@@ -3,6 +3,6 @@ class Collection < ApplicationRecord
 
   def self.search_by_title reference_title
     # TODO refactor to helper
-    where("title like ?", "%#{reference_title}%").first.try(:podcasts)
+    where("title like ?", "%#{reference_title}%").first.try(:podcasts).uniq
   end
 end

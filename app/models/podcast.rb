@@ -17,7 +17,7 @@ class Podcast < ApplicationRecord
   }
 
   def self.search_by_title reference_title
-    where("title like ?", "%#{reference_title}%")
+    where("title like ?", "%#{reference_title}%").uniq
   end
 
   def self.create_from_itunes result
