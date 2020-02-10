@@ -6,7 +6,7 @@ class SearchService
   end
 
   def all_tables! 
-    TABLES.map { |m| m.search_by_title @search_input }.compact.flaten
+    TABLES.map { |m| m.search_by_title @search_input }.compact.flatten
   end
 
 end
