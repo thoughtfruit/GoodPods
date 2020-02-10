@@ -4,6 +4,6 @@ class Genre < ApplicationRecord
   has_many :groups
 
   def self.search_by_title reference_title
-    Podcast.where("genre like ?", "%#{reference_title}%").uniq
+    Podcast.where("genre like ?", "%#{reference_title}%").try(:uniq)
   end
 end
