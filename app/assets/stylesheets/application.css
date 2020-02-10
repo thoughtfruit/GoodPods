@@ -187,12 +187,13 @@ article.discover {
 
 article.add-to-library {
   width: 500px;
-  background: #f3f3f3;
+  background: #16161d;
   padding: 20px;
   position: absolute;
   z-index: 999;
-  top: 78px;
-  border-radius: 10px;
+  top: 90px;
+  color: #fff;
+  border-radius: 20px;
 }
 
 .search {
@@ -226,13 +227,14 @@ article.add-to-library {
   font-size: 17px;
   box-shadow: 0 0 5px #aaa;
 }
+
 .navbar-wrapper a {
   font-family: "BlinkMacSystemFont","Segoe UI","Helvetica","Arial","sans-serif";
-  font-size: 16px;
+  font-size: 20px;
   color: #7e7d7d;
   margin-right: 20px;
   font-weight: 400;
-  position: relative; top: -5px;
+  position: relative; top: -4px;
 }
 
 .light {

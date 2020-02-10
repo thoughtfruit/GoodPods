@@ -22,7 +22,9 @@
           <!-- <a class="navbar-link" href="/profiles/<%= current_user.try(:id) %>">My Profile</a>-->
           <!--<a class="navbar-link" href="/help">How to use this?</a> -->
           <!-- <a class="navbar-link" href="/labs" style="font-weight: normal;">Labs</a> -->
-          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link logout' %>
+          <p class="navbar-text pull-right">
+            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link logout' %>
+          </div>
         <% end %>
       </p>
       </div>
