@@ -6,7 +6,7 @@ class PodcastEpisodesIngestionService
   end
 
   def start!
-    @xml    = Nokogiri::XML(open(@podcast.feed_url))
+    @xml    = Nokogiri::XML(open(@podcast.try(:feed_url)))
     channel = @xml.at("rss").at("channel")
     items   = channel.xpath("//item")
 
