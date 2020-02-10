@@ -191,6 +191,7 @@ article.add-to-library {
   padding: 20px;
   position: absolute;
   z-index: 999;
+  font-family: "BlinkMacSystemFont","Segoe UI","Helvetica","Arial","sans-serif";
   top: 90px;
   color: #fff;
   border-radius: 20px;
