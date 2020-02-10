@@ -25,10 +25,10 @@
 }
 
 body {
+  background: #f5f5f5;
   outline: 0;
   outline: none;
   color: #333;
-  background: #fff;
   font-family: Helvetica, Arial, sans-serif;
 }
 
@@ -211,25 +211,18 @@ article.add-to-library {
   overflow: hidden;
   clear: both;
   margin-bottom: 10px;
-  background: #f5f5f5;
-  font-weight: thin;
-  color: #000;
+  background: #fff;
   height: 50px;
   font-size: 17px;
-  box-shadow: 0 0 3px #000;
+  box-shadow: 0 0 5px #aaa;
 }
 .navbar-wrapper a {
-  font-family: "HelveticaNeue-Thin", Arial, sans-serif;
-  letter-spacing: 0.3px;
-  font-size: 14px;
-  position: relative; top:-2px;
-}
-
-.navbar-wrapper a:active, 
-.navbar-wrapper a:hover, 
-.navbar-wrapper a { 
-  font-family: "Helvetica"; 
-  color: #000; 
+  font-family: "BlinkMacSystemFont","Segoe UI","Helvetica","Arial","sans-serif";
+  font-size: 16px;
+  color: #7e7d7d;
+  margin-right: 20px;
+  font-weight: 400;
+  position: relative; top: -5px;
 }
 
 .light {

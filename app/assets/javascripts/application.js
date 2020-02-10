@@ -35,6 +35,8 @@ audiojs.events.ready(() => {
 $(document).ready(() => {
   App.initialize()
 
+  $('.js-tooltip').tooltip();
+
   $('a.podcasts-in-collection').hover(function(e) {
     $('.add-to-library').show()
   })
