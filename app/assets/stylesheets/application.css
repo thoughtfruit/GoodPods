@@ -192,9 +192,7 @@ article.add-to-library {
   position: absolute;
   z-index: 999;
   top: 78px;
-  left:-5px;
   border-radius: 10px;
-  border-top-left-radius: 0;
 }
 
 .search {
