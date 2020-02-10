@@ -41,7 +41,7 @@ namespace :one_offs do
   end
 
   task :add_pods_to_collections => :environment do
-    ['5by5', 'relayfm', 'earwolf', 'wondery', 'nerdist'].each do |network|
+    ['5by5', 'relayfm', 'earwolf', 'wondery', 'gimlet'].each do |network|
       c = Collection.find_or_create_by!(title: network)
       PodcastIngestion.find(network).each do |result|
         if result
