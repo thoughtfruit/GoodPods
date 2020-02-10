@@ -1,6 +1,6 @@
 <div class="container" style="padding-top: 20px;">
   <center>
-    <h4 style="text-transform: uppercase;">Search for Podcasts </h4>
+    <h4 style="text-transform: uppercase;">Search for Podcasts (search by genre or title)</h4>
     <div class="post-an-update" style="position: relative">
       <textarea name="" id=""></textarea>
     </div>
@@ -12,7 +12,7 @@
 
   <div class="podcasts-grid">
     <% @podcasts.order("created_at asc").each do |podcast| %>
-      <div data-pod-title="<%= podcast.title %>" data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="100"/></a></div>
+      <div data-pod-title="<%= podcast.title %>" data-pod-genre="<%= podcast.genre %>" data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="100"/></a></div>
     <% end %>
   </div>
 

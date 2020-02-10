@@ -52,7 +52,14 @@ $(document).ready(() => {
     if (input == "" || input == null) {
       $('.podcasts-grid').children().show()
     } else {
-      $('.podcasts-grid').children().not('[data-pod-title*="' + titlecase(input) + '"]', '[data-pod-genre*="' + titlecase(input) + '"]').hide()
+      $('.podcasts-grid')
+        .children()
+        .not(
+          '[data-pod-title*="' + titlecase(input) + '"]'
+        ).hide()
+      $('.podcasts-grid')
+        .children('[data-pod-genre*="' + titlecase(input) + '"]')
+        .show()
     }
   })
 
