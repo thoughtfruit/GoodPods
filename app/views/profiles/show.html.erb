@@ -1,75 +1,96 @@
 <div class="container">
   <br />
   <table border="1" cellspacing="0" cellpadding="0" style="width:40%; float: left; border: 1px #aaa solid; margin-right:20px;">
-    <tr><td colspan="2"></td></tr><tr>
-      <!--<td rowspan="3">-->
-      <!--</td>-->
       <td class="tableCellOne"><div class="defaultBold">member email:</div></td>
       <td class="tableCellOne"><%= @profile.email %></td>
     </tr><tr>
       <td class="tableCellTwo"><div class="defaultBold">real name:</div></td>
-      <td class="tableCellTwo">scott</td>
+      <td class="tableCellTwo"><%= @profile.try(:first_name) %></td>
     </tr><tr>
       <td class="tableCellOne"><div class="defaultBold">location:</div></td>
-      <td class="tableCellOne">australia</td>
+      <td class="tableCellOne"><%= @profile.try(:location) %></td>
     </tr>
     <tr>
-      <td class="tableCellTwo"><div class="defaultBold">aim/yahoo/msn/icq:</div></td>
-      <td class="tableCellTwo">n/a</td>
+      <td class="tableCellTwo"><div class="defaultBold">favorite genres:</div></td>
+      <td class="tableCellTwo"><%= @profile.try(:genres) %></td>
     </tr><tr>
-      <!--<td colspan="2" class="tableCellOne"><div class="defaultBold">my website:</div></td>
-        <td colspan="2" class="tableCellOne"><a href="http://www.scottcalder.net">http://www.scottcalder.net</a></td>-->
         <td class="tableCellOne"><div class="defaultBold">my website:</div></td>
-        <td class="tableCellOne"><a href="https://web.archive.org/web/20050516160424/http://www.scottcalder.net/">http://www.scottcalder.net</a></td>
+        <td class="tableCellOne"><a href="<%= @profile.try(:website) %>"><%= @profile.try(:website) %></a></td>
     </tr>
     <tr>
-      <!--<td colspan="2" class="tableCellTwo"><div class="defaultBold">member since:</div></td>
-        <td colspan="2" class="tableCellTwo">-->
-          <td class="tableCellTwo"><div class="defaultBold">member since:</div></td>
-          <td class="tableCellTwo">April 27, 2005</td>
+          <td class="tableCellTwo"><div class="defaultBold">member for:</div></td>
+          <td class="tableCellTwo"><%= time_ago_in_words @profile.try(:created_at).to_s %></td>
     </tr>
   </table>
 
   <table border="1" cellspacing="0" cellpadding="0" style="width:50%; border: 1px #aaa solid;">
-    <tr><td></td></tr><tr>
 
       <td class="tableCellOne"><div class="defaultBold">member overall ranking:</div></td>
 
       <td class="tableCellOne">
-        <a href="/web/20050516160424/http://digg.com/topusers/page16">453</a></td>
+        <%= @profile.try(:global_ranking) || "Start listening to get a ranking!" %></td>
 
     </tr>
     <tr>
-      <td class="tableCellTwo"><div class="defaultBold">stories dug:</div></td>
+      <td class="tableCellTwo"><div class="defaultBold">podcasts listened to:</div></td>
       <td class="tableCellTwo">
-        115</td>
+        <%= @profile.try(:podcasts_listened_to) %></td>
     </tr>
     <tr>
-      <td class="tableCellOne"><div class="defaultBold">stories submitted:</div></td>
-      <td class="tableCellOne">
-        9</td>
-    </tr>
-    <tr>
-      <td class="tableCellTwo" nowrap><div class="defaultBold">submitted stories dug to homepage:</div></td>
+      <td class="tableCellTwo" nowrap><div class="defaultBold">updates posted about podcasts:</div></td>
       <td class="tableCellTwo">
-        3</td>
+        <%= @profile.try(:update_quantity) %></td>
     </tr>
     <tr>
-      <td class="tableCellOne"><div class="defaultBold">submitted stories to homepage %:</div></td>
+      <td class="tableCellOne"><div class="defaultBold">chatty % (out of all users):</div></td>
       <td class="tableCellOne">
-        33 %</td>
+        <%= @profile.try(:total_communication_percentage) %></td>
     </tr>
     <tr>
       <td class="tableCellTwo"><div class="defaultBold">profile pageviews:</div></td>
-      <td class="tableCellTwo">150</td>
+      <td class="tableCellTwo"><%= @profile.try(:pageviews) %></td>
     </tr>
   </table>
 
-  <hr />
+  <div class="clearfix"></div>
+
+  <br />
 
   <a href="<%= edit_user_registration_path(current_user) %>">Edit Profile</a>
   <hr />
 
+  <style>
+      td { padding: 5px; }
+      .profile-page-left-column,
+      .profile-page-right-column {
+        border: 1px #000 solid;
+        height: 200px;
+        width: 45%;
+        float: left;
+        margin: 10px;
+      }
+      .profile-page-left-column-header,
+      .profile-page-right-column-header {
+        font-size: 14px;
+        border-bottom: 1px #000 solid;
+      }
+  </style>
+
+  <div class="profile-page-left-column">
+    <div class="profile-page-left-column-header">
+      Listening History
+    </div>
+    <div class="profile-page-left-column-body">
+    </div>
+  </div>
+
+  <div class="profile-page-right-column">
+    <div class="profile-page-right-column-header">
+      Your Updates
+    </div>
+    <div class="profile-page-right-column-body">
+    </div>
+  </div>
 
 </div>
 

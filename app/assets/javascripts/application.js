@@ -32,20 +32,12 @@ audiojs.events.ready(() => {
   var as = audiojs.createAll();
 })
 
-function titlecase(str) {
-  str = str.toLowerCase().split(' ');
-  for (var i = 0; i < str.length; i++) {
-    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
-  }
-  return str.join(' ');
-}
-
-$('a.podcasts-in-collection').hover(function(e) {
-  $('.add-to-library').show()
-})
-
 $(document).ready(() => {
   App.initialize()
+
+  $('a.podcasts-in-collection').hover(function(e) {
+    $('.add-to-library').show()
+  })
 
   $('.post-an-update textarea').keyup(function(e){
     input = $(e.currentTarget).val()
@@ -93,14 +85,6 @@ $(document).ready(() => {
 
 App.initialize = () => {
   App.utils.bootRoutes()
-}
-
-App.utils.checkIfPathIsSet = function(path) {
-  if (window.location.pathname.indexOf(path) != -1) {
-    return true
-  } else {
-    return false
-  }
 }
 
 function reloadPage() {

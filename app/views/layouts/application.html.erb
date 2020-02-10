@@ -19,12 +19,10 @@
           <a class="navbar-link" href="/collections">Collections</a> | 
           <!--<a class="navbar-link" href="/fiction">Fiction</a> |-->
           <!--<a class="navbar-link" href="/updates">Reviews</a> |-->
-          <% if user_signed_in? %>
-            <!--<a class="navbar-link" href="/profiles/<%= current_user.try(:id) %>">My Stuff</a>-->
-            <!--<a class="navbar-link" href="/help">How to use this?</a> | -->
-            <!-- <a class="navbar-link" href="/labs" style="font-weight: normal;">Labs</a> | -->
-            <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link logout' %>
-          <% end %>
+          <a class="navbar-link" href="/profiles/<%= current_user.try(:id) %>">My Profile</a> |
+          <!--<a class="navbar-link" href="/help">How to use this?</a> | -->
+          <!-- <a class="navbar-link" href="/labs" style="font-weight: normal;">Labs</a> | -->
+          <%= link_to "Logout", destroy_user_session_path, method: :delete, :class => 'navbar-link logout' %>
         <% end %>
       </p>
       </div>

@@ -12,7 +12,6 @@
 # 		begin
 # 			Synchronizer.run!
 # 		rescue SynchronizerError
-# 			puts "some shit"
 # 		end
 # 	end
 # 

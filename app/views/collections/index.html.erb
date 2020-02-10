@@ -4,11 +4,41 @@
   <% @collections.each do |collection| %>
     <strong style="font-size: 16px;"><%= collection.title %></strong>
     <div class="clearfix"></div>
-    <% collection.podcasts.each do |podcast| %>
-      <a href="/podcasts/<%= podcast.id %>"><img src="<%= podcast.logo_url %>" width="80" /></a>
-    <% end %>
+    <span style="position: relative;">
+      <% collection.podcasts.each do |podcast| %>
+        <span class="podcasts-in-collection" style="position: relative;">
+          <a class="podcasts-in-collection" data-pod-bio="<%= podcast.bio %>" href="/podcasts/<%= podcast.id %>"><img src="<%= podcast.logo_url %>" style="width: 100px;margin:1px;margin-left:-1px;margin-right:-1px;" /></a>
+        </span>
+      <% end %>
+      <article class="add-to-library hidden" style="position: absolute;top:59px;">
+        <div class="podcast-title"></div>
+        <div class="podcast-bio"></div>
+        <div style="margin-top: 5px;">
+          <input type="checkbox" name="to-listen" id="to-listen" />
+          <label for="to-listen" id="to-listen">
+            Add to To Listen...
+          </label>
+          <br />
+          <input type="checkbox" name="listening" id="listening" />
+          <label for="listening" id="listening">
+            Add to Listening...
+          </label>
+          <br />
+          <input type="checkbox" name="listened" id="listened" />
+          <label for="listened" id="listened">
+            Add to Listened...
+          </label>
+        </div>
+      </article>
+    </span>
 
     <div class="clearfix"></div>
     <hr />
   <% end %>
 </div>
+
+<style>
+</style>
+
+<script>
+</script>

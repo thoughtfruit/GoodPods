@@ -67,7 +67,7 @@ App.sections.myListening = function() {
   }
 
   function renderPodcast(podcast) {
-    return "<div data-pod-bio='" + escape(podcast.bio) + "'data-pod-title='" + podcast.title + "'data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><a href='/podcasts/"+podcast.id+".html'><img src='" + podcast.logo_url + "' width='75' style='padding: 5px; float: left' /></a></div>"
+    return "<div data-pod-bio='" + escape(podcast.bio) + "'data-pod-title='" + podcast.title + "'data-pod-id='" + podcast.id + "' style='display: inline-block; position: relative;'><a href='/podcasts/"+podcast.id+".html'><img src='" + podcast.logo_url + "' style='width: 85px; padding: 5px; float: left' /></a></div>"
   }
 }
 
