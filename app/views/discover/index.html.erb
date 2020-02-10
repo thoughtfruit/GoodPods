@@ -1,10 +1,8 @@
 <div class="container" style="padding-top: 20px;">
   <center>
-    <h4 style="text-transform: uppercase;">Search for Podcasts (search by genre, collection, attributes, etc)</h4>
+    <h4 style="text-transform: uppercase;">Search for Podcasts </h4>
     <div class="post-an-update" style="position: relative">
       <textarea name="" id=""></textarea>
-      <div class="typeahead-dropdown hidden">
-      </div>
     </div>
   </center>
 
@@ -13,12 +11,11 @@
   <br />
 
   <div class="podcasts-grid">
-    <h2 class="page-header">All The Great Shows</h2>
     <% @podcasts.order("created_at asc").each do |podcast| %>
-      <div data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url %>" width="100"/></a></div>
+      <div data-pod-title="<%= podcast.title %>" data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="100"/></a></div>
     <% end %>
-
   </div>
+
   <article class="add-to-library hidden" style="top: 109px;">
     <div class="podcast-title"></div>
     <div class="podcast-bio"></div>
@@ -40,8 +37,7 @@
   </article>
 
   <div class="clearfix"></div>
-
-  <hr />
+  <div style="margin-bottom: 20px;"></div>
 
   <!--<div class="podcast-categories">
     <h2 class="page-header">Categories</h2>
@@ -61,7 +57,7 @@
 
     <hr /> -->
 
-    <div class="all-podcasts-text">
+    <div class="all-podcasts-text" style="padding: 20px; border-radius: 20px;">
       <h2 class="page-header">All Podcasts in Alphabetical Order w/Bio</h2>
       <ul>
         <% @podcasts.order('title asc').each do |podcast| %>

@@ -32,8 +32,29 @@ audiojs.events.ready(() => {
   var as = audiojs.createAll();
 })
 
+function titlecase(str) {
+  str = str.toLowerCase().split(' ');
+  for (var i = 0; i < str.length; i++) {
+    str[i] = str[i].charAt(0).toUpperCase() + str[i].slice(1);
+  }
+  return str.join(' ');
+}
+
+$('a.podcasts-in-collection').hover(function(e) {
+  $('.add-to-library').show()
+})
+
 $(document).ready(() => {
   App.initialize()
+
+  $('.post-an-update textarea').keyup(function(e){
+    input = $(e.currentTarget).val()
+    if (input == "" || input == null) {
+      $('.podcasts-grid').children().show()
+    } else {
+      $('.podcasts-grid').children().not('[data-pod-title*="' + titlecase(input) + '"]', '[data-pod-genre*="' + titlecase(input) + '"]').hide()
+    }
+  })
 
   $('.js-description').change((e) => {
     if ($(e.currentTarget).val() == '1') {
@@ -67,4 +88,117 @@ App.initialize = () => {
   App.utils.bootRoutes()
 }
 
+App.utils.checkIfPathIsSet = function(path) {
+  if (window.location.pathname.indexOf(path) != -1) {
+    return true
+  } else {
+    return false
+  }
+}
 
+function reloadPage() {
+  window.location.reload()
+}
+
+function onlyUnique(value, index, self) { 
+    return self.indexOf(value) === index;
+}
+
+function clearAddToLibraryFromOtherNodes() {
+  $('.discover div').children('add-to-library').remove()
+}
+
+function appendAddToLibraryToCurrentNode(e) {
+  $(e.currentTarget).append($('.add-to-library').css('display', 'inline-block'))
+  $('.add-to-library .podcast-title').text($(e.currentTarget).attr('data-pod-title'))
+  $('.add-to-library .podcast-bio').html(unescape($(e.currentTarget).attr('data-pod-bio')))
+}
+
+function unhideAddToLibrary() {
+  $('.add-to-library').removeClass('hidden')
+}
+
+function populateAddToLibraryWithSavedStateFor(target) {
+  $.ajax({
+    type: 'get',
+    url: '/v1/my_library' + App.clientId + '&podcast_id=' + target.attr('data-pod-id'),
+    success: function(status) {
+      renderStateForToListenForm(target, status)
+      renderStateForListenedForm(target, status)
+      renderStateForListeningForm(target, status)
+    }
+  })
+}
+
+function bindCheckboxClickEvent() {
+  function clickEventActions(e) {
+    if (userIsAddingToLibrary(e)) {
+      savePodcastToLibraryInStatus(e)
+    } else if (userIsRemovingFromLibrary(e)) {
+      removePodcastFromLibraryInStatus(e)
+    }
+  }
+
+  $('input[type="checkbox"]').off('click').on('click', (e) => {
+    clickEventActions(e)
+  })
+}
+
+function renderStateForToListenForm(target, status) {
+  if (status.indexOf("to-listen") != -1) {
+    target.find('#to-listen').prop('checked', true)
+  } else {
+    target.find('#to-listen').prop('checked', false)
+  }
+}
+
+function renderStateForListenedForm(target, status) {
+  if (status.indexOf("listened") != -1) {
+    target.find('#listened').prop('checked', true)
+  } else {
+    target.find('#listened').prop('checked', false)
+  }
+}
+
+function renderStateForListeningForm(target, status) {
+  if (status.indexOf("listening") != -1) {
+    target.find('#listening').prop('checked', true)
+  } else {
+    target.find('#listening').prop('checked', false)
+  }
+}
+
+function userIsAddingToLibrary(e) {
+  return $(e.currentTarget).prop('checked') === true
+}
+
+function savePodcastToLibraryInStatus(e) {
+  $.ajax({
+    type: 'post',
+    url: '/v1/my_library' + App.clientId + '&podcast_id=' + getPodcastId(e) + '&save_to_list=' + $(e.currentTarget).attr('id'),
+    success: (data) => {
+      console.log('no-op - saved to my library')
+    }, error: () => {
+      console.log('error')
+      $(e.currentTarget).prop('checked', false)
+    }
+  })
+}
+
+function removePodcastFromLibraryInStatus(e) {
+  $.ajax({
+    type: 'get',
+    url: '/v1/remove_from_my_library' + App.clientId + '&podcast_id=' + getPodcastId(e) + '&list=' + $(e.currentTarget).attr('id'),
+    success: function(data) {
+      // TODO: Update UI to reflect this delete by unchecking boxes before a reload
+    }
+  })
+}
+
+function userIsRemovingFromLibrary(e) {
+  return $(e.currentTarget).prop('checked') === false
+}
+
+function getPodcastId(e) {
+  return $(e.currentTarget).parent().parent().parent().attr('data-pod-id')
+}
