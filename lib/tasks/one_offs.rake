@@ -42,7 +42,8 @@ namespace :one_offs do
 
   task :add_pods_to_collections => :environment do
     ['5by5', 'relayfm', 'earwolf', 'wondery', 'gimlet'].each do |network|
-      c = Collection.find_or_create_by!(title: network)
+      Collection.all.each(&:destroy)
+      c = Collection.create!(title: network)
       PodcastIngestion.find(network).each do |result|
         if result
           p = Podcast.where(title: result['collectionName'])
