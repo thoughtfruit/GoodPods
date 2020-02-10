@@ -69,11 +69,8 @@
             <a href="/podcasts/<%= podcast.id %>.html">
               <%= podcast.title %>
             </a>
-            <ul>
-              <li><%= podcast.bio.try(:html_safe) %>
-            </ul>
-              </li>
-            <% end %>
+          </li>
+       <% end %>
       </ul>
     </div>
 
