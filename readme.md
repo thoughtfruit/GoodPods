@@ -13,7 +13,6 @@ TODO add
 ## License
 
 GoodPods.App is Copyright (c) 2020 Start Here, LLC.
-This is free software.
 
   [LICENSE]: /LICENSE
 
