@@ -1,9 +1,29 @@
-# README
+# GoodPods
 
-# LAUNCHING
+GoodReads for podcasts. We're the best social podcast community platform.
 
-1. Deploy
-2. Run `rake db:migrate`
-3. Run `rake one_offs:engist_all_podcasts_from_searches`
-4. Run `rake one_offs:re_engist_small_logos`
-5. Run `rake one_offs:add_pods_to_collections`
+## Usage
+
+TODO add 
+
+## Contributing
+
+TODO add
+
+## License
+
+GoodPods.App is Copyright (c) 2020 Start Here, LLC.
+
+  [LICENSE]: /LICENSE
+
+## About
+
+PodFeed.IT is maintained by [Dain Miller](http://dainmiller.tumblr.com).
+
+![starthere](https://s3-us-west-2.amazonaws.com/slack-files2/avatars/2019-02-27/563189498370_28783431d83611e8aeb9_132.jpg)
+
+We love open source software!
+
+## Production
+
+Hosted on Heroku at [https://dashboard.heroku.com/apps/goodpods-app](https://dashboard.heroku.com/apps/goodpods-app)

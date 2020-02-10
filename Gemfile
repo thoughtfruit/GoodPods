@@ -15,7 +15,7 @@ gem 'material_icons'
 gem 'awesome_print'
 gem 'fastercsv' # Only required on Ruby 1.8 and below
 gem 'rails_admin'
-gem 'puma', '~> 3.11'
+gem 'puma', '~> 3.12'
 gem 'loofah'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.2'
