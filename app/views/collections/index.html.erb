@@ -1,13 +1,13 @@
 <div class="container" style="margin-top: -20px;">
   <h2 class="page-header">All Collections</h2>
 
-  <% @collections.each do |collection| %>
+  <% @collections.reverse_order.each do |collection| %>
     <strong style="font-size: 16px;"><%= collection.title %></strong>
     <div class="clearfix"></div>
-    <span style="position: relative;">
+    <div class="collection" style="position: relative;">
       <% collection.podcasts.each do |podcast| %>
         <span class="podcasts-in-collection" style="position: relative;">
-          <a class="podcasts-in-collection" data-pod-bio="<%= podcast.bio %>" href="/podcasts/<%= podcast.id %>"><img src="<%= podcast.logo_url %>" style="width: 100px;margin:1px;margin-left:-1px;margin-right:-1px;" /></a>
+          <a class="podcasts-in-collection" data-pod-bio="<%= podcast.bio %>" href="/podcasts/<%= podcast.id %>"><img src="<%= podcast.logo_url_large %>" style="width: 125px;margin:3px;margin-left:3px;margin-right:3px;" /></a>
         </span>
       <% end %>
       <article class="add-to-library hidden" style="position: absolute;top:59px;">
@@ -30,7 +30,7 @@
           </label>
         </div>
       </article>
-    </span>
+    </div>
 
     <div class="clearfix"></div>
     <hr />

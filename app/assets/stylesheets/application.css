@@ -25,7 +25,7 @@
 }
 
 body {
-  background: #f5f5f5;
+  background: #f3f3f3;
   outline: 0;
   outline: none;
   color: #333;
@@ -40,9 +40,10 @@ body:focus {
 .left-column {
   float: left;
   padding: 0;
-  width: 44%;
+  width: 720px;
   margin-left: 140px;
-  background: #f5f5f5; 
+  background: #fff;
+  border-radius: 10px;
 }
 .center-column { 
   margin: 0 auto; 
@@ -51,12 +52,20 @@ body:focus {
   background: #f5f5f5;
 }
 
+.collection {
+  background: #fff;
+  padding: 10px;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
 .right-column { 
   float: left; 
-  width: 30%; 
+  width: 350px; 
   padding: 10px;
   margin-left: 20px;
-  background: #f5f5f5;
+  background: #fff;
+  border-radius: 10px;
 }
 
 select  { width: 85%; }
@@ -178,11 +187,14 @@ article.discover {
 
 article.add-to-library {
   width: 500px;
-  background: rgb(243, 227, 179);
+  background: #f3f3f3;
   padding: 20px;
   position: absolute;
   z-index: 999;
-  top: 70px;
+  top: 78px;
+  left:-5px;
+  border-radius: 10px;
+  border-top-left-radius: 0;
 }
 
 .search {
@@ -420,9 +432,10 @@ font-size: 12px;}
 }
 
 .all-podcasts-text {
-  background: #f5f5f5;
   overflow: hidden;
 }
+.podcasts-grid a { cursor: pointer; cursor: hand;}
+img { border-radius: 10px;}
 
 .login-container { 
   float: left;
