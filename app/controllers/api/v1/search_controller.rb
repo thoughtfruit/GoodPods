@@ -3,7 +3,7 @@ module Api
     class SearchController < ApiController
 
       def search
-        @podcasts = SearchService.new(search_for: params[:s])
+        @podcasts = SearchService.new(search_for: params[:s]).all_tables!
 
         # Old version:
         # @podcasts = Podcast.search_by_title(params[:s])
