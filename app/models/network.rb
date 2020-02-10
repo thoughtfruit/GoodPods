@@ -3,6 +3,6 @@ class Network < ApplicationRecord
 
   def self.search_by_title reference_title
     # TODO refactor to helper E.g. search_by_title
-    where("title ilike ?", "%#{reference_title}%")
+    where("title like ?", "%#{reference_title}%")
   end
 end
