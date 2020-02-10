@@ -128,6 +128,7 @@ function bindCheckboxClickEvent() {
     } else if (userIsRemovingFromLibrary(e)) {
       removePodcastFromLibraryInStatus(e)
     }
+    reloadPage()
   }
 
   $('input[type="checkbox"]').off('click').on('click', (e) => {
