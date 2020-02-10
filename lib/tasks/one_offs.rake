@@ -1,5 +1,21 @@
 namespace :one_offs do
 
+  task :import_podcasts_from_random_types => :environment do
+    PodcastIngestion.search "grad school"
+    PodcastIngestion.search "graduate school"
+    PodcastIngestion.search "physics frontiers"
+    PodcastIngestion.search "physics"
+    PodcastIngestion.search "cosmology"
+    PodcastIngestion.search "astrophysics"
+    PodcastIngestion.search "getting things done"
+    PodcastIngestion.search "gtd"
+    PodcastIngestion.search "dungeons and dragons"
+    PodcastIngestion.search "video games"
+    PodcastIngestion.search "self help"
+    PodcastIngestion.search "real social dynamics"
+    PodcastIngestion.search "grounded"
+  end
+
   task :start_import => :environment do
     DiscoveryService.start!
   end

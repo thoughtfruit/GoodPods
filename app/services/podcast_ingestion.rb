@@ -12,7 +12,7 @@ class PodcastIngestion < Service
 
   def self.import result
     podcast = self.create_podcast_with(result) unless self.any_podcast_found_from_itunes?(result)
-    PodcastEpisodeIngestionService.new(podcast: podcast)
+    PodcastEpisodesIngestionService.new(podcast: podcast)
   end
 
   private
