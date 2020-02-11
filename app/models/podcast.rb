@@ -13,7 +13,7 @@ class Podcast < ApplicationRecord
   validates :title, uniqueness: true, on: [:update, :create]
 
   scope :with_logos, -> {
-    where.not(logo_url: nil).all
+    where.not(logo_url: nil).order("created_at asc").all
   }
 
   def self.search_by_title reference_title

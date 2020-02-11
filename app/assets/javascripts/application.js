@@ -37,8 +37,15 @@ $(document).ready(() => {
 
   $('.js-tooltip').tooltip();
 
-  $('a.podcasts-in-collection').hover(function(e) {
-    $('.add-to-library').show()
+  $('.collection a').hover(function(e) {
+    $('.add-to-library').css('left', '5px')
+    clearAddToLibraryFromOtherNodes()
+    appendAddToLibraryToCurrentNode(e)
+    unhideAddToLibrary()
+    populateAddToLibraryWithSavedStateFor($(e.currentTarget))
+    bindCheckboxClickEvent()
+  }, function() {
+    $('.add-to-library').addClass('hidden')
   })
 
   $('.post-an-update textarea').keyup(function(e){

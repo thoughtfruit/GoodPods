@@ -55,7 +55,8 @@ body:focus {
   background: #fff;
   padding: 10px;
   border-radius: 10px;
-  overflow: hidden;
+  display: block;
+  clear: both;
 }
 
 .right-column { 
