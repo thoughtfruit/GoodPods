@@ -40,8 +40,7 @@ body:focus {
 .left-column {
   float: left;
   padding: 0;
-  width: 720px;
-  margin-left: 140px;
+  width: 770px;
   background: #fff;
   border-radius: 10px;
 }
@@ -60,7 +59,7 @@ body:focus {
 }
 
 .right-column { 
-  float: left; 
+  float: right; 
   width: 350px; 
   padding: 10px;
   margin-left: 20px;
@@ -83,6 +82,7 @@ select  { width: 85%; }
 }
 .discover img {
   z-index: 0;
+  width: 83px !important;
 }
 
 article.discover {
@@ -314,8 +314,9 @@ font-size: 12px;}
 }
 
 .inner-homepage {
-width: 1400px;
-margin: 0 auto;}
+  margin: 0 auto;
+}
+
 @media screen and (min-width: 1350px) {
   .inner-homepage {
     margin: 0 auto;

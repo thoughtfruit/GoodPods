@@ -37,7 +37,7 @@ App.sections.discover = function() {
       $el.append(
         '<div data-pod-bio="' + escape(podcast.bio) + '"data-pod-title="' + podcast.title + '"data-pod-id="' + podcast.id + '" style="display: inline-block; position: relative;">' +
           "<a href='/podcasts/" + podcast.id + ".html'>" +
-            "<img src='" + podcast.logo_url_large + "' style='width: 100px; padding: 5px; float: left' />" +
+            "<img src='" + podcast.logo_url_large + "' style='width: 83px; padding: 5px; float: left' />" +
             "</a>" +
         "</div>"
       )

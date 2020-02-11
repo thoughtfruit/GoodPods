@@ -1,6 +1,17 @@
 namespace :one_offs do
 
-  task :import_podcasts_from_random_types => :environment do
+  task :start_import => :environment do
+    DiscoveryService.start!
+  end
+  
+  task :new_pods => :environment do
+    PodcastIngestion.search 'relayfm'
+    PodcastIngestion.search 'earwolf'
+    PodcastIngestion.search 'earwolf'
+    PodcastIngestion.search 'venture podcast'
+    PodcastIngestion.search 'web development podcast'
+    PodcastIngestion.search 'angel podcast'
+    PodcastIngestion.search 'angel podcast'
     PodcastIngestion.search "grad school"
     PodcastIngestion.search "graduate school"
     PodcastIngestion.search "physics frontiers"
@@ -16,35 +27,6 @@ namespace :one_offs do
     PodcastIngestion.search "grounded"
   end
 
-  task :start_import => :environment do
-    DiscoveryService.start!
-  end
-  
-  task :engist_all_podcasts_from_searches => :environment do
-    Podcast.import_from_search('relayfm')
-    Podcast.import_from_search('earwolf')
-    Podcast.import_from_search('earwolf')
-    Podcast.import_from_search('venture podcast')
-    Podcast.import_from_search('web development podcast')
-    Podcast.import_from_search('angel podcast')
-    Podcast.import_from_search('angel podcast')
-  end
-
-  task :import_relayfm_shows => :environment do
-    Podcast.import_from_search('relayfm')
-  end
-
-  task :import_earwolf_shows => :environment do
-    Podcast.import_from_search('earwolf')
-  end
-
-  task :import_venture_capitalist_shows => :environment do
-    Podcast.import_from_search('venture podcast')
-    Podcast.import_from_search('web development podcast')
-    Podcast.import_from_search('angel podcast')
-    Podcast.import_from_search('angel podcast')
-  end
-
   task :re_ingest_small_logos => :environment do
     Podcast.order("created_at desc").all.each do |podcast|
       t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title} podcast").body
@@ -58,7 +40,7 @@ namespace :one_offs do
 
   task :add_pods_to_collections => :environment do
     Collection.all.each(&:destroy)
-    ['5by5', 'relayfm', 'earwolf', 'wondery', 'gimlet'].each do |network|
+    ['5by5', 'relayfm', 'earwolf', 'wondery', 'gimlet', 'twit'].each do |network|
       c = Collection.create!(title: network)
       PodcastIngestion.find(network).each do |result|
         if result
