@@ -67,6 +67,9 @@ GEM
     autoprefixer-rails (9.7.1)
       execjs
     awesome_print (1.8.0)
+    barnes (0.0.8)
+      multi_json (~> 1)
+      statsd-ruby (~> 1.1)
     bcrypt (3.1.13)
     bindex (0.8.1)
     binding_of_caller (0.8.0)
@@ -169,6 +172,7 @@ GEM
       libv8 (>= 6.9.411)
     minitest (5.14.0)
     msgpack (1.3.1)
+    multi_json (1.14.1)
     multi_xml (0.6.0)
     multipart-post (2.1.1)
     nested_form (0.3.2)
@@ -285,6 +289,7 @@ GEM
       activesupport (>= 4.0)
       sprockets (>= 3.0.0)
     sqlite3 (1.4.1)
+    statsd-ruby (1.4.0)
     temple (0.8.2)
     thor (1.0.1)
     thread_safe (0.3.6)
@@ -313,6 +318,7 @@ PLATFORMS
 DEPENDENCIES
   audiojs-rails
   awesome_print
+  barnes
   binding_of_caller
   bootsnap (>= 1.1.0)
   bootstrap
