@@ -55,11 +55,13 @@ $(document).ready(() => {
     } else {
       $('.podcasts-grid')
         .children()
-        .not(
-          '[data-pod-title*="' + titlecase(input) + '"]'
-        ).hide()
+        .not('[data-pod-title*="' + titlecase(input) + '"]')
+        .hide()
       $('.podcasts-grid')
         .children('[data-pod-genre*="' + titlecase(input) + '"]')
+        .show()
+      $('.podcasts-grid')
+        .children('[data-pod-collection*="' + downcase(input) + '"]')
         .show()
     }
   })

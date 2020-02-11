@@ -1,3 +1,8 @@
+function downcase(str) {
+  str = str.toLowerCase()
+  return str
+}
+
 function titlecase(str) {
   str = str.toLowerCase().split(' ');
   for (var i = 0; i < str.length; i++) {

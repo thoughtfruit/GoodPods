@@ -1,4 +1,5 @@
 <div class="container" style="padding-top: 20px; background: #fff; border-radius: 10px;">
+
   <center>
     <h4 style="text-transform: uppercase;">Search for Podcasts by <span data-toggle="tooltip" data-placement="right" style="text-decoration: underline; cursor: pointer; cursor: hand;" title="<%= Podcast.all.map(&:genre).uniq.take(20).join(", ") %>, etc..." class="js-tooltip">genre</span> or title</h4>
     <div class="post-an-update" style="position: relative">
@@ -12,7 +13,7 @@
 
   <div class="podcasts-grid">
     <% @podcasts.order("created_at asc").each do |podcast| %>
-      <div data-pod-title="<%= podcast.title %>" data-pod-genre="<%= podcast.genre %>" data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="100"/></a></div>
+      <div data-pod-title="<%= podcast.title %>" data-pod-genre="<%= podcast.genre %>" data-pod-collection="<%= podcast.collection.title %>" data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="101"/></a></div>
     <% end %>
   </div>
 
