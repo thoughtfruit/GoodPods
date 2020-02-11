@@ -19,6 +19,10 @@
 /* ICONS HERE: */
 /* https://material.io/resources/icons/?style=baseline */
 
+.black-bg { background: black; }
+.dark-bg { background: rgb(32,32,32) !important;}
+.white-text { color: white !important; }
+
 * {
   outline: 0;
   outline: none;

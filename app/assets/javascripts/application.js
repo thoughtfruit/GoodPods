@@ -35,6 +35,69 @@ audiojs.events.ready(() => {
 $(document).ready(() => {
   App.initialize()
 
+  if (window.location.pathname.indexOf('podcasts') === 1) {
+    $('input.js-light-dark-toggle').remove()
+  }
+
+  $('input.js-light-dark-toggle').change(function(e) {
+    if ($(this).prop('checked') == true) {
+      // DARK MODE
+      $('body').addClass('black-bg')
+
+      // HOMEPAGE
+      $('.left-column').addClass('dark-bg')
+      $('.navbar-wrapper').addClass('dark-bg')
+      $('.navbar-link').addClass('white-text')
+      $('.logo').addClass('hidden')
+      $('.header').addClass('white-text')
+      $('.left-column article').addClass('white-text')
+      $('.left-column div').addClass('white-text')
+      $('.right-column').addClass('dark-bg')
+      $('.right-column div').addClass('white-text')
+      $('.right-column header').addClass('white-text')
+      $('.right-column h3').addClass('white-text')
+      // BROWSE / DISCOVER 
+      if (window.location.pathname == "/discover") {
+        $('.container').addClass('dark-bg')
+        $('.container h4').addClass('white-text')
+      }
+      // COLLECTIONS
+      if (window.location.pathname == "/collections") {
+        $('.collection').addClass('dark-bg')
+        $('strong').addClass('white-text')
+      }
+    } else {
+      // LIGHT MODE
+      $('body').removeClass('black-bg')
+
+      // HOMEPAGE
+      $('.navbar-wrapper').removeClass('dark-bg')
+      $('.navbar-wrapper a').removeClass('white-text')
+      $('.logo').removeClass('hidden')
+      $('.right-column').removeClass('dark-bg')
+      $('.left-column').removeClass('dark-bg')
+      $('.header').removeClass('white-text')
+      $('.left-column article').removeClass('white-text')
+      $('.left-column div').removeClass('white-text')
+      $('.right-column div').removeClass('white-text')
+      $('.right-column header').removeClass('white-text')
+      $('.right-column h3').removeClass('white-text')
+      // BROWSE / DISCOVER
+      if (window.location.pathname == "/discover") {
+        $('.container').removeClass('dark-bg')
+        $('.container h4').removeClass('white-text')
+      }
+      // COLLECTIONS
+      if (window.location.pathname == "/collections") {
+        $('.collection').removeClass('dark-bg')
+        $('strong').removeClass('white-text')
+      }
+    }
+  });
+
+  //}, function() {
+  //})
+
   $('.js-tooltip').tooltip();
 
   $('.collection a').hover(function(e) {
