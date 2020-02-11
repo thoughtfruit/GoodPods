@@ -25,7 +25,8 @@
 
       <br />
       <div>
-        Favorite Genres:<br />
+        Favorite Genre:<br />
+        <i>Used for AI in podcast discovery; you can edit later.</i><br />
         <select>
           <% Podcast.all.map(&:genre).compact.uniq.each do |genre| %>
             <option value="<%= genre %>"><%= genre %></option>
