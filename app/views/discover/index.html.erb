@@ -13,7 +13,16 @@
 
   <div class="podcasts-grid">
     <% @podcasts.order("created_at asc").each do |podcast| %>
-      <div data-pod-title="<%= podcast.title %>" data-pod-genre="<%= podcast.genre %>" data-pod-collection="<%= podcast.collection.title %>" data-pod-bio="<%= podcast.bio %>" style="display: inline-block; position: relative; float: left;"><a href="/podcasts/<%= podcast.id %>.html"><img src="<%= podcast.logo_url_large %>" width="101"/></a></div>
+      <div
+        data-pod-title="<%= podcast.try(:title) %>"
+        data-pod-genre="<%= podcast.try(:genre) %>"
+        data-pod-collection="<%= podcast.collection.try(:title) %>"
+        data-pod-bio="<%= podcast.try(:bio) %>"
+        style="display: inline-block; position: relative; float: left;">
+        <a href="/podcasts/<%= podcast.id %>.html">
+          <img src="<%= podcast.try(:logo_url_large) %>" width="101"/>
+        </a>
+      </div>
     <% end %>
   </div>
 
