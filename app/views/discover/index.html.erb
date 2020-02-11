@@ -36,39 +36,5 @@
     </label>
   </article>
 
-  <div class="clearfix"></div>
-  <div style="margin-bottom: 20px;"></div>
-
-  <!--<div class="podcast-categories">
-    <h2 class="page-header">Categories</h2>
-    <ul>
-    <% @podcasts.group_by(&:genre).each do |podcast| %>
-      <li><strong><%= podcast[0] %></strong>
-      <ul>
-      <% podcast[1].each do |pod| %>
-        <li><a href="/podcasts/<%= pod.id %>.html"><%= pod.title %></a>
-        </li>
-      <% end %>
-      </ul>
-      </li>
-    <% end %>
-    </ul>
-    </div>
-
-    <hr /> -->
-
-    <div class="all-podcasts-text" style="padding: 20px; border-radius: 20px;">
-      <h2 class="page-header">All Podcasts in Alphabetical Order</h2>
-      <ul>
-        <% @podcasts.order('title asc').each do |podcast| %>
-          <li>
-            <a href="/podcasts/<%= podcast.id %>.html">
-              <%= podcast.title %>
-            </a>
-          </li>
-       <% end %>
-      </ul>
-    </div>
-
 </div>
 
