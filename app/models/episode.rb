@@ -1,5 +1,5 @@
 class Episode < ActiveRecord::Base
-  validates_presence_of :audio_url
+  validates_presence_of :streaming_url
   validates_presence_of :guid
 
   belongs_to :podcast

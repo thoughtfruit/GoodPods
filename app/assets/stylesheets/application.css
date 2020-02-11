@@ -313,6 +313,9 @@ font-size: 12px;}
   width: 100%;
 }
 
+.inner-homepage {
+width: 1400px;
+margin: 0 auto;}
 @media screen and (min-width: 1350px) {
   .inner-homepage {
     margin: 0 auto;
