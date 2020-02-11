@@ -1,7 +1,7 @@
 <div class="container" style="padding-top: 20px; background: #fff; border-radius: 10px;">
 
   <center>
-    <h4 style="text-transform: uppercase;">Search for Podcasts by <span data-toggle="tooltip" data-placement="right" style="text-decoration: underline; cursor: pointer; cursor: hand;" title="<%= Podcast.all.map(&:genre).uniq.take(20).join(", ") %>, etc..." class="js-tooltip">genre</span> or title</h4>
+    <h4 style="text-transform: uppercase;">Search for Podcasts by <span data-toggle="tooltip" data-placement="right" style="text-decoration: underline; cursor: pointer; cursor: hand;" title="<%= Podcast.all.map(&:genre).uniq.take(20).join(", ") %>, etc..." class="js-tooltip">genre</span>, <span data-toggle="tooltip" data-placement="right" style="text-decoration: underline; cursor: pointer; cursor: hand;" title="<%= Collection.all.map(&:title).uniq.take(20).join(', ') %>">network</span>, or title</h4>
     <div class="post-an-update" style="position: relative">
       <textarea name="" id=""></textarea>
     </div>
