@@ -35,9 +35,27 @@ audiojs.events.ready(() => {
 $(document).ready(() => {
   App.initialize()
 
-  if (window.location.pathname.indexOf('podcasts') === 1) {
+  $('.default').removeClass('hidden')
+
+  $('.js-tab').click(function() {
+    $('.profile-page-full-column').children().each(function() { $(this).addClass('hidden')})
+    $('.js-tab').removeClass('active')
+    $(this).addClass('active')
+    $('.profile-page-full-column')
+      .children('[data-activate*="' + $(this).attr('data-activate') + '"]').removeClass('hidden')
+  })
+
+  $('.js-dropdown-custom').hover(function() {
+    $('.dropdown-menu-custom').removeClass('hidden')
+  }, function() {
+    $('.dropdown-menu-custom').addClass('hidden')
+  })
+
+  if (window.location.pathname.indexOf('podcasts') === 1 || window.location.pathname.indexOf('profiles') === 1) {
     $('input.js-light-dark-toggle').remove()
   }
+
+  $('.navbar-link')
 
   $('input.js-light-dark-toggle').change(function(e) {
     if ($(this).prop('checked') == true) {
@@ -142,10 +160,6 @@ $(document).ready(() => {
       $('.episode').css('width', '460px')
     }
   })
-
-  if (window.location.pathname.includes("podcasts")) {
-    $('body').css('background', '#fff')
-  }
 
   $('.button-pg').hover(function(e) { 
     $(e.currentTarget).css('position', 'relative').css('top', '2px').css('left', '2px')

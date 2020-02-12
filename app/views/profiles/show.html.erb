@@ -1,97 +1,146 @@
-<div class="container">
+<div class="container" style="width: 1100px;">
   <br />
-  <table border="1" cellspacing="0" cellpadding="0" style="width:40%; float: left; border: 1px #aaa solid; margin-right:20px;">
+  <div class="profile-page-hero">
+    <table border="1" cellspacing="0" cellpadding="0" style="width:49%; float: left; border: 1px #aaa solid; margin-right:20px;">
       <td class="tableCellOne"><div class="defaultBold">member email:</div></td>
       <td class="tableCellOne"><%= @profile.email %></td>
-    </tr><tr>
-      <td class="tableCellTwo"><div class="defaultBold">real name:</div></td>
-      <td class="tableCellTwo"><%= @profile.try(:first_name) %></td>
-    </tr><tr>
-      <td class="tableCellOne"><div class="defaultBold">location:</div></td>
-      <td class="tableCellOne"><%= @profile.try(:location) %></td>
-    </tr>
-    <tr>
-      <td class="tableCellTwo"><div class="defaultBold">favorite genres:</div></td>
-      <td class="tableCellTwo"><%= @profile.try(:genres) %></td>
-    </tr><tr>
+      </tr><tr>
+        <td class="tableCellTwo"><div class="defaultBold">full name:</div></td>
+        <td class="tableCellTwo"><%= @profile.try(:first_name) %></td>
+      </tr><tr>
+        <td class="tableCellOne"><div class="defaultBold">location:</div></td>
+        <td class="tableCellOne"><%= @profile.try(:location) %></td>
+      </tr>
+      <tr>
+        <td class="tableCellTwo"><div class="defaultBold">favorite genre:</div></td>
+        <td class="tableCellTwo"><%= @profile.try(:genres) %></td>
+      </tr><tr>
         <td class="tableCellOne"><div class="defaultBold">my website:</div></td>
         <td class="tableCellOne"><a href="<%= @profile.try(:website) %>"><%= @profile.try(:website) %></a></td>
-    </tr>
-    <tr>
-          <td class="tableCellTwo"><div class="defaultBold">member for:</div></td>
-          <td class="tableCellTwo"><%= time_ago_in_words @profile.try(:created_at).to_s %></td>
-    </tr>
-  </table>
+      </tr>
+      <tr>
+        <td class="tableCellTwo"><div class="defaultBold">member for:</div></td>
+        <td class="tableCellTwo"><%= time_ago_in_words @profile.try(:created_at).to_s %></td>
+      </tr>
+    </table>
 
-  <table border="1" cellspacing="0" cellpadding="0" style="width:50%; border: 1px #aaa solid;">
-
+    <table border="1" cellspacing="0" cellpadding="0" style="width:49%; border: 1px #aaa solid; float: right;">
       <td class="tableCellOne"><div class="defaultBold">member overall ranking:</div></td>
-
       <td class="tableCellOne">
         <%= @profile.try(:global_ranking) || "Start listening to get a ranking!" %></td>
+      </tr>
+      <tr>
+        <td class="tableCellTwo"><div class="defaultBold">podcasts listened to:</div></td>
+        <td class="tableCellTwo">
+          <%= @profile.try(:podcasts_listened_to) %></td>
+      </tr>
+      <tr>
+        <td class="tableCellTwo" nowrap><div class="defaultBold">updates posted about podcasts:</div></td>
+        <td class="tableCellTwo">
+          <%= @profile.try(:update_quantity) %></td>
+      </tr>
+      <tr>
+        <td class="tableCellOne"><div class="defaultBold">chatty % (out of all users):</div></td>
+        <td class="tableCellOne">
+          <%= @profile.try(:total_communication_percentage) %></td>
+      </tr>
+      <tr>
+        <td class="tableCellTwo"><div class="defaultBold">profile pageviews:</div></td>
+        <td class="tableCellTwo"><%= @profile.try(:pageviews) %></td>
+      </tr>
+      <tr>
+        <td><div class="defaultBold">Want to change these attributes?</div></td>
+        <td><a href="<%= edit_user_registration_path(current_user) %>">Edit Profile</a></td>
+      </tr>
+    </table>
 
-    </tr>
-    <tr>
-      <td class="tableCellTwo"><div class="defaultBold">podcasts listened to:</div></td>
-      <td class="tableCellTwo">
-        <%= @profile.try(:podcasts_listened_to) %></td>
-    </tr>
-    <tr>
-      <td class="tableCellTwo" nowrap><div class="defaultBold">updates posted about podcasts:</div></td>
-      <td class="tableCellTwo">
-        <%= @profile.try(:update_quantity) %></td>
-    </tr>
-    <tr>
-      <td class="tableCellOne"><div class="defaultBold">chatty % (out of all users):</div></td>
-      <td class="tableCellOne">
-        <%= @profile.try(:total_communication_percentage) %></td>
-    </tr>
-    <tr>
-      <td class="tableCellTwo"><div class="defaultBold">profile pageviews:</div></td>
-      <td class="tableCellTwo"><%= @profile.try(:pageviews) %></td>
-    </tr>
-  </table>
+  </div><!-- /profile-page-hero-->
 
   <div class="clearfix"></div>
 
   <br />
-
-  <a href="<%= edit_user_registration_path(current_user) %>">Edit Profile</a>
-  <hr />
+  <br />
 
   <style>
-      td { padding: 5px; }
-      .profile-page-left-column,
-      .profile-page-right-column {
-        border: 1px #000 solid;
-        height: 200px;
-        width: 45%;
-        float: left;
-        margin: 10px;
-      }
-      .profile-page-left-column-header,
-      .profile-page-right-column-header {
-        font-size: 14px;
-        border-bottom: 1px #000 solid;
-      }
+    td { padding: 5px; }
+    .profile-page-left-column,
+    .profile-page-right-column {
+      border: 1px #000 solid;
+      height: 200px;
+      margin: 10px;
+    }
+    .profile-page-left-column { float: left;width: 48%;}
+    .profile-page-right-column { float: right; width: 48%;}
+    .profile-page-left-column-header,
+    .profile-page-right-column-header {
+      font-size: 14px;
+      border-bottom: 1px #000 solid;
+    }
   </style>
 
-  <div class="profile-page-left-column">
-    <div class="profile-page-left-column-header">
-      Listening History
-    </div>
-    <div class="profile-page-left-column-body">
-    </div>
-  </div>
+  <button class="js-tab tab-your-library active" data-activate="1">Your Library</button>
+  <button class="js-tab tab-your-stats hidden" data-activate="2">Your Stats</button>
 
-  <div class="profile-page-right-column">
-    <div class="profile-page-right-column-header">
-      Your Updates
+  <div class="profile-page-full-column">
+
+    <div class="your-library hidden default" data-activate="1">
+      <div class="your-library-full-column">
+        <% UserPodcastStatus.where(user: @profile).group_by(&:status).each do |status| %>
+          <% status.each do |row| %>
+            <% if row.is_a?(Array) %>
+              <% row.each do |row| %>
+                <% if row.podcast %>
+                  <div class="profile-library-podcast">
+                    <div class="profile-library-podcast-logo">
+                      <a href="/podcasts/<%= row.podcast.id %>.html"><img class="profile-library-podcast-logo-img" src="<%= row.podcast.try(:logo_url_large) %>" /></a>
+                      <div class="clearfix"></div>
+                      <div class="profile-library-podcast-metadata">
+                        <a href="<%= row.podcast.itunes_url %>"><img src="https://www.relay.fm/assets/itunes-e88c3bc2ce67ff2175193a2cd96042b21f22565ff972f9047a8ae818efe57fcc.svg" width="25" /></a>
+                        <a href="<%= row.podcast.feed_url %>"><img src="https://www.relay.fm/assets/rss-a175c87e71282833fc278ac688715d8fbe8f96f1c30b26b4353e2accff3631bb.svg" width="25" /></a>
+                        <div class="profile-library-podcast-status">
+                          <%= row.status %>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="profile-library-podcast-title">
+                      <h1><%= row.podcast.try(:title) %></h1>
+                    </div>
+                    <div class="profile-library-podcast-bio">
+                      <%= raw row.podcast.try(:bio) %>
+                    </div>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="clearfix"></div>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
+        <% end %>
+      </div>
     </div>
-    <div class="profile-page-right-column-body">
+
+    <div class="your-stats hidden" data-activate="2">
+      <div class="profile-page-left-column">
+        <div class="profile-page-left-column-header">
+          Listening History
+        </div>
+        <div class="profile-page-left-column-body">
+        </div>
+      </div>
+
+      <div class="profile-page-right-column">
+        <div class="profile-page-right-column-header">
+          Your Updates
+        </div>
+        <div class="profile-page-right-column-body">
+        </div>
+      </div>
     </div>
-  </div>
+
+  </div> <!-- /profile-page-full-column -->
 
 </div>
 
 
+<br />
+<br />
