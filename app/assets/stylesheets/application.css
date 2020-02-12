@@ -296,6 +296,8 @@ font-size: 12px;}
   float: right;
   padding: 10px;
   border-radius: 5px;
+  overflow: hidden;
+  height: 100%;
 }
 
 .podcast-page-bio {
