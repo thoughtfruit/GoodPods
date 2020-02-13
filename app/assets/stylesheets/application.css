@@ -65,6 +65,27 @@ body:focus {
   clear: both;
 }
 
+.add-to-lib-toggle {
+  width: 100px;
+  display: inline-block;
+  padding: 5px 0;
+  border-radius: 20px;
+  background: green;
+  color: #fff;
+  cursor: hand;
+  cursor: pointer;
+}
+.add-to-lib-toggle input {
+  cursor: hand;
+  cursor: pointer;
+}
+
+.add-to-lib-toggle label {
+  margin-right: 7px;
+  cursor: hand;
+  cursor: pointer;
+}
+
 .right-column { 
   float: right; 
   width: 350px; 

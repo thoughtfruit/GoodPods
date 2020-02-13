@@ -35,6 +35,29 @@ audiojs.events.ready(() => {
 $(document).ready(() => {
   App.initialize()
 
+  $('.js-add-to-library-on-pod-page').change(function() {
+    if ($(this).prop('checked')) {
+      $.ajax({
+        type: 'post',
+        url: '/v1/my_library' + App.clientId + '&podcast_id=' + $(this).attr('data-pod-id') + '&save_to_list=' + $(this).attr('data-list'),
+        success: (data) => {
+          console.log('no-op - saved to my library')
+        }, error: () => {
+          console.log('error')
+          $(e.currentTarget).prop('checked', false)
+        }
+      })
+    } else {
+      $.ajax({
+        type: 'get',
+        url: '/v1/remove_from_my_library' + App.clientId + '&podcast_id=' + $(this).attr('data-pod-id') + '&list=' + $(this).attr('data-list'),
+        success: function(data) {
+          console.log('no op - removed from library')
+        }
+      })
+    }
+  })
+
   $('.default').removeClass('hidden')
 
   $('.js-tab').click(function() {
@@ -180,7 +203,7 @@ function reloadPage() {
 }
 
 function onlyUnique(value, index, self) { 
-    return self.indexOf(value) === index;
+  return self.indexOf(value) === index;
 }
 
 function clearAddToLibraryFromOtherNodes() {

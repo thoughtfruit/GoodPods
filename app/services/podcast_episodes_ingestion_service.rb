@@ -11,12 +11,12 @@ class PodcastEpisodesIngestionService
     items   = channel.xpath("//item") 
     items.each do |item|
       @podcast.episodes.create!(
-        title: item.at('title').content,
-        description: item.at('description').content,
+        title: item.at('title').try(:content),
+        description: item.at('description').try(:content),
         published: true,
-        published_at: item.at('pubDate').content,
+        published_at: item.at('pubDate').try(:content),
         streaming_url: item.at('enclosure').attr('url'),
-        guid: item.at('guid').content
+        guid: item.at('guid').try(:content)
       )
     end
   end
