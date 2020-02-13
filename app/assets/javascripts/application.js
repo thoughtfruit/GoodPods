@@ -81,10 +81,8 @@ $(document).ready(() => {
   $('.navbar-link')
 
   $('input.js-light-dark-toggle').change(function(e) {
-    if ($(this).prop('checked') == true) {
-      // DARK MODE
+    if ($(this).prop('checked') == true) { // DARK MODE
       $('body').addClass('black-bg')
-
       // HOMEPAGE
       $('.left-column').addClass('dark-bg')
       $('.navbar-wrapper').addClass('dark-bg')
@@ -97,6 +95,7 @@ $(document).ready(() => {
       $('.right-column div').addClass('white-text')
       $('.right-column header').addClass('white-text')
       $('.right-column h3').addClass('white-text')
+      $('.navbar-wrapper').css('box-shadow', '0 0 5px #000')
       // BROWSE / DISCOVER 
       if (window.location.pathname == "/discover") {
         $('.container').addClass('dark-bg')
@@ -107,10 +106,8 @@ $(document).ready(() => {
         $('.collection').addClass('dark-bg')
         $('strong').addClass('white-text')
       }
-    } else {
-      // LIGHT MODE
+    } else { // LIGHT MODE
       $('body').removeClass('black-bg')
-
       // HOMEPAGE
       $('.navbar-wrapper').removeClass('dark-bg')
       $('.navbar-wrapper a').removeClass('white-text')
@@ -123,6 +120,7 @@ $(document).ready(() => {
       $('.right-column div').removeClass('white-text')
       $('.right-column header').removeClass('white-text')
       $('.right-column h3').removeClass('white-text')
+      $('.navbar-wrapper').css('box-shadow', '0 0 5px #aaa')
       // BROWSE / DISCOVER
       if (window.location.pathname == "/discover") {
         $('.container').removeClass('dark-bg')
