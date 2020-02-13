@@ -1,4 +1,4 @@
-class PodcastIngestion < Service
+class PodcastIngestionFromSearch < Service
 
   def self.search term
     self.find(term).each { |podcast| self.import(podcast) unless podcast.none? }

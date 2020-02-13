@@ -5,26 +5,26 @@ namespace :one_offs do
   end
   
   task :new_pods => :environment do
-    PodcastIngestion.search 'relayfm'
-    PodcastIngestion.search 'earwolf'
-    PodcastIngestion.search 'earwolf'
-    PodcastIngestion.search 'venture podcast'
-    PodcastIngestion.search 'web development podcast'
-    PodcastIngestion.search 'angel podcast'
-    PodcastIngestion.search 'angel podcast'
-    PodcastIngestion.search "grad school"
-    PodcastIngestion.search "graduate school"
-    PodcastIngestion.search "physics frontiers"
-    PodcastIngestion.search "physics"
-    PodcastIngestion.search "cosmology"
-    PodcastIngestion.search "astrophysics"
-    PodcastIngestion.search "getting things done"
-    PodcastIngestion.search "gtd"
-    PodcastIngestion.search "dungeons and dragons"
-    PodcastIngestion.search "video games"
-    PodcastIngestion.search "self help"
-    PodcastIngestion.search "real social dynamics"
-    PodcastIngestion.search "grounded"
+    PodcastIngestionFromSearch.search 'relayfm'
+    PodcastIngestionFromSearch.search 'earwolf'
+    PodcastIngestionFromSearch.search 'earwolf'
+    PodcastIngestionFromSearch.search 'venture podcast'
+    PodcastIngestionFromSearch.search 'web development podcast'
+    PodcastIngestionFromSearch.search 'angel podcast'
+    PodcastIngestionFromSearch.search 'angel podcast'
+    PodcastIngestionFromSearch.search "grad school"
+    PodcastIngestionFromSearch.search "graduate school"
+    PodcastIngestionFromSearch.search "physics frontiers"
+    PodcastIngestionFromSearch.search "physics"
+    PodcastIngestionFromSearch.search "cosmology"
+    PodcastIngestionFromSearch.search "astrophysics"
+    PodcastIngestionFromSearch.search "getting things done"
+    PodcastIngestionFromSearch.search "gtd"
+    PodcastIngestionFromSearch.search "dungeons and dragons"
+    PodcastIngestionFromSearch.search "video games"
+    PodcastIngestionFromSearch.search "self help"
+    PodcastIngestionFromSearch.search "real social dynamics"
+    PodcastIngestionFromSearch.search "grounded"
   end
 
   task :re_ingest_small_logos => :environment do
