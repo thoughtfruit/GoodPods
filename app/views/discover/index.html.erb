@@ -20,7 +20,7 @@
         data-pod-bio="<%= podcast.try(:bio) %>"
         style="display: inline-block; position: relative; float: left;">
         <a href="/podcasts/<%= podcast.id %>.html">
-          <img src="<%= podcast.try(:logo_url_large) %>" width="101"/>
+          <img src="<%= podcast.try(:logo_url) %>" width="101"/>
         </a>
       </div>
     <% end %>
