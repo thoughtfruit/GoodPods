@@ -1,4 +1,5 @@
 class PodcastCreationService
+
   def initialize(podcast:)
     title_from_chart = podcast[0].strip
     # podcast_ranking = ranking_algo podcast
@@ -35,4 +36,5 @@ class PodcastCreationService
       PodcastEpisodesIngestionService.new(podcast: podcast)
     end
   end
+
 end

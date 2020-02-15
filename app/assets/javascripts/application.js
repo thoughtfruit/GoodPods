@@ -93,6 +93,7 @@ $(document).ready(() => {
       $('.left-column div').addClass('white-text')
       $('.right-column').addClass('dark-bg')
       $('.right-column div').addClass('white-text')
+      $('.right-column article').addClass('white-text')
       $('.right-column header').addClass('white-text')
       $('.right-column h3').addClass('white-text')
       $('.navbar-wrapper').css('box-shadow', '0 0 5px #000')

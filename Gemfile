@@ -22,8 +22,10 @@ gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'barnes'
+gem 'rails_admin'
 gem 'responders'
 gem 'jquery'
+gem "font-awesome-rails"
 gem 'rails-bootstrap'
 gem 'bootstrap'
 gem 'jquery-rails'

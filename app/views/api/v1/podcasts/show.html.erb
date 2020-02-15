@@ -21,7 +21,7 @@
     <a href=""><img src="https://www.relay.fm/assets/spotify-e6b08cfb67185976d24cca5dbdd819df3b56a074483f145284ab5a7a018df110.svg" width="35" /></a>
     <a href=""><img src="https://www.relay.fm/assets/castro-84fed478b777df72373b2be6ec336fab08f99e47176b4e83b935df4bcf73a6e4.svg" width="35" /></a>
     -->
-    <div class="podcast-page-bio"><%= @podcast.bio.html_safe %></div>
+    <div class="podcast-page-bio"><%= @podcast.try(:bio).try(:html_safe) %></div>
 
     <!--<h1>Community Stats</h1>
       This podcast is on <%= @podcast.try(:list_count) %> lists-->

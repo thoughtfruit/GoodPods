@@ -3,9 +3,10 @@ require 'rails_helper'
 feature "User follows another user" do 
 
   xscenario "successfully" do
-    visit user_path(user)
+    user = User.create!(email: 'djasdoijfasd@dain.io', password: 'ajsdoifjsof')
+    visit profile_path(user)
     click_on "Follow"
-    expect(page).to have_css('.followed', count: 1, text: "Followed")
+    expect(page).to have_css('followed', count: 1, text: "Followed")
   end
 
 end

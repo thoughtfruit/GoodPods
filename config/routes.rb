@@ -1,11 +1,8 @@
 Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
+
   devise_for :users
 
-  # Production
-  # root to: 'welcome#welcome'
-  #
-  #
   # Dev environment hacking on the homepage
   root to: 'homepage#homepage'
 

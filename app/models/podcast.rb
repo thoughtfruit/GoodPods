@@ -44,4 +44,8 @@ class Podcast < ApplicationRecord
     end
   end
 
+  rails_admin do
+
+  end
+
 end
