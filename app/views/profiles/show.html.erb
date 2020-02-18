@@ -1,5 +1,9 @@
 <div class="container" style="width: 1100px;">
 
+  <% unless user_signed_in? and @profile.id == current_user.id %>
+    <button id="follow" class="follow-user" data-user-id=<%= @profile.id %>" style="float: right;">Follow</button>
+  <% end %>
+
   <div class="clearfix"></div>
 
   <div class="profile-page-hero">
