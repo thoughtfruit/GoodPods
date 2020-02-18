@@ -66,13 +66,11 @@ App.sections.updates = function() {
           }
         })
       } else {
-        setTimeout(function() {
-          $el.append(
-            "<div class='individual-update' style='overflow: hidden; clear: both; display: block;'>" +
-              "<div>" + update.body + "</div>" +
-            "</div>"
-          )
-        }, 500)
+        $el.append(
+          "<div class='individual-update' style='overflow: hidden; clear: both; display: block;'>" +
+            "<div>" + update.body + "</div>" +
+          "</div>"
+        )
       }
     })
 
@@ -119,11 +117,10 @@ App.sections.updates = function() {
 
   function allowSearchResultToBeUsed() {
     $('[data-id]').off('click').on('click', (e) => {
-      window.location.pathname = "/podcasts/" + $(e.currentTarget).attr('data-id') + ".html"
-      // arrayOfSearch     = $('textarea').val().split("@")
-      // arrayOfSearch[1]  = $(e.currentTarget).text()
-      // $('textarea').val(arrayOfSearch.join("@"))
-      // hideSearchDropdown()
+      arrayOfSearch     = $('textarea').val().split("@")
+      arrayOfSearch[1]  = $(e.currentTarget).text()
+      $('textarea').val(arrayOfSearch.join("@"))
+      hideSearchDropdown()
     })
   }
 
@@ -137,38 +134,39 @@ App.sections.updates = function() {
 
   function typeAheadSearch() {
     var textArea               = $('textarea')
-    var makeSearchFeelNatural  = 500
-
+    var makeSearchFeelNatural  = 2000
+    var searchCharacterTrigger = "@"
     textArea.on('keyup', (e) => {
-      setTimeout(function() {
       var searchText         = $(e.currentTarget).val()
-      var searchInput        = searchText
+      var searchInput        = searchText.split("@")[1]
       var valid              = searchInput != undefined && searchInput != null
       searchInput            = featureRestriction(searchInput)
-
       if (valid) {
-        var startSearch      = true
-
+        var searchTextChars  = searchText.split("")
+        var lastIndex        = searchTextChars.length - 1
+        var lastCharacter    = searchTextChars[lastIndex]
+        var startSearch      = lastCharacter === searchCharacterTrigger
         if (startSearch) {
           hideSearchDropdown()
           clearSearchDom()
-          $.ajax({
-            url: '/v1/search?s=' + searchText,
-            success: (data) => {
-              showSearchDropdown()
-              if (data.length > 0) {
-                renderSearchResultsWith(data)
-              } else {
-                renderSearchResultsWithNoData()
+          setTimeout( () => {
+            $.ajax({
+              url: '/v1/search?s=' + searchInputExtractionAlgo(e),
+              success: (data) => {
+                showSearchDropdown()
+                if (data.length > 0) {
+                  renderSearchResultsWith(data)
+                } else {
+                  renderSearchResultsWithNoData()
+                }
               }
-            }
-          })
+            })
+          }, makeSearchFeelNatural)
         }
       } else {
         hideSearchDropdown()
       }
-      }, 2000);
-    });
+    })
   }
 }
 
