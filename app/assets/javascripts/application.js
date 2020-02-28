@@ -74,7 +74,9 @@ $(document).ready(() => {
     $('.dropdown-menu-custom').addClass('hidden')
   })
 
-  if (window.location.pathname.indexOf('podcasts') === 1 || window.location.pathname.indexOf('profiles') === 1) {
+  if (window.location.pathname.indexOf('podcasts') === 1 || 
+      window.location.pathname.indexOf('profiles') === 1 || 
+      window.location.pathname.indexOf('updates') === 1) {
     $('input.js-light-dark-toggle').remove()
   }
 
@@ -107,6 +109,9 @@ $(document).ready(() => {
         $('.collection').addClass('dark-bg')
         $('strong').addClass('white-text')
       }
+      $('.center-column').addClass('dark-bg')
+      $('.individual-update div').addClass('white-text')
+      $('.individual-update').addClass('white')
     } else { // LIGHT MODE
       $('body').removeClass('black-bg')
       // HOMEPAGE
@@ -132,6 +137,9 @@ $(document).ready(() => {
         $('.collection').removeClass('dark-bg')
         $('strong').removeClass('white-text')
       }
+      $('.center-column').removeClass('dark-bg')
+      $('.individual-update div').removeClass('white-text')
+      $('.individual-update').removeClass('white')
     }
   });
 

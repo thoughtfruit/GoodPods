@@ -1,8 +1,8 @@
 App.sections.updates = function() {
-  var $el = $('.updates')
+    var $el = $('.updates');
 
-  fetch()
-  typeAheadSearch()
+    fetch();
+    typeAheadSearch();
 
   // TODO Function needed here
   var allowButtonAnimationByDelayingPost = 1000
@@ -59,8 +59,8 @@ App.sections.updates = function() {
             $el.append(
               "<div class='individual-update' style='overflow: hidden; clear: both; display: block;'>" +
                 "<a href='/podcasts/"+update.podcast_id+".html'><img style='float: left; margin: 0 10px;' src='" + image + "' width='50' /></a>" +
-                "<div>" + update.body + "</div>" +
-                "<div>" + update.user_id + "</div>" +
+              "<div>" + update.body + "</div>" +
+              //<!-- "<div>" + update.user_id + "</div>" + -->
               "</div>"
             )
           }
@@ -119,11 +119,10 @@ App.sections.updates = function() {
 
   function allowSearchResultToBeUsed() {
     $('[data-id]').off('click').on('click', (e) => {
-      window.location.pathname = "/podcasts/" + $(e.currentTarget).attr('data-id') + ".html"
-      // arrayOfSearch     = $('textarea').val().split("@")
-      // arrayOfSearch[1]  = $(e.currentTarget).text()
-      // $('textarea').val(arrayOfSearch.join("@"))
-      // hideSearchDropdown()
+      arrayOfSearch     = $('textarea').val().split("@")
+      arrayOfSearch[1]  = $(e.currentTarget).text()
+      $('textarea').val(arrayOfSearch.join("@"))
+      hideSearchDropdown()
     })
   }
 
@@ -137,14 +136,13 @@ App.sections.updates = function() {
 
   function typeAheadSearch() {
     var textArea               = $('textarea')
-    var makeSearchFeelNatural  = 500
+    var makeSearchFeelNatural  = 2000
 
     textArea.on('keyup', (e) => {
-      setTimeout(function() {
       var searchText         = $(e.currentTarget).val()
-      var searchInput        = searchText
+      var searchInput        = searchText.split("@")[1]
       var valid              = searchInput != undefined && searchInput != null
-      searchInput            = featureRestriction(searchInput)
+        //searchInput            = featureRestriction(searchInput)
 
       if (valid) {
         var startSearch      = true
@@ -152,23 +150,24 @@ App.sections.updates = function() {
         if (startSearch) {
           hideSearchDropdown()
           clearSearchDom()
-          $.ajax({
-            url: '/v1/search?s=' + searchText,
-            success: (data) => {
-              showSearchDropdown()
-              if (data.length > 0) {
-                renderSearchResultsWith(data)
-              } else {
-                renderSearchResultsWithNoData()
+          setTimeout(function () {
+            $.ajax({
+              url: '/v1/search?s=' + searchInput,
+              success: (data) => {
+                showSearchDropdown()
+                if (data.length > 0) {
+                  renderSearchResultsWith(data)
+                } else {
+                  renderSearchResultsWithNoData()
+                }
               }
-            }
-          })
+            })
+          }, makeSearchFeelNatural)
         }
       } else {
         hideSearchDropdown()
       }
-      }, 2000);
-    });
+    })
   }
 }
 

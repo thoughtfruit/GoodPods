@@ -3,7 +3,7 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable
 
   validates_uniqueness_of :email
-  validates_presence_of :email
+  validates_presence_of :emaile
 
   has_many :updates
   has_many :podcasts

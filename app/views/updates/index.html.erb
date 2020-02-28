@@ -1,11 +1,14 @@
 <div class="container">
-  <div class="left-box-udpates-page" style="float: left;width:60%">
-    <h2 class="page-header" style="margin-top: 20px;">All Updates</h2>
+  <div class="left-box-udpates-page" style="float: left;width:60%; margin-top: 20px;padding: 20px; background: #fff;border-radius: 20px;">
     <% @updates.each do |update| %>
-      <div class="individual-update" style="width: 100%; text-align: left; margin-left:0 ;">
-        <%= update.try(:body) %>
-        | By <a href="/profiles/<%= update.try(:user_id) %>"><%= update.try(:email) %></a>
+      <div class="individual-update" style="width: 100%; text-align: left; margin-left:0 ;margin-right:20px; overflow: hidden;font-size: 14px;">
+        <img src="<%= update.podcast.try(:logo_url) %>" style="width: 50px; float: left;"/>
+        <div style="float: left; margin-left: 20px;margin-top: 5px;">
+          <%= update.try(:body) %><br />
+          | By <a href="/profiles/<%= update.try(:user_id) %>"><%= update.try(:email) %></a>
+        </div>
       </div>
+      <div class="clearfix"></div>
     <% end %>
   </div>
 

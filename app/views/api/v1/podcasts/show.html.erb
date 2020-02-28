@@ -1,7 +1,10 @@
 <div class="container">
   <div class="podcasts-page-left-side">
-    <h2><%= @podcast.title %></h2>
+    <h1><%= @podcast.title %></h1>
     <img src="<%= @podcast.logo_url_large %>" style="width: 100%;" />
+    <div class="clearfix" style="margin-bottom: 10px;"></div>
+    <a href="<%= @podcast.itunes_url %>"><img src="https://www.relay.fm/assets/itunes-e88c3bc2ce67ff2175193a2cd96042b21f22565ff972f9047a8ae818efe57fcc.svg" width="35" /></a>
+    <a href="<%= @podcast.feed_url %>"><img src="https://www.relay.fm/assets/rss-a175c87e71282833fc278ac688715d8fbe8f96f1c30b26b4353e2accff3631bb.svg" width="35" /></a>
     <div class="clearfix" style="margin-bottom: 10px;"></div>
     <span class="add-to-lib-toggle">
       <label for="to-listen">To Listen</label><input id="to-listen" type="checkbox" <% if UserPodcastStatus.where(user: current_user, podcast: @podcast, status: "to-listen").any? %> checked="true" <% end %> class="js-add-to-library-on-pod-page" data-list="to-listen" data-pod-id="<%= @podcast.try(:id) %>" />
@@ -12,9 +15,6 @@
     <span class="add-to-lib-toggle">
       <label for="listened">Listened</label><input id="listened" type="checkbox" <% if UserPodcastStatus.where(user: current_user, podcast: @podcast, status: "listened").any? %> checked="true" <% end %> class="js-add-to-library-on-pod-page" data-list="listened" data-pod-id="<%= @podcast.try(:id) %>" />
     </span>
-    <div class="clearfix" style="margin-bottom: 10px;"></div>
-    <a href="<%= @podcast.itunes_url %>"><img src="https://www.relay.fm/assets/itunes-e88c3bc2ce67ff2175193a2cd96042b21f22565ff972f9047a8ae818efe57fcc.svg" width="35" /></a>
-    <a href="<%= @podcast.feed_url %>"><img src="https://www.relay.fm/assets/rss-a175c87e71282833fc278ac688715d8fbe8f96f1c30b26b4353e2accff3631bb.svg" width="35" /></a>
     <!--
     <a href=""><img src="https://www.relay.fm/assets/overcast-ae3f78187f1aeee713fe87a4e483d70b371639d024a00dd0425087cae98a8edf.svg" width="35" /></a>
     <a href=""><img src="https://www.relay.fm/assets/pocketcasts-18662345c243ea09ebead0c714f1d131ad963444ac10c39716b2f8f34285f187.svg" width="35" /></a>
