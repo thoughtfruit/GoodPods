@@ -1,5 +1,5 @@
 class SearchService
-  # Verify model has `search_by_title` method
+  # NOTE: Model should have `search_by_title` method
   MODELS = [Podcast, Network, Collection, Genre]
 
   def initialize(search_for:)

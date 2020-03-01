@@ -19,9 +19,9 @@ class ScrapePodcastsFromUrlsOnChartable
     if podcasts_on_page?
       podcasts.each do |podcast|
         begin
-          PodcastCreationService.new(podcast: podcast)
-          @page_length -= 1
+          create_ podcast
         rescue
+          rescue_from_failure_of_ podcast
         end
       end
     end
@@ -62,6 +62,15 @@ class ScrapePodcastsFromUrlsOnChartable
   end
 
   private
+  def create_ podcast
+    PodcastCreationService.new(podcast: podcast)
+    @page_length -= 1
+  end
+
+  def rescue_from_failure_of_ podcast
+    NullPodcast.new(podcast: podcast)
+  end
+
   def ranking_algo podcast
     a = 0
     a = @doc.css("div.title").group_by(&:text).find_index(podcast)

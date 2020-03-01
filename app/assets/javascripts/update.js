@@ -1,8 +1,8 @@
 App.sections.updates = function() {
-    var $el = $('.updates');
+  var $el = $('.updates');
 
-    fetch();
-    typeAheadSearch();
+  fetch();
+  typeAheadSearch();
 
   // TODO Function needed here
   var allowButtonAnimationByDelayingPost = 1000
