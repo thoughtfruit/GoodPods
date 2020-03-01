@@ -44,7 +44,8 @@ body:focus {
 .left-column {
   float: left;
   padding: 0;
-  width: 320px;
+  padding: 10px 20px;
+  width: 663px;
   background: #fff;
   border-radius: 10px;
 }
@@ -92,8 +93,8 @@ body:focus {
 
 .right-column { 
   float: right; 
-  width: 350px; 
-  padding: 10px;
+  width: 450px ; 
+  padding: 10px 20px;
   margin-left: 20px;
   background: #fff;
   border-radius: 10px;
