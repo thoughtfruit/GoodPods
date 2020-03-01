@@ -581,7 +581,7 @@ img { border-radius: 10px;}
   font-size: 15px;
   font-weight: bold;
   text-transform: uppercase;
-  font-family: "Futura"
+  font-family: "BlinkMacSystemFont","Segoe UI","Helvetica","Arial","sans-serif";
 }
 
 .js-tab.active {
@@ -609,11 +609,12 @@ img { border-radius: 10px;}
 }
 
 .profile-library-podcast-logo {
-  float: left;
   margin-right: 20px;
+  float: left;
 }
 .profile-library-podcast-logo-img {
   border-radius: 3px;
+  float: left;
   width: 175px;
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
@@ -628,20 +629,27 @@ img { border-radius: 10px;}
   font-size: 18px;
   width: 60%;
   float: left;
+  height: 160px;
   font-weight: 300;
   margin-top: -10px;
   font-family: Helvetica, Arial, sans-serif;
+    overflow: hidden;
+  text-overflow: ellipsis;
+   display: block;
 }
+
 .profile-library-podcast-metadata {
   margin-top: 5px;
   float: left;
+  clear: both;
 }
 .profile-library-podcast-status {
   float: right;
   margin-left: 5px;
-  border: 1px green solid;
-  background: green;
+  border: 1px #3d3d3d solid;
+  background: #3d3d3d;
   border-radius: 15px;
-  padding: 2px 5px;
+  padding: 2px 10px;
   color: #fff;
+  font-size: 16px;
 }
