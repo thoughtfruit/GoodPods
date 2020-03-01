@@ -348,8 +348,9 @@ font-size: 12px;}
   font-size: 20px;
   float: left;
   width: 100%;
-  padding: 19px 0px;
+  padding: 0px 0px;
   margin-top: 7px;
+  padding-bottom: 15px;
 }
 
 .alert {
