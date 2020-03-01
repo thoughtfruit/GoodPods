@@ -334,18 +334,21 @@ font-size: 12px;}
   width: 60%;
   background: #fff;
   float: right;
-  padding: 20px;
+  padding: 0px 20px;
   border-radius: 20px;
   overflow: hidden;
   height: 100%;
+
+
 }
 
 .podcast-page-bio {
   text-align: justify;
   display: block;
-  font-size: 16px;
+  font-size: 20px;
   float: left;
   width: 100%;
+  padding: 19px 0px;
   margin-top: 7px;
 }
 
@@ -438,8 +441,37 @@ font-size: 12px;}
   border-right: 1px solid #000;
 }
 
+.audiojs .time {
+  float: right;
+  height: 36px;
+  line-height: 36px;
+  margin: 0px 0px 0px 6px;
+  padding: 0px 6px 0px 12px;
+  border-left: 1px solid #000;
+  color: #ddd;
+  text-shadow: 1px 1px 0px rgba(0, 0, 0, 0.5);
+  width: 105px;
+}
+
+.audiojs .scrubber {
+  position: relative;
+  float: left;
+  width: 72%;
+  background: #5a5a5a;
+  height: 14px;
+  margin: 10px;
+  border-top: 1px solid #3f3f3f;
+  border-left: 0px;
+  border-bottom: 0px;
+  overflow: hidden;
+}
+
 .audiojs {
-  width: 435px;
+  width: 100%;
+  text-align: center;
+  position: relative;
+  top: 10px;
+  right: 30px;
 }
 
 .podcasts-grid { margin-top: -40px;
@@ -512,7 +544,6 @@ img { border-radius: 10px;}
 
 .podcast-page-episode-metadata {
   font-size: 14px;
-  float: right;
   margin-bottom: 5px;
 }
 
@@ -520,7 +551,7 @@ img { border-radius: 10px;}
   font-size: 16px;
   margin-bottom: 8px;
   float: left;
-  width:80%;
+  width: 96%;
 }
 
 .episodes-tab-button {
@@ -547,6 +578,9 @@ img { border-radius: 10px;}
   background: #eee;
   box-shadow: -1px 0 1px #eee;
   font-size: 15px;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: "Futura"
 }
 
 .js-tab.active {

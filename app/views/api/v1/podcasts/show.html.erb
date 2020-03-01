@@ -1,11 +1,21 @@
 <div class="container">
   <h1 style="text-align: center; font-size: 70px; margin-bottom: 30px;"><%= @podcast.title %></h1>
+
   <div class="podcasts-page-left-side">
+
     <img src="<%= @podcast.logo_url_large %>" style="width: 100%;" />
+
     <div class="clearfix" style="margin-bottom: 10px;"></div>
+
     <a href="<%= @podcast.itunes_url %>"><img src="https://www.relay.fm/assets/itunes-e88c3bc2ce67ff2175193a2cd96042b21f22565ff972f9047a8ae818efe57fcc.svg" width="35" /></a>
     <a href="<%= @podcast.feed_url %>"><img src="https://www.relay.fm/assets/rss-a175c87e71282833fc278ac688715d8fbe8f96f1c30b26b4353e2accff3631bb.svg" width="35" /></a>
+
     <div class="clearfix" style="margin-bottom: 10px;"></div>
+
+    <div class="podcast-page-bio"><%= @podcast.try(:bio).try(:html_safe) %></div>
+
+    <div class="clearfix"></div>
+
     <span class="add-to-lib-toggle">
       <label for="to-listen">To Listen</label><input id="to-listen" type="checkbox" <% if UserPodcastStatus.where(user: current_user, podcast: @podcast, status: "to-listen").any? %> checked="true" <% end %> class="js-add-to-library-on-pod-page" data-list="to-listen" data-pod-id="<%= @podcast.try(:id) %>" />
     </span>
@@ -15,16 +25,19 @@
     <span class="add-to-lib-toggle">
       <label for="listened">Listened</label><input id="listened" type="checkbox" <% if UserPodcastStatus.where(user: current_user, podcast: @podcast, status: "listened").any? %> checked="true" <% end %> class="js-add-to-library-on-pod-page" data-list="listened" data-pod-id="<%= @podcast.try(:id) %>" />
     </span>
+
     <!--
     <a href=""><img src="https://www.relay.fm/assets/overcast-ae3f78187f1aeee713fe87a4e483d70b371639d024a00dd0425087cae98a8edf.svg" width="35" /></a>
     <a href=""><img src="https://www.relay.fm/assets/pocketcasts-18662345c243ea09ebead0c714f1d131ad963444ac10c39716b2f8f34285f187.svg" width="35" /></a>
     <a href=""><img src="https://www.relay.fm/assets/spotify-e6b08cfb67185976d24cca5dbdd819df3b56a074483f145284ab5a7a018df110.svg" width="35" /></a>
     <a href=""><img src="https://www.relay.fm/assets/castro-84fed478b777df72373b2be6ec336fab08f99e47176b4e83b935df4bcf73a6e4.svg" width="35" /></a>
     -->
-    <div class="podcast-page-bio"><%= @podcast.try(:bio).try(:html_safe) %></div>
 
-    <!--<h1>Community Stats</h1>
-      This podcast is on <%= @podcast.try(:list_count) %> lists-->
+    <hr />
+
+    <h1>Community Stats</h1>
+
+      This podcast is on <%= UserPodcastStatus.where(podcast: @podcast).count || 0 %> lists
 
   </div>
 
@@ -37,8 +50,8 @@
         <div style="overflow: hidden;"></div>
         <% @podcast.episodes.order("published_at desc").each do |episode| %>
           <div class="podcast-page-episode">
-            <div class="podcast-page-episode-title"><%= episode.try(:title) %></div>
             <div class="podcast-page-episode-metadata"><i><%= episode.try(:published_at) %></i></div>
+            <div class="podcast-page-episode-title"><%= episode.try(:title) %></div>
             <div class="podcast-page-episode-description"><%= episode.description.try(:html_safe) %></div>
             <audio src="<%= episode.try(:streaming_url) %>" preload="none" />
           </div>
@@ -47,15 +60,13 @@
       </div>
     </div>
 
-    <div class="tab-2">
-      <% if @updates.any? %>
-        <h1>Public Updates from Users</h1>
-        <% @updates.each do |update| %>
-          <div class="individual-update" style="text-align: left;">
-            <%= update.try(:body) %>
-            | By <a href="/profiles/<%= update.try(:user_id) %>"><%= update.try(:email) %></a>
-          </div>
-        <% end %>
+    <div class="tab tab-2 hidden">
+      <h1>Public Updates from Users</h1>
+      <% @updates.each do |update| %>
+        <div class="individual-update" style="text-align: left;">
+          <%= update.try(:body) %>
+          | By <a href="/profiles/<%= update.try(:user_id) %>"><%= update.try(:email) %></a>
+        </div>
       <% end %>
     </div>
 
