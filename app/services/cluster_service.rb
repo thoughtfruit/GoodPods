@@ -12,18 +12,12 @@ class ClusterService
   end
 
   def cluster_by_bio_similarity_algorithm options
-    {
-      original_podcast: options.podcast
-      podcasts_with_similar_bio: LanguageProcessor::Bio.new(options.podcast).like_podcast
-    }
+    return LanguageProcessor::Bio.new(options.podcast).like_podcast
   end
 
   private
   def genre_exists?
     Genre.where(title: genre)
-  end
-
-  def network_exists?
   end
 
 end
