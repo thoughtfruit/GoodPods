@@ -30,285 +30,307 @@
 
 audiojs.events.ready(() => {
   var as = audiojs.createAll();
-})
+});
 
 $(document).ready(() => {
-  App.initialize()
+  App.initialize();
 
   $('.js-add-to-library-on-pod-page').change(function() {
     if ($(this).prop('checked')) {
       $.ajax({
         type: 'post',
-        url: '/v1/my_library' + App.clientId + '&podcast_id=' + $(this).attr('data-pod-id') + '&save_to_list=' + $(this).attr('data-list'),
+        url: '/v1/my_library' +
+          App.clientId + '&podcast_id=' +
+          $(this).attr('data-pod-id') +
+          '&save_to_list=' +
+          $(this).attr('data-list'),
         success: (data) => {
-          console.log('no-op - saved to my library')
+          console.log('no-op - saved to my library');
         }, error: () => {
-          console.log('error')
-          $(e.currentTarget).prop('checked', false)
+          console.log('error');
+          $(e.currentTarget).prop('checked', false);
         }
-      })
+      });
     } else {
       $.ajax({
         type: 'get',
-        url: '/v1/remove_from_my_library' + App.clientId + '&podcast_id=' + $(this).attr('data-pod-id') + '&list=' + $(this).attr('data-list'),
+        url: '/v1/remove_from_my_library' +
+          App.clientId +
+          '&podcast_id=' +
+          $(this).attr('data-pod-id') +
+          '&list=' +
+          $(this).attr('data-list'),
         success: function(data) {
-          console.log('no op - removed from library')
+          console.log('no op - removed from library');
         }
-      })
-    }
-  })
-
-  $('.default').removeClass('hidden')
-
-  $('.js-tab').click(function() {
-    $('.profile-page-full-column').children().each(function() { $(this).addClass('hidden')})
-    $('.js-tab').removeClass('active')
-    $(this).addClass('active')
-    $('.profile-page-full-column')
-      .children('[data-activate*="' + $(this).attr('data-activate') + '"]').removeClass('hidden')
-  })
-
-  $('.js-dropdown-custom').hover(function() {
-    $('.dropdown-menu-custom').removeClass('hidden')
-  }, function() {
-    $('.dropdown-menu-custom').addClass('hidden')
-  })
-
-  if (window.location.pathname.indexOf('podcasts') === 1 || 
-      window.location.pathname.indexOf('profiles') === 1 || 
-      window.location.pathname.indexOf('updates') === 1) {
-    $('input.js-light-dark-toggle').remove()
-  }
-
-  $('.navbar-link')
-
-  $('input.js-light-dark-toggle').change(function(e) {
-    if ($(this).prop('checked') == true) { // DARK MODE
-      $('body').addClass('black-bg')
-      // HOMEPAGE
-      $('.left-column').addClass('dark-bg')
-      $('.navbar-wrapper').addClass('dark-bg')
-      $('.navbar-link').addClass('white-text')
-      $('.logo').addClass('hidden')
-      $('.header').addClass('white-text')
-      $('.left-column article').addClass('white-text')
-      $('.left-column div').addClass('white-text')
-      $('.right-column').addClass('dark-bg')
-      $('.right-column div').addClass('white-text')
-      $('.right-column article').addClass('white-text')
-      $('.right-column header').addClass('white-text')
-      $('.right-column h3').addClass('white-text')
-      $('.navbar-wrapper').css('box-shadow', '0 0 5px #000')
-      // BROWSE / DISCOVER 
-      if (window.location.pathname == "/discover") {
-        $('.container').addClass('dark-bg')
-        $('.container h4').addClass('white-text')
-      }
-      // COLLECTIONS
-      if (window.location.pathname == "/collections") {
-        $('.collection').addClass('dark-bg')
-        $('strong').addClass('white-text')
-      }
-      $('.center-column').addClass('dark-bg')
-      $('.individual-update div').addClass('white-text')
-      $('.individual-update').addClass('white')
-    } else { // LIGHT MODE
-      $('body').removeClass('black-bg')
-      // HOMEPAGE
-      $('.navbar-wrapper').removeClass('dark-bg')
-      $('.navbar-wrapper a').removeClass('white-text')
-      $('.logo').removeClass('hidden')
-      $('.right-column').removeClass('dark-bg')
-      $('.left-column').removeClass('dark-bg')
-      $('.header').removeClass('white-text')
-      $('.left-column article').removeClass('white-text')
-      $('.left-column div').removeClass('white-text')
-      $('.right-column div').removeClass('white-text')
-      $('.right-column header').removeClass('white-text')
-      $('.right-column h3').removeClass('white-text')
-      $('.navbar-wrapper').css('box-shadow', '0 0 5px #aaa')
-      // BROWSE / DISCOVER
-      if (window.location.pathname == "/discover") {
-        $('.container').removeClass('dark-bg')
-        $('.container h4').removeClass('white-text')
-      }
-      // COLLECTIONS
-      if (window.location.pathname == "/collections") {
-        $('.collection').removeClass('dark-bg')
-        $('strong').removeClass('white-text')
-      }
-      $('.center-column').removeClass('dark-bg')
-      $('.individual-update div').removeClass('white-text')
-      $('.individual-update').removeClass('white')
+      });
     }
   });
 
-  //}, function() {
-  //})
+  $('.default').removeClass('hidden');
+
+  $('.js-tab').click(function() {
+    $('.profile-page-full-column').children().each(function() {
+      $(this).addClass('hidden');
+    });
+
+    $('.js-tab').removeClass('active');
+    $(this).addClass('active');
+
+    $('.profile-page-full-column')
+      .children('[data-activate*="' + $(this).attr('data-activate') + '"]').removeClass('hidden');
+  });
+
+  $('.js-dropdown-custom').hover(function() {
+    $('.dropdown-menu-custom').removeClass('hidden');
+  }, function() {
+    $('.dropdown-menu-custom').addClass('hidden');
+  });
+
+  if (window.location.pathname.indexOf('podcasts') === 1 ||
+      window.location.pathname.indexOf('profiles') === 1 ||
+      window.location.pathname.indexOf('updates') === 1) {
+    $('input.js-light-dark-toggle').remove();
+  }
+
+  $('.navbar-link');
+
+  $('input.js-light-dark-toggle').change(function(e) {
+    if ($(this).prop('checked') == true) { // DARK MODE
+      $('body').addClass('black-bg');
+      // HOMEPAGE
+      $('.left-column').addClass('dark-bg');
+      $('.navbar-wrapper').addClass('dark-bg');
+      $('.navbar-link').addClass('white-text');
+      $('.logo').addClass('hidden');
+      $('.header').addClass('white-text');
+      $('.left-column article').addClass('white-text');
+      $('.left-column div').addClass('white-text');
+      $('.right-column').addClass('dark-bg');
+      $('.right-column div').addClass('white-text');
+      $('.right-column article').addClass('white-text');
+      $('.right-column header').addClass('white-text');
+      $('.right-column h3').addClass('white-text');
+      $('.navbar-wrapper').css('box-shadow', '0 0 5px #000');
+      // BROWSE / DISCOVER
+      if (window.location.pathname == "/discover") {
+        $('.container').addClass('dark-bg');
+        $('.container h4').addClass('white-text');
+      }
+      // COLLECTIONS
+      if (window.location.pathname == "/collections") {
+        $('.collection').addClass('dark-bg');
+        $('strong').addClass('white-text');
+      }
+      $('.center-column').addClass('dark-bg');
+      $('.individual-update div').addClass('white-text');
+      $('.individual-update').addClass('white');
+    } else { // LIGHT MODE
+      $('body').removeClass('black-bg');
+      // HOMEPAGE
+      $('.navbar-wrapper').removeClass('dark-bg');
+      $('.navbar-wrapper a').removeClass('white-text');
+      $('.logo').removeClass('hidden');
+      $('.right-column').removeClass('dark-bg');
+      $('.left-column').removeClass('dark-bg');
+      $('.header').removeClass('white-text');
+      $('.left-column article').removeClass('white-text');
+      $('.left-column div').removeClass('white-text');
+      $('.right-column div').removeClass('white-text');
+      $('.right-column header').removeClass('white-text');
+      $('.right-column h3').removeClass('white-text');
+      $('.navbar-wrapper').css('box-shadow', '0 0 5px #aaa');
+      // BROWSE / DISCOVER
+      if (window.location.pathname == "/discover") {
+        $('.container').removeClass('dark-bg');
+        $('.container h4').removeClass('white-text');
+      }
+      // COLLECTIONS
+      if (window.location.pathname == "/collections") {
+        $('.collection').removeClass('dark-bg');
+        $('strong').removeClass('white-text');
+      }
+      $('.center-column').removeClass('dark-bg');
+      $('.individual-update div').removeClass('white-text');
+      $('.individual-update').removeClass('white');
+    }
+  });
 
   $('.js-tooltip').tooltip();
 
   $('.collection a').hover(function(e) {
-    $('.add-to-library').css('left', '5px')
-    clearAddToLibraryFromOtherNodes()
-    appendAddToLibraryToCurrentNode(e)
-    unhideAddToLibrary()
-    populateAddToLibraryWithSavedStateFor($(e.currentTarget))
-    bindCheckboxClickEvent()
+    $('.add-to-library').css('left', '5px');
+    clearAddToLibraryFromOtherNodes();
+    appendAddToLibraryToCurrentNode(e);
+    unhideAddToLibrary();
+    populateAddToLibraryWithSavedStateFor($(e.currentTarget));
+    bindCheckboxClickEvent();
   }, function() {
-    $('.add-to-library').addClass('hidden')
-  })
+    $('.add-to-library').addClass('hidden');
+  });
 
   $('.post-an-update textarea').keyup(function(e){
-    input = $(e.currentTarget).val()
+    input = $(e.currentTarget).val();
     if (input == "" || input == null) {
-      $('.podcasts-grid').children().show()
+      $('.podcasts-grid').children().show();
     } else {
       $('.podcasts-grid')
         .children()
         .not('[data-pod-title*="' + titlecase(input) + '"]')
-        .hide()
+        .hide();
       $('.podcasts-grid')
         .children('[data-pod-genre*="' + titlecase(input) + '"]')
-        .show()
+        .show();
       $('.podcasts-grid')
         .children('[data-pod-collection*="' + downcase(input) + '"]')
-        .show()
+        .show();
     }
-  })
+  });
 
   $('.js-description').change((e) => {
     if ($(e.currentTarget).val() == '1') {
-      $('.episode-description').removeClass('hidden')
-      $('.podcasts-page-left-side').css('width', '43%')
-      $('.podcasts-page-right-side').css('width', '55%')
-      $('.episode').css('width', '100%')
+      $('.episode-description').removeClass('hidden');
+      $('.podcasts-page-left-side').css('width', '43%');
+      $('.podcasts-page-right-side').css('width', '55%');
+      $('.episode').css('width', '100%');
     } else {
-      $('.episode-description').addClass('hidden')
-      $('.podcasts-page-left-side').css('width', '55%')
-      $('.podcasts-page-right-side').css('width', '43%')
-      $('.episode').css('width', '460px')
+      $('.episode-description').addClass('hidden');
+      $('.podcasts-page-left-side').css('width', '55%');
+      $('.podcasts-page-right-side').css('width', '43%');
+      $('.episode').css('width', '460px');
     }
-  })
+  });
 
-  $('.button-pg').hover(function(e) { 
-    $(e.currentTarget).css('position', 'relative').css('top', '2px').css('left', '2px')
-    $(e.currentTarget).css('box-shadow', 'none')
-  }, function(e) { 
-    $(e.currentTarget).css('position', 'relative').css('top', '-2px').css('left', '-2px')
-    $(e.currentTarget).css('box-shadow', '3px 5px 0 #000')
-  })
+  $('.button-pg').hover(function(e) {
+    $(e.currentTarget).css('position', 'relative').css('top', '2px').css('left', '2px');
+    $(e.currentTarget).css('box-shadow', 'none');
+  }, function(e) {
+    $(e.currentTarget).css('position', 'relative').css('top', '-2px').css('left', '-2px');
+    $(e.currentTarget).css('box-shadow', '3px 5px 0 #000');
+  });
 
-})
+});
 
 App.initialize = () => {
-  App.utils.bootRoutes()
-}
+  App.utils.bootRoutes();
+};
 
 function reloadPage() {
-  window.location.reload()
-}
+  window.location.reload();
+};
 
-function onlyUnique(value, index, self) { 
+function onlyUnique(value, index, self) {
   return self.indexOf(value) === index;
 }
 
 function clearAddToLibraryFromOtherNodes() {
-  $('.discover div').children('add-to-library').remove()
+  $('.discover div').children('add-to-library').remove();
 }
 
 function appendAddToLibraryToCurrentNode(e) {
-  $(e.currentTarget).append($('.add-to-library').css('display', 'inline-block'))
-  $('.add-to-library .podcast-title').text($(e.currentTarget).attr('data-pod-title'))
-  $('.add-to-library .podcast-bio').html(unescape($(e.currentTarget).attr('data-pod-bio')))
+  $(e.currentTarget).append($('.add-to-library').css('display', 'inline-block'));
+  $('.add-to-library .podcast-title').text($(e.currentTarget).attr('data-pod-title'));
+  $('.add-to-library .podcast-bio').html(unescape($(e.currentTarget).attr('data-pod-bio')));
 }
 
 function unhideAddToLibrary() {
-  $('.add-to-library').removeClass('hidden')
+  $('.add-to-library').removeClass('hidden');
 }
 
 function populateAddToLibraryWithSavedStateFor(target) {
   $.ajax({
     type: 'get',
-    url: '/v1/my_library' + App.clientId + '&podcast_id=' + target.attr('data-pod-id'),
+    url: '/v1/my_library' +
+      App.clientId +
+      '&podcast_id=' +
+      target.attr('data-pod-id'),
     success: function(status) {
-      renderStateForToListenForm(target, status)
-      renderStateForListenedForm(target, status)
-      renderStateForListeningForm(target, status)
+      renderStateForToListenForm(target, status);
+      renderStateForListenedForm(target, status);
+      renderStateForListeningForm(target, status);
     }
-  })
+  });
 }
 
 function bindCheckboxClickEvent() {
   function clickEventActions(e) {
     if (userIsAddingToLibrary(e)) {
-      savePodcastToLibraryInStatus(e)
+      savePodcastToLibraryInStatus(e);
     } else if (userIsRemovingFromLibrary(e)) {
-      removePodcastFromLibraryInStatus(e)
+      removePodcastFromLibraryInStatus(e);
     }
-    reloadPage()
+    reloadPage();
   }
 
   $('input[type="checkbox"]').off('click').on('click', (e) => {
-    clickEventActions(e)
-  })
+    clickEventActions(e);
+  });
 }
 
 function renderStateForToListenForm(target, status) {
   if (status.indexOf("to-listen") != -1) {
-    target.find('#to-listen').prop('checked', true)
+    target.find('#to-listen').prop('checked', true);
   } else {
-    target.find('#to-listen').prop('checked', false)
+    target.find('#to-listen').prop('checked', false);
   }
 }
 
 function renderStateForListenedForm(target, status) {
   if (status.indexOf("listened") != -1) {
-    target.find('#listened').prop('checked', true)
+    target.find('#listened').prop('checked', true);
   } else {
-    target.find('#listened').prop('checked', false)
+    target.find('#listened').prop('checked', false);
   }
 }
 
 function renderStateForListeningForm(target, status) {
   if (status.indexOf("listening") != -1) {
-    target.find('#listening').prop('checked', true)
+    target.find('#listening').prop('checked', true);
   } else {
-    target.find('#listening').prop('checked', false)
+    target.find('#listening').prop('checked', false);
   }
 }
 
 function userIsAddingToLibrary(e) {
-  return $(e.currentTarget).prop('checked') === true
+  return $(e.currentTarget).prop('checked') === true;
 }
 
 function savePodcastToLibraryInStatus(e) {
   $.ajax({
     type: 'post',
-    url: '/v1/my_library' + App.clientId + '&podcast_id=' + getPodcastId(e) + '&save_to_list=' + $(e.currentTarget).attr('id'),
+    url: '/v1/my_library' +
+      App.clientId +
+      '&podcast_id=' +
+      getPodcastId(e) +
+      '&save_to_list=' +
+      $(e.currentTarget).attr('id'),
     success: (data) => {
-      console.log('no-op - saved to my library')
+      console.log('no-op - saved to my library');
     }, error: () => {
-      console.log('error')
-      $(e.currentTarget).prop('checked', false)
+      console.log('error');
+      $(e.currentTarget).prop('checked', false);
     }
-  })
+  });
 }
 
 function removePodcastFromLibraryInStatus(e) {
   $.ajax({
     type: 'get',
-    url: '/v1/remove_from_my_library' + App.clientId + '&podcast_id=' + getPodcastId(e) + '&list=' + $(e.currentTarget).attr('id'),
+    url: '/v1/remove_from_my_library' +
+      App.clientId +
+      '&podcast_id=' +
+      getPodcastId(e) +
+      '&list=' +
+      $(e.currentTarget).attr('id'),
     success: function(data) {
-      // TODO: Update UI to reflect this delete by unchecking boxes before a reload
     }
-  })
+  });
 }
 
 function userIsRemovingFromLibrary(e) {
-  return $(e.currentTarget).prop('checked') === false
+  return $(e.currentTarget).prop('checked') === false;
 }
 
 function getPodcastId(e) {
-  return $(e.currentTarget).parent().parent().parent().attr('data-pod-id')
+  return $(e.currentTarget).parent().parent().parent().attr('data-pod-id');
 }

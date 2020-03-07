@@ -1,0 +1,58 @@
+#+TITLE: TODOs
+#+AUTHOR: Dain Miller
+
+* BETA [0%]
+** TODO DISCOVER [0%]
+*** TODO [#A] Add iTunes search
+*** TODO Load images way faster
+*** TODO Discover random podcast search button
+*** TODO If podcast not in app, add it dynamically
+
+** TODO UPDATES [0%]
+*** TODO Add podcast logo to updates
+*** TODO Add most active users widget
+*** TODO Add user profile link on updates
+
+** TODO PODCAST [20%]
+*** TODO Match metadata from other apps
+*** TODO Add author to podcast pages
+*** TODO Friending feature
+*** DONE Profile page with library
+
+** TODO HOMEPAGE [0%]
+*** TODO Updates Section [0%]
+**** TODO Fix duplicates in updates typeahead
+**** TODO Add user profile link to updates
+**** TODO Add default 'no updates' section
+**** TODO Add updates for new podcast episodes
+**** TODO Fix order issue in updates JS
+*** TODO Discover Section [0%]     
+**** TODO Restrict discover section to 200-500 pods
+**** TODO Consider re-adding genre dropdown
+***** TODO Fix hover state not re-appearing
+
+** TODO PROFILE [%]
+*** TODO Add listening history
+*** TODO Add daily streak functionality
+    
+** TODO EPISODE [0%]
+*** TODO Add basic route for episode page
+*** TODO Add basic HTML for page from competitor
+
+** TODO TINDER BUTTON [0%]
+*** TODO [#B] Add tinder UI via new page on navbar
+
+    
+* PROFILE PAGE [0%]
+** TODO Add user gamification (hours listened, etc)
+** TODO Add badges
+
+ Idk if I want to do this stuff yet...
+
+
+* PARTNER TOOLS [0%]
+** TODO Add CMS functionality?
+
+   
+* REFACTORING [0%]
+** TODO Check the refactors are working
