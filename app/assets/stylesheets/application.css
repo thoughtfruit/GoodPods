@@ -318,6 +318,9 @@ font-size: 12px;}
   padding: 20px;
   border-radius: 20px;
   margin-right: 10px;
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
 }
 
 .podcasts-page-left-side h2 {

@@ -40,16 +40,21 @@ namespace :one_offs do
 
   task :add_pods_to_collections => :environment do
     # Step 1
-    PodcastIngestion.search('network_you_wanna_add podcasts')
+    PodcastIngestionFromSearch.search('government podcasts')
 
     # Step 2
-    ['add_networks_youve_already_imported_here_to_add_to_collection'].each do |network|
+    ['government podcasts'].each do |network|
       c = Collection.find_or_create_by(title: network)
-      PodcastIngestion.find(network).each do |result|
+      PodcastIngestionFromSearch.find(network).each do |result|
         if result
+          puts result['collectionName'] 
           p = Podcast.where(title: result['collectionName'])
-          p.first.update! collection_id: c.id
-          puts "Saved podcast #{p.first.title} to collection #{c.title}".green
+          begin
+            p.first.update! collection_id: c.id
+            puts "Saved podcast #{p.first.title} to collection #{c.title}".green
+          rescue
+            puts "Can't save podcast #{p.first.try(:title)}".red
+          end
         end
       end
     end
