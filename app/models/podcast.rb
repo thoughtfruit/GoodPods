@@ -1,3 +1,9 @@
+class NullPodcast
+  def initialize(podcast:)
+    true
+  end
+end
+
 class Podcast < ApplicationRecord
 
   belongs_to :network, optional: true
@@ -39,7 +45,7 @@ class Podcast < ApplicationRecord
     podcast = self.update!(
       podcast_attrs_from_itunes(result)
     )
-    podcast
+    return podcast
   end
 
   def similar_podcasts
