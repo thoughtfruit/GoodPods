@@ -23,7 +23,7 @@ class Podcast < ApplicationRecord
   }
 
   after_create {
-    get_bio(self) if self.feed_url
+    get_bio if self.feed_url
   }
 
   after_save {
@@ -67,11 +67,11 @@ class Podcast < ApplicationRecord
     }
   end
 
-  def get_bio! podcast
-    @feed_xml = Nokogiri::XML(open(podcast.feed_url))
+  def get_bio!
+    @feed_xml = Nokogiri::XML(open(self.feed_url))
     bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
     bio = bio.strip
-    podcast.update! bio: bio
+    self.update! bio: bio
   end
 
   def update_logo!

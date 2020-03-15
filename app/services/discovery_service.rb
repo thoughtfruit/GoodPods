@@ -1,4 +1,5 @@
 class DiscoveryService
+
   def self.start
     Chartable.new
   end
