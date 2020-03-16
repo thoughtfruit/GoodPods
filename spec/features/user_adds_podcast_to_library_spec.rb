@@ -3,7 +3,7 @@ require 'rails_helper'
 feature "User adds podcast to library" do
 
   scenario "in to_listen shelf" do
-    user = User.create! email: 'djasdoijfasd@dain.io', password: 'ajsdoifjsof'
+    user = User.create! email: 'djasdoijfasdjdofijdsf@dain.io', password: 'ajsdoifjsof'
     podcast = Podcast.create! title: "Test"
     visit "/podcasts/1"
     check "to-listen"

@@ -1,118 +1,37 @@
 namespace :one_offs do
 
-  task :start_import => :environment do
-    DiscoveryService.start!
+  task :get_new_episodes => :environment do
+    DiscoveryService.episodes!
   end
-  
+
+  task :start_import => :environment do
+    DiscoveryService.shows!
+  end
+
   task :new_pods => :environment do
-    PodcastIngestionFromSearch.search 'relayfm'
-    PodcastIngestionFromSearch.search 'earwolf'
-    PodcastIngestionFromSearch.search 'earwolf'
-    PodcastIngestionFromSearch.search 'venture podcast'
-    PodcastIngestionFromSearch.search 'web development podcast'
-    PodcastIngestionFromSearch.search 'angel podcast'
-    PodcastIngestionFromSearch.search 'angel podcast'
-    PodcastIngestionFromSearch.search "grad school"
-    PodcastIngestionFromSearch.search "graduate school"
-    PodcastIngestionFromSearch.search "physics frontiers"
-    PodcastIngestionFromSearch.search "physics"
-    PodcastIngestionFromSearch.search "cosmology"
-    PodcastIngestionFromSearch.search "astrophysics"
-    PodcastIngestionFromSearch.search "getting things done"
-    PodcastIngestionFromSearch.search "gtd"
-    PodcastIngestionFromSearch.search "dungeons and dragons"
-    PodcastIngestionFromSearch.search "video games"
-    PodcastIngestionFromSearch.search "self help"
-    PodcastIngestionFromSearch.search "real social dynamics"
-    PodcastIngestionFromSearch.search "grounded"
+    # ['term'].each |term|
+    #   PodcastIngestionFromSearch.search term
+    # end
   end
 
   task :re_ingest_small_logos => :environment do
-    Podcast.order("created_at desc").all.each do |podcast|
-      t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title} podcast").body
-      t = JSON.parse(t)
-      unless logo_url == t['results'][0]['artworkUrl100']
-        podcast.update! logo_url: t['results'][0]['artworkUrl100']
-      end
-      puts "Updated logo #{podcast.logo_url}".green
-    end
+    Podcast.all.order('created_at desc').each { |e| e.update_logo! }
   end
 
   task :add_pods_to_collections => :environment do
-    # Step 1
-    PodcastIngestionFromSearch.search('government podcasts')
-
-    # Step 2
-    ['government podcasts'].each do |network|
-      c = Collection.find_or_create_by(title: network)
-      PodcastIngestionFromSearch.find(network).each do |result|
-        if result
-          puts result['collectionName'] 
-          p = Podcast.where(title: result['collectionName'])
-          begin
-            p.first.update! collection_id: c.id
-            puts "Saved podcast #{p.first.title} to collection #{c.title}".green
-          rescue
-            puts "Can't save podcast #{p.first.try(:title)}".red
-          end
-        end
-      end
-    end
+    Collection.remap_collections!
   end
 
   task :add_large_logos => :environment do
-    Podcast.all.each do |podcast|
-      begin
-        if podcast.title.include? "Conan" or podcast.title.include? 'Oprah'
-        else
-          t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title} podcast").body
-          t = JSON.parse(t)
-          podcast.update! logo_url_large: t['results'][0]['artworkUrl600']
-          puts "Updated logo with large variant #{podcast.logo_url_large}".green
-        end
-      rescue
-      end
-    end
+    Podcast.update_logo!
   end
 
   task :fix_empty_bios => :environment do
-    Podcast.where(bio: nil).each do |podcast|
-      begin
-        if podcast.title.include? "Conan" or podcast.title.include? 'Oprah'
-        else
-          t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title} podcast").body
-          t = JSON.parse(t)
-          if t['results'][0]['feedUrl']
-            @feed_xml = Nokogiri::XML(open(t['results'][0]['feedUrl']))
-            bis = @feed_xml.at('rss').at('channel').at('description').inner_html()
-            bio = bio.strip
-            podcast.update! bio: bio
-            puts "Updated #{podcast.title} bio with feed description".red
-          else
-            podcast.update! bio: t['results'][0]['longDescription']
-            puts "Updated #{podcast.title} bio with longDescription".green
-          end
-        end
-      rescue
-        next
-      end
-    end
+    Podcast.all.each { |e| e.update_bio! }
   end
 
   task :fix_genres => :environment do
-    Podcast.all.each do |podcast|
-      begin
-        if podcast.title.include? "Conan" or podcast.title.include? 'Oprah'
-        else
-          t = HTTParty.get("https://itunes.apple.com/search?term=#{podcast.title} podcast").body
-          t = JSON.parse(t)
-          podcast.update! genre: t['results'][0]['genres'][0]
-          puts "Updated #{podcast.title} genre".green
-        end
-      rescue
-        next
-      end
-    end
+    Podcast.all.each { |e| e.update_genre! }
   end
 
 end

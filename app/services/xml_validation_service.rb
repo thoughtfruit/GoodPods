@@ -1,24 +1,21 @@
 class XmlValidationService
 
-  def initialize ; end
-
-  def for url
-    @url ||= url
+  def self.for url
+    @url = url
     self
   end
 
-  def validate
-    @validation ||= Nokogiri::XML(schema)
-    false if errors
-    true unless errors
+  def self.valid?
+    @validation = Nokogiri::XML(self.schema)
+    if @validation.errors.any?
+      return false
+    else
+      return true
+    end
   end
 
-  def schema
+  def self.schema
     HTTParty.get(@url).body
-  end
-
-  def errors
-    @validation.errors
   end
 
 end

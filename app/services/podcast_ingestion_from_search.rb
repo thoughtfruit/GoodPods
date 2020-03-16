@@ -17,8 +17,13 @@ class PodcastIngestionFromSearch < Service
 
   private
   def self.create_podcast_with result
-    podcast = Podcast.create_from_itunes(result)
-    puts "Created podcast #{podcast.title}".green
+    if any_podcast_found_from_itunes?(result)
+      podcast = Podcast.update_from_itunes(result)
+      puts "Updated podcast #{podcast.title}".yellow
+    else
+      podcast = Podcast.create_from_itunes(result)
+      puts "Created podcast #{podcast.title}".green
+    end
     return podcast
   end
 
