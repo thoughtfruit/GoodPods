@@ -1,9 +1,9 @@
 class AsyncEventService
 
-  def initialize(actor:, step_one:, step_two:)
-    @actor    = actor
-    @step_one = step_one
-    @step_two = step_two
+  def initialize(actor:, steps:)
+    @actor = actor
+    @steps = steps
+    pool
   end
 
   def run
@@ -18,6 +18,6 @@ class AsyncEventService
   end
 
   def steps
-    [@step_one, @step_two]
+    @_steps ||= @steps
   end
 end

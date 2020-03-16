@@ -23,15 +23,9 @@ class Podcast < ApplicationRecord
   after_create {
     AsyncEventService.new(
       actor: self,
-      step_one: :post_process,
-      step_two: :get_episodes
-    ).pool.run
+      steps: [:get_bio, :validate_xml, :get_episodes]
+    ).run
   }
-
-  def post_process
-    get_bio! if feed_url
-    validate_xml! if feed_url
-  end
 
   def get_episodes
     ImportEpisodes.for(
@@ -95,7 +89,7 @@ class Podcast < ApplicationRecord
     podcast
   end
 
-  def validate_xml!
+  def validate_xml
     if XmlValidationService.for(feed_url).valid?
       update! xml_valid: true
     else
@@ -103,7 +97,7 @@ class Podcast < ApplicationRecord
     end
   end
 
-  def get_bio!
+  def get_bio
     @feed_xml = Nokogiri::XML(open(feed_url))
     bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
     bio = bio.strip
