@@ -15,7 +15,7 @@ class DiscoveryService
   end
 
   def self.save_episodes podcast
-    ImportEpisodes.for(
+    Ingestion::ImportEpisodes.for(
       podcast: podcast
     ).save!
     podcast.update! last_fetched_at: Date.today

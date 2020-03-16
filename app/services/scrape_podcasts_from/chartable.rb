@@ -46,7 +46,7 @@ module ScrapePodcastsFrom
 
     private
     def create_ podcast
-      PodcastCreationService.new(podcast: podcast)
+      Creators::PodcastCreationService.new(podcast: podcast)
       @page_length -= 1
     end
 

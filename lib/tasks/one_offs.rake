@@ -10,7 +10,7 @@ namespace :one_offs do
 
   task :new_pods => :environment do
     # ['term'].each |term|
-    #   PodcastIngestionFromSearch.search term
+    #   Ingestion::PodcastIngestionFromSearch.search term
     # end
   end
 
