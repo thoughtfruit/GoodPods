@@ -1,7 +1,5 @@
 class DiscoveryService
 
-  def initialize ; end
-
   def self.shows!
     ScrapePodcastsFrom::Chartable.new
   end
