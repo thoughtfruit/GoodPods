@@ -1,9 +1,3 @@
-class NullPodcast
-  def initialize(podcast:)
-    true
-  end
-end
-
 class Podcast < ApplicationRecord
 
   belongs_to :network, optional: true
@@ -22,39 +16,62 @@ class Podcast < ApplicationRecord
     where.not(logo_url: nil).order("created_at asc").all
   }
 
-  after_create {
-    get_bio if self.feed_url
+  scope :catalog, -> {
+    where(xml_valid: true).order("updated_at asc")
   }
 
-  after_save {
-    PodcastEpisodesIngestionService.new(podcast: self)
-  }
+  after_create do
+    get_bio! if feed_url
+    validate_xml! if feed_url
+    PodcastEpisodesIngestionService.new(
+      podcast: self
+    ).save!
+  end
 
   def self.search_by_title reference_title
     where("title like ?", "%#{reference_title}%")
   end
 
+  def new_episodes?
+    return false if match_found?
+    true
+  end
+
+  def match_found?
+    latest_episode_in_local_db == latest_episode_on_remote_url
+  end
+
+  def latest_episode_in_local_db
+    episodes.first.try(:title)
+  end
+
+  def latest_episode_on_remote_url
+    PodcastEpisodesIngestionService.new(
+      podcast: self
+    ).remote_episodes.first.title
+  end
+
+  def similar_podcasts
+    Podcast.where(genre: genre).all.pluck(:title)
+  end
+
   def self.create_from_itunes result
     podcast = Podcast.create!(
-      podcast_attrs_from_itunes(result)
+      title: result['collectionName'],
+      ranking: result['artistId'],
+      network: Network.last,
+      cluster: Cluster.last,
+      logo_url: result['artworkUrl60'],
+      feed_url: result['feedUrl'],
+      genre: result['genres'] ? result['genres'][0] : '',
+      itunes_url: result['trackViewUrl'],
+      logo_url_large: result['artworkUrl600']
     )
     podcast
   end
 
   def update_from_itunes result
     podcast = self.update!(
-      podcast_attrs_from_itunes(result)
-    )
-    return podcast
-  end
-
-  def similar_podcasts
-    Podcast.where(genre: self.genre).all.pluck(:title)
-  end
-
-  private
-  def podcast_attrs_from_itunes(result)
-    {
       title: result['collectionName'],
       ranking: result['artistId'],
       network: Network.last,
@@ -64,35 +81,40 @@ class Podcast < ApplicationRecord
       genre: result['genres'] ? result['genres'][0] : '',
       itunes_url: t['results'][0]['trackViewUrl'],
       logo_url_large: result['artworkUrl600']
-    }
+    )
+    podcast
+  end
+
+  def validate_xml!
+    if XmlValidationService.for(feed_url).valid?
+      update! xml_valid: true
+    else
+      update! xml_valid: false
+    end
   end
 
   def get_bio!
-    @feed_xml = Nokogiri::XML(open(self.feed_url))
+    @feed_xml = Nokogiri::XML(open(feed_url))
     bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
     bio = bio.strip
-    self.update! bio: bio
+    update! bio: bio
   end
 
   def update_logo!
-    t = HTTParty.get("https://itunes.apple.com/search?term=#{self.title} podcast").body
+    t = HTTParty.get("https://itunes.apple.com/search?term=#{title} podcast").body
     t = JSON.parse(t)
-    self.update! logo_url: t['results'][0]['artworkUrl100']
-    self.update! logo_url_large: t['results'][0]['artworkUrl600']
+    update! logo_url: t['results'][0]['artworkUrl100']
+    update! logo_url_large: t['results'][0]['artworkUrl600']
   end
 
   def update_genre!
     begin
-      t = HTTParty.get("https://itunes.apple.com/search?term=#{self.title} podcast").body
+      t = HTTParty.get("https://itunes.apple.com/search?term=#{title} podcast").body
       t = JSON.parse(t)
-      self.update! genre: t['results'][0]['genres'][0]
+      update! genre: t['results'][0]['genres'][0]
     rescue
       # keep going
-    end 
-  end
-
-  rails_admin do
-
+    end
   end
 
 end

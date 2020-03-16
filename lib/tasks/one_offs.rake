@@ -1,14 +1,17 @@
 namespace :one_offs do
 
-  task :start_import => :environment do
-    DiscoveryService.start!
+  task :get_new_episodes => :environment do
+    DiscoveryService.episodes!
   end
-  
+
+  task :start_import => :environment do
+    DiscoveryService.shows!
+  end
+
   task :new_pods => :environment do
-    %w{
-      # INSERT WHAT YOU WANT TO SEARCH FOR HERE
-    }.each |term| 
-    PodcastIngestionFromSearch.search term
+    # ['term'].each |term|
+    #   PodcastIngestionFromSearch.search term
+    # end
   end
 
   task :re_ingest_small_logos => :environment do
