@@ -8,9 +8,7 @@ class DiscoveryService
 
   def self.episodes!
     Podcast.catalog.each do |podcast|
-      puts "1"
       if podcast.new_episodes?
-        puts "2"
         begin
           ImportEpisodes.for(
             podcast: podcast

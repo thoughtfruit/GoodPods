@@ -30,7 +30,7 @@ class Podcast < ApplicationRecord
   def get_episodes
     ImportEpisodes.for(
       podcast: self
-    ).save!
+    ).save! if feed_url
   end
 
   def self.search_by_title reference_title
@@ -90,7 +90,7 @@ class Podcast < ApplicationRecord
   end
 
   def validate_xml
-    if XmlValidationService.for(feed_url).valid?
+    if feed_url and XmlValidationService.for(feed_url).valid?
       update! xml_valid: true
     else
       update! xml_valid: false
@@ -98,10 +98,12 @@ class Podcast < ApplicationRecord
   end
 
   def get_bio
-    @feed_xml = Nokogiri::XML(open(feed_url))
-    bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
-    bio = bio.strip
-    update! bio: bio
+    if feed_url
+      @feed_xml = Nokogiri::XML(open(feed_url))
+      bio = @feed_xml.at('rss').at('channel').at('description').inner_html()
+      bio = bio.strip
+      update! bio: bio
+    end
   end
 
   def update_logo!
