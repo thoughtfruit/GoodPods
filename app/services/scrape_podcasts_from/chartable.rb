@@ -51,7 +51,6 @@ module ScrapePodcastsFrom
     end
 
     def rescue_from_failure_of_ podcast
-      NullPodcast.new(podcast: podcast)
     end
 
     def ranking_algo podcast

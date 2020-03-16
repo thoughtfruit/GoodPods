@@ -1,7 +1,6 @@
-module WikipediaClient
-  URL = "http://wikipedia.org"
-
-  class Checker
+module Recommendations
+  class WikipediaClient
+    URL = "http://wikipedia.org"
 
     def self.search_by_topic topic
       JSON.parse(HTTParty.get(URL + "/topic/#{topic}").body)
@@ -12,5 +11,4 @@ module WikipediaClient
       word and not self.search_by_topic(word).null?
     end
   end
-
 end
