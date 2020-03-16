@@ -1,0 +1,11 @@
+#+TITLE: TODOs
+#+AUTHOR: Dain Miller
+
+* Features for Beta [33%]
+** DONE Profile page with library
+** TODO Friending feature
+** TODO Updates and social media features
+   
+
+* Refactoring Branch [0%]
+** TODO Check the refactors are working

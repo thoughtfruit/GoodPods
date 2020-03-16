@@ -74,61 +74,119 @@
     }
   </style>
 
-  <button class="js-tab tab-your-library active" data-activate="1">Your Library</button>
-  <button class="js-tab tab-your-stats hidden" data-activate="2">Your Stats</button>
+  <button class="js-tab tab-your-library active" data-activate="1">To Listen</button>
+  <button class="js-tab tab-your-listening" data-activate="2">Listening</button>
+  <button class="js-tab tab-your-listened" data-activate="3">Listened</button>
+  <button class="js-tab tab-your-stats hidden" data-activate="4">Episode Listening History</button>
+  <button class="js-tab tab-your-updates hidden" data-activate="5">Your Updates</button>
 
   <div class="profile-page-full-column">
 
     <div class="your-library hidden default" data-activate="1">
       <div class="your-library-full-column">
-        <% UserPodcastStatus.where(user: @profile).group_by(&:status).each do |status| %>
-          <% status.each do |row| %>
-            <% if row.is_a?(Array) %>
-              <% row.each do |row| %>
-                <% if row.podcast %>
-                  <div class="profile-library-podcast">
-                    <div class="profile-library-podcast-logo">
-                      <a href="/podcasts/<%= row.podcast.id %>.html"><img class="profile-library-podcast-logo-img" src="<%= row.podcast.try(:logo_url_large) %>" /></a>
-                    </div>
-                    <div class="profile-library-podcast-title">
-                      <h1><%= row.podcast.try(:title) %></h1>
-                    </div>
-                    <div class="profile-library-podcast-bio">
-                      <div class="profile-library-podcast-metadata">
-                        <a href="<%= row.podcast.itunes_url %>"><img src="https://www.relay.fm/assets/itunes-e88c3bc2ce67ff2175193a2cd96042b21f22565ff972f9047a8ae818efe57fcc.svg" width="25" /></a>
-                        <a href="<%= row.podcast.feed_url %>"><img src="https://www.relay.fm/assets/rss-a175c87e71282833fc278ac688715d8fbe8f96f1c30b26b4353e2accff3631bb.svg" width="25" /></a>
-                        <div class="profile-library-podcast-status">
-                          <%= row.status %>
-                        </div>
-                      </div>
-                      <div class="clearfix"></div>
-                      <%= raw row.podcast.try(:bio) %>
-                    </div>
-                    <div class="clearfix"></div>
+        <% Library.new(@profile).to_listen.each do |row| %>
+          <% if row.podcast %>
+            <div class="profile-library-podcast">
+              <div class="profile-library-podcast-logo">
+                <a href="/podcasts/<%= row.podcast.id %>.html"><img class="profile-library-podcast-logo-img" src="<%= row.podcast.try(:logo_url_large) %>" /></a>
+
+                <div class="profile-library-podcast-metadata">
+                  <a href="<%= row.podcast.itunes_url %>"><img src="https://www.relay.fm/assets/itunes-e88c3bc2ce67ff2175193a2cd96042b21f22565ff972f9047a8ae818efe57fcc.svg" width="25" /></a>
+                  <a href="<%= row.podcast.feed_url %>"><img src="https://www.relay.fm/assets/rss-a175c87e71282833fc278ac688715d8fbe8f96f1c30b26b4353e2accff3631bb.svg" width="25" /></a>
+                  <div class="profile-library-podcast-status">
+                    <%= row.status %>
                   </div>
-                  <div class="clearfix"></div>
-                <% end %>
-              <% end %>
-            <% end %>
+                </div>
+              </div>
+              <div class="profile-library-podcast-title">
+                <h1><%= row.podcast.try(:title) %></h1>
+              </div>
+              <div class="profile-library-podcast-bio">
+                <div class="clearfix"></div>
+                <%= raw row.podcast.try(:bio) %>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
           <% end %>
         <% end %>
       </div>
     </div>
 
-    <div class="your-stats hidden" data-activate="2">
-      <div class="profile-page-left-column">
-        <div class="profile-page-left-column-header">
-          Listening History
-        </div>
+    <div class="your-listening hidden" data-activate="2">
+      <div class="your-library-full-column">
+        <% Library.new(@profile).listening.each do |row| %>
+          <% if row.podcast %>
+            <div class="profile-library-podcast">
+              <div class="profile-library-podcast-logo">
+                <a href="/podcasts/<%= row.podcast.id %>.html"><img class="profile-library-podcast-logo-img" src="<%= row.podcast.try(:logo_url_large) %>" /></a>
+
+                <div class="profile-library-podcast-metadata">
+                  <a href="<%= row.podcast.itunes_url %>"><img src="https://www.relay.fm/assets/itunes-e88c3bc2ce67ff2175193a2cd96042b21f22565ff972f9047a8ae818efe57fcc.svg" width="25" /></a>
+                  <a href="<%= row.podcast.feed_url %>"><img src="https://www.relay.fm/assets/rss-a175c87e71282833fc278ac688715d8fbe8f96f1c30b26b4353e2accff3631bb.svg" width="25" /></a>
+                  <div class="profile-library-podcast-status">
+                    <%= row.status %>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-library-podcast-title">
+                <h1><%= row.podcast.try(:title) %></h1>
+              </div>
+              <div class="profile-library-podcast-bio">
+                <div class="clearfix"></div>
+                <%= raw row.podcast.try(:bio) %>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="your-listening hidden" data-activate="3">
+      <div class="your-library-full-column">
+        <% Library.new(@profile).listened.each do |row| %>
+          <% if row.podcast %>
+            <div class="profile-library-podcast">
+              <div class="profile-library-podcast-logo">
+                <a href="/podcasts/<%= row.podcast.id %>.html"><img class="profile-library-podcast-logo-img" src="<%= row.podcast.try(:logo_url_large) %>" /></a>
+
+                <div class="profile-library-podcast-metadata">
+                  <a href="<%= row.podcast.itunes_url %>"><img src="https://www.relay.fm/assets/itunes-e88c3bc2ce67ff2175193a2cd96042b21f22565ff972f9047a8ae818efe57fcc.svg" width="25" /></a>
+                  <a href="<%= row.podcast.feed_url %>"><img src="https://www.relay.fm/assets/rss-a175c87e71282833fc278ac688715d8fbe8f96f1c30b26b4353e2accff3631bb.svg" width="25" /></a>
+                  <div class="profile-library-podcast-status">
+                    <%= row.status %>
+                  </div>
+                </div>
+              </div>
+              <div class="profile-library-podcast-title">
+                <h1><%= row.podcast.try(:title) %></h1>
+              </div>
+              <div class="profile-library-podcast-bio">
+                <div class="clearfix"></div>
+                <%= raw row.podcast.try(:bio) %>
+              </div>
+              <div class="clearfix"></div>
+            </div>
+            <div class="clearfix"></div>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="your-stats hidden" data-activate="4">
+      <div class="your-library-full-column">
         <div class="profile-page-left-column-body">
+          Under Construction....
         </div>
       </div>
+    </div>
 
-      <div class="profile-page-right-column">
-        <div class="profile-page-right-column-header">
-          Your Updates
-        </div>
+    <div class="your-updates hidden" data-activate="5">
+      <div class="your-library-full-column">
         <div class="profile-page-right-column-body">
+          Under Construction....
         </div>
       </div>
     </div>
