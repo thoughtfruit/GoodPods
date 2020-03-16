@@ -2,9 +2,9 @@ class ImportEpisodes
 
   def self.for(podcast:)
     @podcast ||= podcast
-    xml      ||= Nokogiri::XML(open(@podcast.feed_url))
-    @channel ||= xml.at("rss").at("channel")
-    @items   ||= @channel.xpath("//item") if @channel or []
+    xml      ||= Nokogiri::XML(open(podcast.feed_url))
+    channel ||= xml.at("rss").at("channel")
+    @items   ||= channel.xpath("//item") if channel
     self
   end
 

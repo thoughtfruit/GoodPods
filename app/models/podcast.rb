@@ -10,8 +10,6 @@ class Podcast < ApplicationRecord
   has_many :user_podcast_statuses
   has_many :groups
 
-  validates :title, uniqueness: true, on: [:update, :create]
-
   scope :with_logos, -> {
     where.not(logo_url: nil).order("created_at asc").all
   }

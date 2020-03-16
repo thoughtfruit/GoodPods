@@ -1,26 +1,3 @@
-class DiscoveryService
-
-  def initialize ; end
-
-  def self.shows!
-    ScrapePodcastsFrom::Chartable.new
-  end
-
-  def self.episodes!
-    Podcast.catalog.each do |podcast|
-      if podcast.new_episodes?
-        begin
-          ImportEpisodes.for(
-            podcast: podcast
-          ).save!
-          podcast.update! last_fetched_at: Date.today
-        rescue
-        end
-      end
-    end
-  end
-end
-
 module ScrapePodcastsFrom
 
   class Chartable
@@ -101,3 +78,4 @@ module ScrapePodcastsFrom
   end
 
 end
+
