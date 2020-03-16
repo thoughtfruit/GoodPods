@@ -1,5 +1,5 @@
 module Ingestion
-  class PodcastIngestionFromSearch < Service
+  class PodcastIngestionFromSearch
 
     def self.search term
       self.find(term).each { |podcast| self.import(podcast) unless podcast.none? }
