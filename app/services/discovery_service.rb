@@ -8,11 +8,16 @@ class DiscoveryService
 
   def self.episodes!
     Podcast.catalog.each do |podcast|
+      puts "1"
       if podcast.new_episodes?
-        PodcastEpisodesIngestionService.new(
-          podcast: podcast
-        ).save!
-        podcast.update! updated_at: Date.today
+        puts "2"
+        begin
+          ImportEpisodes.for(
+            podcast: podcast
+          ).save!
+          podcast.update! last_fetched_at: Date.today
+        rescue
+        end
       end
     end
   end

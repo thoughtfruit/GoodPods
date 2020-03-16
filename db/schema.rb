@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_03_16_030645) do
+ActiveRecord::Schema.define(version: 2020_03_16_070737) do
 
   create_table "clusters", force: :cascade do |t|
     t.string "title"
@@ -91,6 +91,7 @@ ActiveRecord::Schema.define(version: 2020_03_16_030645) do
     t.text "logo_url_large"
     t.integer "collection_id"
     t.boolean "xml_valid"
+    t.date "last_fetched_at"
     t.index ["cluster_id"], name: "index_podcasts_on_cluster_id"
     t.index ["network_id"], name: "index_podcasts_on_network_id"
   end

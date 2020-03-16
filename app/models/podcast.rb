@@ -17,13 +17,24 @@ class Podcast < ApplicationRecord
   }
 
   scope :catalog, -> {
-    where(xml_valid: true).order("updated_at asc")
+    where(xml_valid: true).order("updated_at asc").all
   }
 
-  after_create do
+  after_create {
+    AsyncEventService.new(
+      actor: self,
+      step_one: :post_process,
+      step_two: :get_episodes
+    ).pool.run
+  }
+
+  def post_process
     get_bio! if feed_url
     validate_xml! if feed_url
-    PodcastEpisodesIngestionService.new(
+  end
+
+  def get_episodes
+    ImportEpisodes.for(
       podcast: self
     ).save!
   end
@@ -33,8 +44,7 @@ class Podcast < ApplicationRecord
   end
 
   def new_episodes?
-    return false if match_found?
-    true
+    not match_found?
   end
 
   def match_found?
@@ -46,9 +56,9 @@ class Podcast < ApplicationRecord
   end
 
   def latest_episode_on_remote_url
-    PodcastEpisodesIngestionService.new(
+    ImportEpisodes.for(
       podcast: self
-    ).remote_episodes.first.title
+    ).title_of_latest_ep
   end
 
   def similar_podcasts
@@ -116,5 +126,4 @@ class Podcast < ApplicationRecord
       # keep going
     end
   end
-
 end

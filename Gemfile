@@ -22,6 +22,8 @@ gem 'jbuilder', '~> 2.5'
 gem 'bootsnap', '>= 1.1.0', require: false
 gem 'barnes'
 gem 'rails_admin', '~> 2.0', git: 'https://github.com/sferik/rails_admin.git'
+gem 'async-await'
+gem 'async'
 gem 'responders'
 gem 'jquery'
 gem "font-awesome-rails"

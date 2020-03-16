@@ -1,38 +1,39 @@
-class PodcastEpisodesIngestionService
+class ImportEpisodes
 
-  def initialize(podcast:)
-    @podcast = podcast
-    xml      = Nokogiri::XML(open(@podcast.feed_url))
-    @channel = xml.at("rss").at("channel")
-    @items   = @channel.xpath("//item") if @channel or []
+  def self.for(podcast:)
+    @podcast ||= podcast
+    xml      ||= Nokogiri::XML(open(@podcast.feed_url))
+    @channel ||= xml.at("rss").at("channel")
+    @items   ||= @channel.xpath("//item") if @channel or []
+    self
   end
 
-  def remote_episodes
+  def self.remote_episodes
     @items
     self
   end
 
-  def last
+  def self.last
     @items.last
     self
   end
 
-  def first
+  def self.first
     @items.first
     self
   end
 
-  def title
+  def self.title_of_latest_ep
     @items.first.at('title').try(:content)
   end
 
-  def save!
+  def self.save!
     @items.each do |item|
-      episode_creator(item)
+      self.episode_creator(item)
     end
   end
 
-  def episode_creator item
+  def self.episode_creator item
     begin
       episode = @podcast.episodes.find_or_create_by(
         title: item.at('title').try(:content),
