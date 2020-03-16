@@ -10,8 +10,6 @@ class Podcast < ApplicationRecord
   has_many :user_podcast_statuses
   has_many :groups
 
-  validates :title, uniqueness: true, on: [:update, :create]
-
   scope :with_logos, -> {
     where.not(logo_url: nil).order("created_at asc").all
   }
@@ -28,7 +26,7 @@ class Podcast < ApplicationRecord
   }
 
   def get_episodes
-    ImportEpisodes.for(
+    Ingestion::ImportEpisodes.for(
       podcast: self
     ).save! if feed_url
   end
@@ -50,7 +48,7 @@ class Podcast < ApplicationRecord
   end
 
   def latest_episode_on_remote_url
-    ImportEpisodes.for(
+    Ingestion::ImportEpisodes.for(
       podcast: self
     ).title_of_latest_ep
   end
@@ -90,7 +88,7 @@ class Podcast < ApplicationRecord
   end
 
   def validate_xml
-    if feed_url and XmlValidationService.for(feed_url).valid?
+    if feed_url and Ingestion::XmlValidationService.for(feed_url).valid?
       update! xml_valid: true
     else
       update! xml_valid: false
