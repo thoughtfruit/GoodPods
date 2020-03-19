@@ -4,6 +4,16 @@ class Episode < ActiveRecord::Base
 
   belongs_to :podcast
 
+  after_save {
+    if Update.where(podcast: self.podcast).count == 0
+      Update.create!(
+        body: "#{self.title}",
+        podcast: self.podcast,
+        user: User.last
+      )
+    end
+  }
+
   def who_is_listening?
     if user_signed_in?
       {

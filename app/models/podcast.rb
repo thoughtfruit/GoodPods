@@ -19,10 +19,9 @@ class Podcast < ApplicationRecord
   }
 
   after_create {
-    AsyncEventService.new(
-      actor: self,
-      steps: [:get_bio, :validate_xml, :get_episodes]
-    ).run
+    get_bio
+    validate_xml
+    get_episodes
   }
 
   def get_episodes
@@ -120,4 +119,5 @@ class Podcast < ApplicationRecord
       # keep going
     end
   end
+
 end

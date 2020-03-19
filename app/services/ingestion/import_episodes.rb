@@ -2,10 +2,10 @@ module Ingestion
   class ImportEpisodes
 
     def self.for(podcast:)
-      @podcast ||= podcast
-      xml      ||= Nokogiri::XML(open(podcast.feed_url))
-      channel ||= xml.at("rss").at("channel")
-      @items   ||= channel.xpath("//item") if channel
+      @podcast = podcast
+      xml      = Nokogiri::XML(open(podcast.feed_url))
+      channel  = xml.at("rss").at("channel")
+      @items   = channel.xpath("//item") if channel
       self
     end
 
@@ -35,7 +35,6 @@ module Ingestion
     end
 
     def self.episode_creator item
-      begin
         episode = @podcast.episodes.find_or_create_by(
           title: item.at('title').try(:content),
         )
@@ -47,9 +46,6 @@ module Ingestion
           guid: item.at('guid').try(:content)
         ) if episode
         puts "Saved episode #{item.at('title').try(:content)}".green
-      rescue
-        puts "Failed to save episode".red
-      end
     end
 
   end
