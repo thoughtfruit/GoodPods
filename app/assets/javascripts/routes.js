@@ -1,5 +1,4 @@
 App.routes = {
-  // TODO Refactor
   1: function() {
     App.utils.checkIfPathIsSet('homepage')
     return {

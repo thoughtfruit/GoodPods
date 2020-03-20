@@ -32,7 +32,6 @@ App.sections.discover = function() {
   function renderDiscoverWith(data) {
     $el.html("")
     window.data = data;
-    console.log(data)
     data.forEach(podcast => {
       $el.append(
         '<div data-pod-bio="' + escape(podcast.bio) + '"data-pod-title="' + podcast.title + '"data-pod-id="' + podcast.id + '" style="display: inline-block; position: relative;">' +

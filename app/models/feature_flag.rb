@@ -1,5 +1,5 @@
 class FeatureFlag
   def self.activity
-    false
+    true
   end
 end

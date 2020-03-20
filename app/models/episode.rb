@@ -5,7 +5,7 @@ class Episode < ActiveRecord::Base
   belongs_to :podcast
 
   after_save {
-    if Update.where(podcast: self.podcast).count == 0
+    if self.podcast.has_no_updates?
       Update.create!(
         body: "#{self.title}",
         podcast: self.podcast,
