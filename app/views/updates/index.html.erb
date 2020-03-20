@@ -32,7 +32,7 @@
     <% u = @updates.map { |e| e.podcast }.uniq %>
     <% u.each do |update| %>
       <a style="margin:0; text-decoration: none;padding:0;" href="/podcasts/<%= update.try(:id) %>">
-        <img src="<%= update.try(:logo_url) %>" />
+        <img src="<%= update.try(:logo_url) %>"  style="width: 100px;"/>
       </a>
     <% end %>
   </div>
