@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   resources :discover
   resources :groups
   resources :updates
+  get "/episodes", to: "updates#index"
 
   get '/podcasts/:id', to: 'api/v1/podcasts#show'
   get '/collections', to: 'collections#index'

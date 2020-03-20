@@ -89,7 +89,7 @@ $(document).ready(() => {
 
   if (window.location.pathname.indexOf('podcasts') === 1 ||
       window.location.pathname.indexOf('profiles') === 1 ||
-      window.location.pathname.indexOf('updates') === 1) {
+      window.location.pathname.indexOf('episodes') === 1) {
     $('input.js-light-dark-toggle').remove();
   }
 
