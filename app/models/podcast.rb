@@ -24,6 +24,10 @@ class Podcast < ApplicationRecord
     get_episodes
   }
 
+  def has_no_updates?
+    self.updates.count == 0
+  end
+
   def get_episodes
     Ingestion::ImportEpisodes.for(
       podcast: self

@@ -44,6 +44,7 @@ App.sections.updates = function() {
     $.ajax({
       url: App.models['updates']['url'] + App.clientId,
       success: (data) => {
+        console.log(data);
         renderUpdateWith(data);
       }
     });
