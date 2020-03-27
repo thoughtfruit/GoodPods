@@ -6,7 +6,6 @@ module Recommendations
       JSON.parse(HTTParty.get(URL + "/topic/#{topic}").body)
     end
 
-
     def self.is_entity? word
       word and not self.search_by_topic(word).null?
     end

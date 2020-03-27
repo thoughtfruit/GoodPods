@@ -84,7 +84,7 @@
 
     <div class="your-library hidden default" data-activate="1">
       <div class="your-library-full-column">
-        <% Library.new(@profile).to_listen.each do |row| %>
+        <% User::Library.new(@profile).to_listen.each do |row| %>
           <% if row.podcast %>
             <div class="profile-library-podcast">
               <div class="profile-library-podcast-logo">
@@ -115,7 +115,7 @@
 
     <div class="your-listening hidden" data-activate="2">
       <div class="your-library-full-column">
-        <% Library.new(@profile).listening.each do |row| %>
+        <% User::Library.new(@profile).listening.each do |row| %>
           <% if row.podcast %>
             <div class="profile-library-podcast">
               <div class="profile-library-podcast-logo">
@@ -146,7 +146,7 @@
 
     <div class="your-listening hidden" data-activate="3">
       <div class="your-library-full-column">
-        <% Library.new(@profile).listened.each do |row| %>
+        <% User::Library.new(@profile).listened.each do |row| %>
           <% if row.podcast %>
             <div class="profile-library-podcast">
               <div class="profile-library-podcast-logo">

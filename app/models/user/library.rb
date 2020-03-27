@@ -1,5 +1,9 @@
 class User::Library < UserPodcastStatus
   
+  def initialize user
+    @user = user
+  end
+  
   def self.users_listening_to podcast_id
     where(
       podcast_id: podcast_id
@@ -7,23 +11,23 @@ class User::Library < UserPodcastStatus
   end
 
   def to_listen
-    where(
+    User::Library.where(
       user: @user,
-      status: Status.find('to-listen')
+      status: User::Status.find('to-listen')
     )
   end
 
   def listened
-    where(
+    User::Library.where(
       user: @user,
-      status: Status.find('listened')
+      status: User::Status.find('listened')
     )
   end
 
   def listening
-    where(
+    User::Library.where(
       user: @user,
-      status: Status.find('listening')
+      status: User::Status.find('listening')
     )
   end
 end
