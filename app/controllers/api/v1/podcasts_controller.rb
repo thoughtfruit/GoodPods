@@ -13,8 +13,9 @@ module Api
       end
 
       def show
-        @podcast = Podcast.find(params[:id])
-        @updates = Update.where(podcast_id: @podcast.id)
+        @podcast    = Podcast.find(params[:id])
+        $SITE_TITLE = @podcast.try(:title)
+        @updates    = Update.where(podcast_id: @podcast.id)
         respond_with @podcast
       end
 
