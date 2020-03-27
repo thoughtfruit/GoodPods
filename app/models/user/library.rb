@@ -1,11 +1,10 @@
 class User::Library < UserPodcastStatus
   
-  def self.users_listening_to(podcast_id)
+  def self.users_listening_to podcast_id
     where(
       podcast_id: podcast_id
      ).pluck(&:user_id).compact.count
   end
-
 
   def to_listen
     where(

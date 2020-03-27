@@ -1,5 +1,4 @@
 class Collection < ApplicationRecord
-
   has_many :podcasts
 
   # Doesn't use Search mixin b/c needs unique query
@@ -15,5 +14,3 @@ class Collection < ApplicationRecord
   end
 
 end
-
-# Collection.cluster

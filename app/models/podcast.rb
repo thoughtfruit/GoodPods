@@ -129,5 +129,4 @@ class Podcast < ApplicationRecord
       # keep going
     end
   end
-
 end

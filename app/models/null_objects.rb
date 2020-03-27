@@ -1,13 +1,11 @@
 class NullPodcast
-  def initialize(podcast:)
+  def initialize podcast:
     true
   end
 end
 
 class NullUser
-
   def initialize
     User.last
   end
-
 end
