@@ -1,4 +1,4 @@
-class Library < UserPodcastStatus
+class User::Library < UserPodcastStatus
   
   def self.users_listening_to(podcast_id)
     where(

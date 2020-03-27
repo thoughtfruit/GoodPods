@@ -1,5 +1,6 @@
 <div class="homepage">
 
+  <% if Admin::FeatureFlag.discovery %>
   <div class="inner-homepage container">
     <section class="left-column">
       <div class="header">DISCOVER <i class="more-info" data-toggle="tooltip" data-placement="top">i</i></div>
@@ -30,6 +31,7 @@
         </div>
       </article>
     </section>
+	<% end %>
 
     <% if Admin::FeatureFlag.activity %>
       <section class="center-column column">
@@ -51,6 +53,7 @@
       </section>
     <% end %>
 
+    <% if Admin::FeatureFlag.library %>
     <section class="right-column">
       <section class="my-lists">
         <div class="header">LIBRARY <i class="more-info">i</i></div>
@@ -68,6 +71,7 @@
         </article>
       </section>
     </section>
+	<% end %>
 
   </div><!-- /inner-homepage -->
 

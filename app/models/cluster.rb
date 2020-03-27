@@ -1,4 +1,4 @@
-class Content::Cluster < ApplicationRecord
+class Cluster < ApplicationRecord
   has_many :podcasts
   
   def by_collection

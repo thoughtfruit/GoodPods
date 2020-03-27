@@ -1,5 +1,5 @@
 class Episode < ActiveRecord::Base
-  include Recording
+  include Recordeable
   
   validates_presence_of :streaming_url
   validates_presence_of :guid

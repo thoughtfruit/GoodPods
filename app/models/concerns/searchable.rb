@@ -1,4 +1,4 @@
-module Search
+module Searchable
   extend ActiveSupport::Concern
   included do
     def self.search_by_title reference_title

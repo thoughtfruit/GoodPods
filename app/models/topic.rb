@@ -1,2 +1,2 @@
-class Content::Topic
+class Topic
 end

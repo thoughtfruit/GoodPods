@@ -1,5 +1,5 @@
 class Podcast < ApplicationRecord
-  include Search
+  include Searchable
   
   belongs_to :network, optional: true
   belongs_to :cluster, optional: true
