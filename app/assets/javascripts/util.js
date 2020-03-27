@@ -18,4 +18,3 @@ App.utils.checkIfPathIsSet = function(path) {
     return false
   }
 }
-

@@ -16,7 +16,6 @@ if (window.location.pathname == "/discover") {
 App.sections.discover = function() {
   var $el = $('.discover')
 
-  // TODO: Abstract
   fetch()
 
   function fetch() {

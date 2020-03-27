@@ -17,9 +17,9 @@ module Recommendations
     end
 
     private
-    def genre_exists?
-      Genre.where(title: genre)
-    end
+      def genre_exists?
+        Genre.where(title: genre)
+      end
 
   end
 end

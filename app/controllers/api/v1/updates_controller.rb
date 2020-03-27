@@ -22,12 +22,11 @@ module Api
       end
 
       private
-      def update_params
-        params.require(:update).permit :body, :title
-      end
+        def update_params
+          params.require(:update).permit :body, :title
+        end
 
-      # TODO: Allow multiple podcast @ mentions per update
-      def find_podcast_from(update:)
+        def find_podcast_from(update:)
         title = update.split ON_PODCAST_MENTION_CHARACTER
         Podcast.find_by(title: title) if title and title[1]
       end

@@ -43,37 +43,36 @@ module ScrapePodcastsFrom
       @page_length = doc.css("div.title").group_by(&:text).length
     end
 
-
     private
-    def create_ podcast
-      Creators::PodcastCreationService.new(podcast: podcast)
-      @page_length -= 1
-    end
+      def create_ podcast
+        Creators::PodcastCreationService.new(podcast: podcast)
+        @page_length -= 1
+      end
 
-    def rescue_from_failure_of_ podcast
-    end
+      def rescue_from_failure_of_ podcast
+      end
 
-    def ranking_algo podcast
-      a = 0
-      a = @doc.css("div.title").group_by(&:text).find_index(podcast)
-      a += 1
-      a = a * @page
-      return a
-    end
+      def ranking_algo podcast
+        a = 0
+        a = @doc.css("div.title").group_by(&:text).find_index(podcast)
+        a += 1
+        a = a * @page
+        return a
+      end
 
-    def urls page_number
-      [
-        "https://chartable.com/charts/spotify/united-states-of-america-comedy?page=#{page_number}",
-        "https://chartable.com/charts/spotify/united-states-of-america-educational?page=#{page_number}",
-        "https://chartable.com/charts/spotify/united-states-of-america-top-podcasts",
-        "https://chartable.com/charts/spotify/united-states-of-america-stories?page=#{page_number}",
-        "https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{page_number}",
-        "https://chartable.com/charts/stitcher/all-most-shared?page=#{page_number}",
-        "https://chartable.com/charts/stitcher/all-top-movers?page=#{page_number}",
-        "https://chartable.com/charts/stitcher/all-top-shows?page=#{page_number}",
-        "https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{page_number}"
-      ]
-    end
+      def urls page_number
+        [
+          "https://chartable.com/charts/spotify/united-states-of-america-comedy?page=#{page_number}",
+          "https://chartable.com/charts/spotify/united-states-of-america-educational?page=#{page_number}",
+          "https://chartable.com/charts/spotify/united-states-of-america-top-podcasts",
+          "https://chartable.com/charts/spotify/united-states-of-america-stories?page=#{page_number}",
+          "https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{page_number}",
+          "https://chartable.com/charts/stitcher/all-most-shared?page=#{page_number}",
+          "https://chartable.com/charts/stitcher/all-top-movers?page=#{page_number}",
+          "https://chartable.com/charts/stitcher/all-top-shows?page=#{page_number}",
+          "https://chartable.com/charts/itunes/us-all-podcasts-podcasts?page=#{page_number}"
+        ]
+      end
   end
 
 end
