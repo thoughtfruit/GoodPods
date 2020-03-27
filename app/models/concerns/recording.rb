@@ -1,11 +1,10 @@
 module Recording
   extend ActiveSupport::Concern
+  class Test
   
-  included do
-  end
-  
-  def recorded
-    Recordable.new(self).listened
+    def recorded
+      Recordable.new(self).listened
+    end
   end
 end
 

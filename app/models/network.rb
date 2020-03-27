@@ -1,6 +1,6 @@
 class Network < ApplicationRecord
-  include Search
-  
+  include Search  
+    
   DEFAULTS = ['relayfm',
               'twit',
               'gimlet',

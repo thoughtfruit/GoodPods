@@ -1,7 +1,4 @@
-class Library < ActiveRecord::Base
-  
-  belongs_to :user
-  belongs_to :podcast
+class Library < UserPodcastStatus
   
   def self.users_listening_to(podcast_id)
     where(
@@ -30,5 +27,4 @@ class Library < ActiveRecord::Base
       status: Status.find('listening')
     )
   end
-  
 end
