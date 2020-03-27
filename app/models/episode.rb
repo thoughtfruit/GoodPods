@@ -1,8 +1,11 @@
 class Episode < ActiveRecord::Base
+  include Recording
+  
   validates_presence_of :streaming_url
   validates_presence_of :guid
 
   belongs_to :podcast
+  belongs_to :recordable
 
   after_save {
     if self.podcast.has_no_updates?

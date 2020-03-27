@@ -1,5 +1,7 @@
-class FeatureFlag
+class Admin::FeatureFlag
+  
   def self.activity
     true
   end
+  
 end

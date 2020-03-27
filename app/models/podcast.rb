@@ -1,5 +1,6 @@
 class Podcast < ApplicationRecord
-
+  include Search
+  
   belongs_to :network, optional: true
   belongs_to :cluster, optional: true
   belongs_to :collection, optional: true
@@ -34,10 +35,6 @@ class Podcast < ApplicationRecord
     ).save! if feed_url
   end
 
-  def self.search_by_title reference_title
-    where("title like ?", "%#{reference_title}%")
-  end
-
   def new_episodes?
     not match_found?
   end
@@ -60,7 +57,16 @@ class Podcast < ApplicationRecord
     Podcast.where(genre: genre).all.pluck(:title)
   end
 
-  def self.create_from_itunes result
+  def store podcast
+    result = PodcastSearchClient.iTunesSearch podcast.title
+    begin
+      update_from_itunes_with result
+    rescue
+      create_from_itunes_with result
+    end
+  end
+  
+  def self.create_from_itunes_with result
     podcast = Podcast.create!(
       title: result['collectionName'],
       ranking: result['artistId'],
@@ -75,7 +81,7 @@ class Podcast < ApplicationRecord
     podcast
   end
 
-  def update_from_itunes result
+  def update_from_itunes_with result
     podcast = self.update!(
       title: result['collectionName'],
       ranking: result['artistId'],

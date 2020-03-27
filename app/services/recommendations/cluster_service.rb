@@ -6,7 +6,7 @@ module Recommendations
     end
 
     def cluster_podcasts_by_podcast(podcast)
-      {
+      return {
         original_podcast: podcast,
         podcasts_like_original: podcast.similar_podcasts
       }

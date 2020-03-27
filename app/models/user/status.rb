@@ -1,4 +1,4 @@
-class Status
+class User::Status
 
   def self.find(slug)
     {

@@ -1,8 +1,8 @@
-class Library < UserPodcastStatus
-  def initialize user
-    @user = user
-  end
-
+class Library < ActiveRecord::Base
+  
+  belongs_to :user
+  belongs_to :podcast
+  
   def self.users_listening_to(podcast_id)
     where(
       podcast_id: podcast_id
@@ -11,24 +11,24 @@ class Library < UserPodcastStatus
 
 
   def to_listen
-    UserPodcastStatus.where(
+    where(
       user: @user,
       status: Status.find('to-listen')
     )
   end
 
   def listened
-    UserPodcastStatus.where(
+    where(
       user: @user,
       status: Status.find('listened')
     )
   end
 
   def listening
-    UserPodcastStatus.where(
+    where(
       user: @user,
       status: Status.find('listening')
     )
   end
-
+  
 end
