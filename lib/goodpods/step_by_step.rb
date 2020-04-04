@@ -34,13 +34,12 @@ class StepByStep
     step_five
   end
 
-
   def step_five klass
     @return_data = klass.new(@return_data)
     done
   end
 
   private
-    def done
+  def done
     end
 end

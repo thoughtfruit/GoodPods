@@ -24,7 +24,7 @@ class Podcast < ApplicationRecord
     validate_xml
     get_episodes
   }
-
+  
   def has_no_updates?
     self.updates.count == 0
   end

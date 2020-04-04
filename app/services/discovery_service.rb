@@ -13,12 +13,10 @@ class DiscoveryService
   end
 
   def self.save_episodes podcast
-    begin
-      Ingestion::ImportEpisodes.for(
-        podcast: podcast
-      ).save!
-      podcast.update! last_fetched_at: Date.today
-    rescue
-    end
+    Ingestion::ImportEpisodes.for(
+      podcast: podcast
+    ).save!
+    podcast.update! last_fetched_at: Date.today
   end
+  
 end

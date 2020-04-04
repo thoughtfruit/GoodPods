@@ -1,5 +1,3 @@
 class Settings
-
-  def 
     
 end

@@ -28,10 +28,5 @@ module LanguageProcessor
       WikipediaClient::Checker.is_entity?(word)
     end
   end
-
-  # TODO: Refactor eventually to include
-  # class ParseText
-  #   def initialize str
-  #   end
-  # end
+  
 end

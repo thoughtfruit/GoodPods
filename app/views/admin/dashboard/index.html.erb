@@ -1,0 +1,14 @@
+<div class="container">
+	
+	<h3>Podcasts on the most lists:</h3>
+	
+	<% @user_podcast_statuses.each do |user_podcast_status| %>
+		<%= user_podcast_status.podcast.try(:title) %>
+		<div class="clearfix"></div>
+	<% end %>
+	
+	<hr />
+	
+	
+	
+</div>

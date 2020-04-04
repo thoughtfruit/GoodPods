@@ -1,4 +1,4 @@
-class HomepageController < ApplicationController
+class Pages::HomepageController < ApplicationController
   before_action :authenticate
 
   def homepage

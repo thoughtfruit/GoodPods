@@ -619,19 +619,23 @@ img { border-radius: 10px;}
   margin-right: 20px;
   float: left;
 }
+
 .profile-library-podcast-logo-img {
   border-radius: 3px;
   float: left;
   width: 175px;
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
+
 .profile-library-podcast {
   border-bottom: 1px #eee solid;
   padding-bottom: 20px;
 }
+
 .profile-library-podcast-title h1 {
   font-size: 30px;
 }
+
 .profile-library-podcast-bio {
   font-size: 18px;
   width: 60%;
@@ -650,6 +654,7 @@ img { border-radius: 10px;}
   float: left;
   clear: both;
 }
+
 .profile-library-podcast-status {
   float: right;
   margin-left: 5px;
@@ -659,4 +664,36 @@ img { border-radius: 10px;}
   padding: 2px 10px;
   color: #fff;
   font-size: 13px;
+}
+
+.podcast-in-collection-img {
+	width: 125px;
+	margin:3px;
+	margin-left:3px;
+	margin-right:3px;
+}
+
+span.podcasts-in-collection {
+	position: relative;
+}
+
+div.collection {
+	position: relative;
+}
+
+.bold-collection-title {
+	font-size: 25px;
+}
+
+.add-to-library.hover-override-collection {
+	position: absolute;
+	top: 59px;
+}
+
+.collection-container {
+	margin-top: 20px;
+}
+
+.collection-container > a:hover {
+	text-decoration: none !important;
 }

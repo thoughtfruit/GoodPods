@@ -17,7 +17,6 @@ class ItunesScraper
     parse
   end
 
-
   def parse
     @page_length = @doc.css('div#selectedcontent li a').group_by(&:text).length
 
