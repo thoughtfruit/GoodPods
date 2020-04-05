@@ -29,22 +29,18 @@ class Ingestion::ImportEpisodes
 
   def self.save!
     @items.each do |item|
-      self.episode_creator(item)
+      begin
+        self.episode_creator(item)
+      rescue
+        "Failed to save episode #{item.at('title').try(:content)}".red
+      end
     end
   end
 
   def self.episode_creator item
-    episode = @podcast.episodes.find_or_create_by(
-      title: item.at('title').try(:content),
-    )
-    episode.update!(
-      description: item.at('description').try(:content),
-      published: true,
-      published_at: item.at('pubDate').try(:content),
-      streaming_url: item.at('enclosure').attr('url'),
-      guid: item.at('guid').try(:content)
-    ) if episode
-    puts "Saved episode #{item.at('title').try(:content)}".green
+    Creators::EpisodeCreationService
+      .for(podcast: @podcast)
+      .with(episode: item)
   end
 
 end

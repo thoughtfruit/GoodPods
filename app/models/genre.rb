@@ -8,3 +8,15 @@ class Genre < ApplicationRecord
     Podcast.where("genre like ?", "%#{reference_title}%")
   end
 end
+
+# == Schema Information
+#
+# Table name: genres
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  podcast_id :integer
+#  title      :string
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#

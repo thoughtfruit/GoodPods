@@ -9,14 +9,18 @@ class DiscoveryService
   end
 
   def self.import_episodes podcast
-    self.save_episodes(podcast) if podcast.new_episodes?
+    begin
+      self.save_episodes(podcast) if podcast.new_episodes?
+    rescue
+      "Failed to save episode data for #{podcast.to_s}".red
+    end
   end
 
   def self.save_episodes podcast
     Ingestion::ImportEpisodes.for(
       podcast: podcast
     ).save!
-    podcast.update! last_fetched_at: Date.today
+    # podcast.update! last_fetched_at: Date.today
   end
-  
+
 end

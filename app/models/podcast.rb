@@ -1,6 +1,6 @@
 class Podcast < ApplicationRecord
   include Searchable
-  
+
   belongs_to :network, optional: true
   belongs_to :cluster, optional: true
   belongs_to :collection, optional: true
@@ -25,14 +25,24 @@ class Podcast < ApplicationRecord
     get_episodes
   }
   
-  def has_no_updates?
-    self.updates.count == 0
+  def to_s
+    title
+  end
+  
+  def has_updates?
+    self.updates.any?
   end
 
-  def get_episodes
-    Ingestion::ImportEpisodes.for(
-      podcast: self
-    ).save! if feed_url
+  def has_no_updates?
+    not has_updates?
+  end
+  
+  def has_episodes?
+    episodes.present?
+  end
+  
+  def has_no_episodes?
+    not has_episodes?
   end
 
   def new_episodes?
@@ -42,7 +52,7 @@ class Podcast < ApplicationRecord
   def match_found?
     latest_episode_in_local_db == latest_episode_on_remote_url
   end
-
+  
   def latest_episode_in_local_db
     episodes.first.try(:title)
   end
@@ -57,6 +67,12 @@ class Podcast < ApplicationRecord
     Podcast.where(genre: genre).all.pluck(:title)
   end
 
+  def get_episodes
+    Ingestion::ImportEpisodes.for(
+      podcast: self
+    ).save! if feed_url
+  end
+  
   def store podcast
     result = PodcastSearchClient.iTunesSearch podcast.title
     begin
@@ -82,7 +98,7 @@ class Podcast < ApplicationRecord
   end
 
   def update_from_itunes_with result
-    podcast = self.update!(
+    podcast = update!(
       title: result['collectionName'],
       ranking: result['artistId'],
       network: Network.last,
@@ -129,4 +145,38 @@ class Podcast < ApplicationRecord
       # keep going
     end
   end
+
+  private
+    def episodes_with_people
+      @episodes_with_people ||= episodes_with_associations.map do |ep_with_assoc|
+        EpisodeWithAttr.new(episode)
+      end
+    end
+
+    def episodes_with_associations
+      episodes.includes(:people)
+    end
 end
+
+# == Schema Information
+#
+# Table name: podcasts
+#
+#  id              :integer          not null, primary key
+#  network_id      :integer
+#  cluster_id      :integer
+#  title           :string
+#  itunes_url      :string
+#  feed_url        :string
+#  user_id         :integer
+#  created_at      :datetime         not null
+#  updated_at      :datetime         not null
+#  logo_url        :string
+#  ranking         :integer
+#  bio             :text
+#  genre           :text
+#  logo_url_large  :text
+#  collection_id   :integer
+#  xml_valid       :boolean
+#  last_fetched_at :date
+#

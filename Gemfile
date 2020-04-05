@@ -1,7 +1,7 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-# ruby '2.5.3'
+ruby '2.5.3'
 
 gem 'rails', '6.0.2.1'
 
@@ -9,6 +9,7 @@ group :production do
   gem 'pg'
 end
 
+gem 'annotate'
 gem 'newrelic_rpm'
 gem 'mini_racer'
 gem 'material_icons'

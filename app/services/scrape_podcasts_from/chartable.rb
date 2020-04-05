@@ -12,11 +12,7 @@ class ScrapePodcastsFrom::Chartable
   def discover
     if podcasts_on_page?
       podcasts.each do |podcast|
-        begin
-          create_ podcast
-        rescue
-          rescue_from_failure_of_ podcast
-        end
+        create_ podcast
       end
     end
   end
@@ -45,9 +41,6 @@ class ScrapePodcastsFrom::Chartable
     def create_ podcast
       Creators::PodcastCreationService.new(podcast: podcast)
       @page_length -= 1
-    end
-
-    def rescue_from_failure_of_ podcast
     end
 
     def ranking_algo podcast

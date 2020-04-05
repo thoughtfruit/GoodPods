@@ -28,5 +28,5 @@ class Recommendations::RecommendationEngine
       from: options.podcast
     )
   end
-  
+
 end

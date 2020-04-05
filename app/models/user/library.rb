@@ -31,3 +31,13 @@ class User::Library < UserPodcastStatus
     )
   end
 end
+
+# == Schema Information
+#
+# Table name: user_podcast_statuses
+#
+#  id         :integer          not null, primary key
+#  user_id    :integer
+#  podcast_id :integer
+#  status     :text
+#

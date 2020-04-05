@@ -79,6 +79,9 @@ GEM
       zeitwerk (~> 2.2)
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    annotate (3.1.1)
+      activerecord (>= 3.2, < 7.0)
+      rake (>= 10.4, < 14.0)
     async (1.24.2)
       console (~> 1.0)
       nio4r (~> 2.3)
@@ -359,6 +362,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  annotate
   async
   async-await
   audiojs-rails
@@ -404,6 +408,9 @@ DEPENDENCIES
   tzinfo-data
   uglifier (>= 1.3.0)
   web-console (>= 3.3.0)
+
+RUBY VERSION
+   ruby 2.5.3p105
 
 BUNDLED WITH
    1.17.3
