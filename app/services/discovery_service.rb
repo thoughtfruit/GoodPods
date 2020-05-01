@@ -8,7 +8,7 @@
 #
 class DiscoveryService
   
-  def self.for podcasts:, episodes:, scraper:
+  def self.for scraper:
     @scraper = scraper
     scraper.new
   end
