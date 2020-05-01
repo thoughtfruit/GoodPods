@@ -1,14 +1,12 @@
 namespace :one_offs do
 
   task :get_new_episodes => :environment do
-    DiscoveryService.episodes!
+    DiscoveryService.new scraper: Scraper::Episodes
   end
 
-  task :start_import => :environment do
-    DiscoveryService.shows!
-  end
-
-  task :new_pods => :environment do
+  task :get_new_shows => :environment do
+    DiscoveryService.new scraper: Scraper::Podcasts::Chartable
+    
     # ['term'].each |term|
     #   Ingestion::PodcastIngestionFromSearch.search term
     # end

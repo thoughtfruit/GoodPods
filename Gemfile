@@ -9,12 +9,13 @@ group :production do
   gem 'pg'
 end
 
+gem "actionview", ">= 6.0.2.2"
 gem 'newrelic_rpm'
 gem 'mini_racer'
 gem 'material_icons'
 gem 'awesome_print'
 gem 'fastercsv' # Only required on Ruby 1.8 and below
-gem 'puma', '~> 3.12'
+gem "puma", ">= 3.12.4"
 gem 'loofah'
 gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '5.0.0'
@@ -36,7 +37,7 @@ gem 'devise'
 gem 'faraday'
 gem 'pry'
 gem 'honeybadger', '~> 4.0'
-gem 'nokogiri'
+gem "nokogiri", ">= 1.10.8"
 gem 'httparty'
 gem 'audiojs-rails'
 gem 'guard-rspec', '~> 4.6.5'
