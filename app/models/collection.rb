@@ -9,9 +9,9 @@ class Collection < ApplicationRecord
   def self.remap_collections! 
     Network::DEFAULTS.each do |network|
       c = Collection.find_or_create_by(title: network)
-      PodcastIngestion.find(network).each do |result|
+      Ingestion::PodcastIngestionFromSearch.find(network).each do |result|
         p = Podcast.find_or_create_by(title: result['collectionName'])
-        p.first.update! collection_id: c.id
+        p.update! collection_id: c.id
       end
     end
   end

@@ -108,10 +108,13 @@ class Podcast < ApplicationRecord
   end
 
   def update_logo!
-    t = HTTParty.get("https://itunes.apple.com/search?term=#{title} podcast").body
-    t = JSON.parse(t)
-    update! logo_url: t['results'][0]['artworkUrl100']
-    update! logo_url_large: t['results'][0]['artworkUrl600']
+    begin
+      t = HTTParty.get("https://itunes.apple.com/search?term=#{title} podcast").body
+      t = JSON.parse(t)
+      update! logo_url: t['results'][0]['artworkUrl100']
+      update! logo_url_large: t['results'][0]['artworkUrl600']
+    rescue
+    end
   end
 
   def update_genre!

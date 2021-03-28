@@ -11,6 +11,7 @@ class Creators::PodcastCreationService
     end
 
     def and_store
+      puts "Storing"
       Podcast.store @podcast if @podcast
     end
 end # /class

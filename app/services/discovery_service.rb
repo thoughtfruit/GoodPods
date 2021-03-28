@@ -7,7 +7,7 @@
 #       scraper: Scraper::Episodes
 #
 class DiscoveryService
-  
+
   def self.for scraper:
     @scraper = scraper
     scraper.new

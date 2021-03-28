@@ -1,4 +1,4 @@
-module ScrapePodcastsFrom
+module Scraper
 
   class Chartable
 
@@ -6,7 +6,10 @@ module ScrapePodcastsFrom
       pages_to_iterate.each do |page_number|
         urls(page_number).each do |url|
           @url = url
-          discover
+          begin
+            discover
+          rescue
+          end
         end
       end
     end

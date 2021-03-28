@@ -13,7 +13,7 @@ module Ingestion
 
     def self.import result
       podcast = self.create_podcast_with(result) unless self.any_podcast_found_from_itunes?(result)
-      PodcastEpisodesIngestionService.new(podcast: podcast) if podcast
+      # PodcastEpisodesIngestionService.new(podcast: podcast) if podcast
     end
 
     private

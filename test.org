@@ -1,6 +1,9 @@
 #+TITLE: TODOs
 #+AUTHOR: Dain Miller
 
+* put a dropdown on eps page to show latest eps from certain collections
+* add screenshots to the readme so people 'get it'
+
 * BETA [0%]
 ** TODO DISCOVER [0%]
 *** TODO [#A] Add iTunes search

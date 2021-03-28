@@ -1,14 +1,14 @@
 <div class="container">
   <div class="left-box-udpates-page" style="float: left;
-        width: 56%;
-            margin-top: 20px;
-                padding: 20px;
-                    background: rgb(255, 255, 255);
-                        border-radius: 20px;
-                            user-select: auto;">
+              width: 56%;
+              margin-top: 20px;
+              padding: 20px;
+              background: rgb(255, 255, 255);
+              border-radius: 20px;
+              user-select: auto;">
     <% @updates.each do |update| %>
       <div class="individual-update" style="width: 100%; text-align: left; margin-left:0 ;margin-right:20px; overflow: hidden;font-size: 14px;">
-        <a href="/podcasts/<%= update.podcast.id %>.html"><img src="<%= update.podcast.try(:logo_url) %>" style="width: 70px; float: left;"/></a>
+        <a href="/podcasts/<%= update.podcast.id %>.html"><img src="<%= update.podcast.try(:logo_url_large) %>" style="width: 70px; float: left;"/></a>
         <div style="float: left; margin-left: 20px;margin-top: 5px; width: 80%">
           <a style="font-size: 15px;" href="/podcasts/<%= update.podcast.id %>.html"><%= update.try(:body) %></a><br />
         </div>
@@ -18,21 +18,21 @@
   </div>
 
   <div class="updates-page-right-column" style="float: right;
-        width: 42%;
-            height: 1000px;
-                margin-left: 10px;
-                    padding: 15px 20px;
-                        margin-top: 20px;
-                            user-select: auto;
-                                background: #fff;
-                                    border-radius: 20px;">
+              width: 42%;
+              height: 1000px;
+              margin-left: 10px;
+              padding: 15px 20px;
+              margin-top: 20px;
+              user-select: auto;
+              background: #fff;
+              border-radius: 20px;">
     <h2 class="" style="margin: 0; margin-bottom: 10px;">
       Recently Active Podcasts
     </h2>
     <% u = @updates.map { |e| e.podcast }.uniq %>
     <% u.each do |update| %>
       <a style="margin:0; text-decoration: none;padding:0;" href="/podcasts/<%= update.try(:id) %>">
-        <img src="<%= update.try(:logo_url) %>"  style="width: 100px;"/>
+        <img src="<%= update.try(:logo_url_large) %>"  style="width: 100px;"/>
       </a>
     <% end %>
   </div>

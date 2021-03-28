@@ -1,10 +1,11 @@
 class Network < ApplicationRecord
   DEFAULTS = ['relayfm',
-              'twit',
+              'twit podcasts',
               'gimlet',
+              'thoughtbot',
               'wondery',
               '5by5',
-              'the incomperable',
+              'incomparable podcasts',
               'startherefm',
             ]
 

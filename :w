@@ -19,17 +19,9 @@
 /* ICONS HERE: */
 /* https://material.io/resources/icons/?style=baseline */
 
-.black-bg {
-  background: black;
-}
-
-.dark-bg {
-  background: rgb(32,32,32) !important;
-}
-
-.white-text {
-  color: white !important;
-}
+.black-bg { background: black; }
+.dark-bg { background: rgb(32,32,32) !important;}
+.white-text { color: white !important; }
 
 * {
   outline: 0;
@@ -57,19 +49,11 @@ body:focus {
   background: #fff;
   border-radius: 10px;
 }
+.dropdown-menu-custom li { list-style: none; color: #fff; display: block; position: relative; }
+.dropdown-menu-custom li a { color: white; }
 
-.dropdown-menu-custom li {
-  list-style: none;
-  color: #fff; display: block;
-  position: relative;
-}
-
-.dropdown-menu-custom li a {
-  color: white;
-}
-
-.center-column {
-  margin: 0 auto;
+.center-column { 
+  margin: 0 auto; 
   z-index: 0;
   max-width: 650px;
   background: #fff;
@@ -96,7 +80,6 @@ body:focus {
   cursor: hand;
   cursor: pointer;
 }
-
 .add-to-lib-toggle input {
   cursor: hand;
   cursor: pointer;
@@ -108,9 +91,9 @@ body:focus {
   cursor: pointer;
 }
 
-.right-column {
-  float: left;
-  width: 450px ;
+.right-column { 
+  float: left; 
+  width: 450px ; 
   margin-top: 20px;
   padding: 10px 20px;
   margin-left: 15px;
@@ -118,9 +101,7 @@ body:focus {
   border-radius: 10px;
 }
 
-select  {
-  width: 85%;
-}
+select  { width: 85%; }
 
 .homepage {
   clear: both;
@@ -133,7 +114,6 @@ select  {
   cursor: pointer;
   z-index: 1;
 }
-
 .discover img {
   z-index: 0;
   width: 100px !important;
@@ -151,19 +131,20 @@ article.discover {
   font-size: 20px;
 }
 
-.discovery, .updates,  .my-lists {
-  display: block;
+.discovery, 
+.updates, 
+.my-lists { 
+  display: block; 
 }
-
 .updates {
 }
 
-.my-lists {
-  margin-top: -10px;
+.my-lists { 
+  margin-top: -10px; 
 }
 
 .column {
-  float: left;
+  float: left; 
   margin-left: 15px;
 }
 
@@ -177,16 +158,10 @@ article.discover {
   width:78%;
   clear: both;
 }
+.show { display: block }
+.hidden { display: none; }
 
-.show {
-  display: block
-}
-
-.hidden {
-  display: none;
-}
-
-.post-an-update > textarea {
+.post-an-update > textarea { 
   outline: 0;
   border-radius: 5px;
   width: 100%;
@@ -243,21 +218,17 @@ article.discover {
   margin-bottom: 10px;
   border-radius: 7px;
 }
-
 .individual-update.white {
   border: 1px #fff solid;
 }
-
 .individual-update img {
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
   border: 0;
 }
-
 [data-pod-id] img {
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
   border: 0;
 }
-
 .podcasts-page-left-side img {
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
@@ -316,7 +287,7 @@ article.add-to-library {
 }
 
 .light {
-font-family: "HelveticaNeue-Thin" !important;}
+  font-family: "HelveticaNeue-Thin" !important;}
 
 .more-info {
   font-size: 18px;
@@ -425,13 +396,11 @@ font-size: 12px;}
   margin: 0 auto
 }
 
-.container {
+.container { 
   width: 1220px;
 }
 
-.listening img {
-  cursor: pointer; cursor: hand;
-}
+.listening img { cursor: pointer; cursor: hand;}
 
 .right-column h1,h2,h3 {
   text-transform: uppercase;
@@ -556,7 +525,6 @@ font-size: 12px;}
   max-height: 460px;
   overflow-y: scroll;
 }
-
 .podcast-categories {
   background: #f5f5f5;
   overflow: hidden;
@@ -566,16 +534,10 @@ font-size: 12px;}
 .all-podcasts-text {
   overflow: hidden;
 }
+.podcasts-grid a { cursor: pointer; cursor: hand;}
+img { border-radius: 10px;}
 
-.podcasts-grid a {
-  cursor: pointer; cursor: hand;
-}
-
-img {
-  border-radius: 10px;
-}
-
-.login-container {
+.login-container { 
   float: left;
   width: 75%;
   text-align: left;
@@ -663,23 +625,19 @@ img {
   margin-right: 20px;
   float: left;
 }
-
 .profile-library-podcast-logo-img {
   border-radius: 3px;
   float: left;
   width: 175px;
   box-shadow: 0 5px 15px rgba(0,0,0,.2);
 }
-
 .profile-library-podcast {
   border-bottom: 1px #eee solid;
   padding-bottom: 20px;
 }
-
 .profile-library-podcast-title h1 {
   font-size: 30px;
 }
-
 .profile-library-podcast-bio {
   font-size: 18px;
   width: 60%;
@@ -688,9 +646,9 @@ img {
   font-weight: 300;
   margin-top: -10px;
   font-family: Helvetica, Arial, sans-serif;
-  overflow: hidden;
+    overflow: hidden;
   text-overflow: ellipsis;
-  display: block;
+   display: block;
 }
 
 .profile-library-podcast-metadata {
@@ -698,7 +656,6 @@ img {
   float: left;
   clear: both;
 }
-
 .profile-library-podcast-status {
   float: right;
   margin-left: 5px;

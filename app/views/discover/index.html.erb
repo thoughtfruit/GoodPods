@@ -28,20 +28,22 @@
   <br />
 
   <div class="podcasts-grid">
-    <% @podcasts.order("created_at asc").each do |podcast| %>
-      <div
-        id="<%= podcast.try(:id) %>"
-        data-pod-title="<%= podcast.try(:title) %>"
-        data-pod-genre="<%= podcast.try(:genre) %>"
-        data-pod-collection="<%= podcast.collection.try(:title) %>"
-        data-pod-bio="<%= podcast.try(:bio) %>"
-        style="display: inline-block; position: relative; float: left;">
-        <a href="/podcasts/<%= podcast.id %>.html">
-          <img src="<%= podcast.try(:logo_url) %>" width="101"/>
-        </a>
-      </div>
-    <% end %>
-  <br /><br />
+    <div style="margin-bottom: 20px;">
+      <% @podcasts.order("created_at asc").each do |podcast| %>
+        <div
+          id="<%= podcast.try(:id) %>"
+          data-pod-title="<%= podcast.try(:title) %>"
+          data-pod-genre="<%= podcast.try(:genre) %>"
+          data-pod-collection="<%= podcast.collection.try(:title) %>"
+          data-pod-bio="<%= podcast.try(:bio) %>"
+          style="display: inline-block; position: relative; float: left;">
+          <a href="/podcasts/<%= podcast.id %>.html">
+            <img src="<%= podcast.try(:logo_url_large) %>" width="101"/>
+          </a>
+        </div>
+      <% end %>
+      <br /><br />
+    </div>
   </div>
 
   <article class="add-to-library hidden" style="top: 109px;">
